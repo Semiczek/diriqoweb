@@ -15,14 +15,19 @@ function formatPrice(value: number | null | undefined, currency: string | undefi
 }
 
 type BillingInterval = 'monthly' | 'annual'
+type AppBillingInterval = 'monthly' | 'yearly'
 
 function appendQuery(href: string, query: string) {
   const separator = href.includes('?') ? '&' : '?'
   return `${href}${separator}${query}`
 }
 
+function toAppBillingInterval(billing: BillingInterval): AppBillingInterval {
+  return billing === 'annual' ? 'yearly' : 'monthly'
+}
+
 function getPricingSignupHref(locale: Locale, plan: WebPricingPlanId | undefined, billing: BillingInterval) {
-  const params = new URLSearchParams({ billing })
+  const params = new URLSearchParams({ interval: toAppBillingInterval(billing) })
   if (plan) params.set('plan', plan)
 
   return appendQuery(getSignupHref(locale), params.toString())

@@ -49,7 +49,7 @@ const appBaseUrl = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, '') || fallba
 const appPath = (path: string) => `${appBaseUrl}${path.startsWith('/') ? path : `/${path}`}`
 
 export const appLinks = {
-  login: appPath('/login'),
+  login: appPath('/sign-in'),
   signup: appPath('/register'),
   app: appBaseUrl,
 }
@@ -61,7 +61,7 @@ function withLocaleQuery(path: string, locale?: Locale) {
 }
 
 export function getLoginHref(locale?: Locale) {
-  return appPath(withLocaleQuery('/login', locale))
+  return appPath(withLocaleQuery('/sign-in', locale))
 }
 
 export function getSignupHref(locale?: Locale) {

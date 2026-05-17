@@ -21,14 +21,19 @@ function appendParam(url: URL, key: string, value: string | undefined) {
   if (value) url.searchParams.set(key, value)
 }
 
+function normalizeInterval(value: string | undefined) {
+  if (value === 'annual') return 'yearly'
+  return value
+}
+
 export default async function RegisterPage({ searchParams }: RegisterPageProps) {
   const params = searchParams ? await searchParams : undefined
   const locale = isLocale(params?.locale) ? params.locale : defaultLocale
   const targetUrl = new URL(getSignupHref(locale))
+  const interval = params?.interval ?? params?.billing
 
   appendParam(targetUrl, 'plan', params?.plan)
-  appendParam(targetUrl, 'billing', params?.billing)
-  appendParam(targetUrl, 'interval', params?.interval)
+  appendParam(targetUrl, 'interval', normalizeInterval(interval))
 
   redirect(targetUrl.toString())
 }
