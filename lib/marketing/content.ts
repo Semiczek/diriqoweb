@@ -44,12 +44,12 @@ export const htmlLang: Record<Locale, string> = {
   fr: 'fr',
 }
 
-const appBaseUrl = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, '') ?? ''
-const loginAppUrl = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, '') ?? 'https://app.diriqo.com'
-const appPath = (path: string) => (appBaseUrl ? `${appBaseUrl}${path}` : path)
+const fallbackAppUrl = 'https://app.diriqo.com'
+const appBaseUrl = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, '') || fallbackAppUrl
+const appPath = (path: string) => `${appBaseUrl}${path.startsWith('/') ? path : `/${path}`}`
 
 export const appLinks = {
-  login: loginAppUrl,
+  login: appPath('/login'),
   signup: appPath('/register'),
   app: appBaseUrl,
 }
@@ -61,8 +61,7 @@ function withLocaleQuery(path: string, locale?: Locale) {
 }
 
 export function getLoginHref(locale?: Locale) {
-  void locale
-  return loginAppUrl
+  return appPath(withLocaleQuery('/login', locale))
 }
 
 export function getSignupHref(locale?: Locale) {

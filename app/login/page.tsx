@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
+import { redirect } from 'next/navigation'
 
-import { AuthEntryPage } from '@/components/auth/AuthEntryPage'
-import { defaultLocale, isLocale, type Locale } from '@/lib/marketing/content'
+import { defaultLocale, getLoginHref, isLocale, type Locale } from '@/lib/marketing/content'
 
 export const metadata: Metadata = {
   title: 'Sign in',
@@ -22,5 +22,5 @@ async function getLocale(searchParams?: LoginPageProps['searchParams']): Promise
 export default async function LoginPage({ searchParams }: LoginPageProps) {
   const locale = await getLocale(searchParams)
 
-  return <AuthEntryPage locale={locale} mode="login" />
+  redirect(getLoginHref(locale))
 }

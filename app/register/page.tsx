@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
+import { redirect } from 'next/navigation'
 
-import { AuthEntryPage } from '@/components/auth/AuthEntryPage'
-import { defaultLocale, isLocale, type Locale } from '@/lib/marketing/content'
+import { defaultLocale, getSignupHref, isLocale } from '@/lib/marketing/content'
 
 export const metadata: Metadata = {
   title: 'Create account',
@@ -10,17 +10,25 @@ export const metadata: Metadata = {
 
 type RegisterPageProps = {
   searchParams?: Promise<{
+    billing?: string
+    interval?: string
     locale?: string
+    plan?: string
   }>
 }
 
-async function getLocale(searchParams?: RegisterPageProps['searchParams']): Promise<Locale> {
-  const params = searchParams ? await searchParams : undefined
-  return isLocale(params?.locale) ? params.locale : defaultLocale
+function appendParam(url: URL, key: string, value: string | undefined) {
+  if (value) url.searchParams.set(key, value)
 }
 
 export default async function RegisterPage({ searchParams }: RegisterPageProps) {
-  const locale = await getLocale(searchParams)
+  const params = searchParams ? await searchParams : undefined
+  const locale = isLocale(params?.locale) ? params.locale : defaultLocale
+  const targetUrl = new URL(getSignupHref(locale))
 
-  return <AuthEntryPage locale={locale} mode="register" />
+  appendParam(targetUrl, 'plan', params?.plan)
+  appendParam(targetUrl, 'billing', params?.billing)
+  appendParam(targetUrl, 'interval', params?.interval)
+
+  redirect(targetUrl.toString())
 }
