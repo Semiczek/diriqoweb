@@ -85,6 +85,7 @@ export type PageHref =
   | '/privacy'
   | '/terms'
   | '/cookies'
+  | '/gdpr'
 
 export type PageKey =
   | 'home'
@@ -449,7 +450,7 @@ const baseNavHrefs: PageHref[] = [
   '/contact',
 ]
 
-const legalHrefs: PageHref[] = ['/privacy', '/terms', '/cookies']
+const legalHrefs: PageHref[] = ['/terms', '/privacy', '/cookies', '/gdpr']
 
 function nav(labels: string[]): NavItem[] {
   return labels.map((label, index) => ({
@@ -459,9 +460,9 @@ function nav(labels: string[]): NavItem[] {
 }
 
 function legal(labels: string[]): NavItem[] {
-  return labels.map((label, index) => ({
-    label,
-    href: legalHrefs[index],
+  return legalHrefs.map((href, index) => ({
+    label: labels[index] ?? 'GDPR',
+    href,
   }))
 }
 
@@ -1771,7 +1772,7 @@ export const marketingContent: Record<Locale, MarketingContent> = {
       notReady: 'Demo režim připravujeme.',
     },
     navLinks: nav(['Funkce', 'Jak to funguje', 'Ceník', 'Obory', 'Demo', 'Kontakt']),
-    legalLinks: legal(['Ochrana osobních údajů', 'Obchodní podmínky', 'Cookies']),
+    legalLinks: legal(['Podmínky', 'Ochrana osobních údajů', 'Cookies', 'GDPR']),
     footer: {
       description:
         'Jednoduchý systém pro firmy, které řídí zakázky, pracovníky, fotky, hodiny a zákazníky v terénu.',
@@ -2274,7 +2275,7 @@ export const marketingContent: Record<Locale, MarketingContent> = {
     },
     common: { login: 'Sign in', trial: 'Start free trial', demo: 'View demo', createAccount: 'Create account', openMenu: 'Open menu', closeMenu: 'Close menu', popular: 'Popular', notReady: 'Demo mode is coming soon.' },
     navLinks: nav(['Features', 'How it works', 'Pricing', 'Industries', 'Demo', 'Contact']),
-    legalLinks: legal(['Privacy', 'Terms', 'Cookies']),
+    legalLinks: legal(['Terms', 'Privacy', 'Cookies', 'GDPR']),
     footer: { description: 'A simple system for companies that manage jobs, workers, photos, hours and customers in the field.', web: 'Website', legal: 'Legal', contact: 'Contact', appLogin: 'Log in to app', setupHelp: 'I want help with setup', copyright: 'All rights reserved.' },
     home: {
       heroEyebrow: 'Simple software for field teams',
@@ -2519,7 +2520,7 @@ export const marketingContent: Record<Locale, MarketingContent> = {
     },
     common: { login: 'Anmelden', trial: 'Kostenlos testen', demo: 'Demo starten', createAccount: 'Konto erstellen', openMenu: 'Menü öffnen', closeMenu: 'Menü schließen', popular: 'Beliebt', notReady: 'Der Demo-Modus ist in Vorbereitung.' },
     navLinks: nav(['Funktionen', 'So funktioniert es', 'Preise', 'Branchen', 'Demo', 'Kontakt']),
-    legalLinks: legal(['Datenschutz', 'Bedingungen', 'Cookies']),
+    legalLinks: legal(['Bedingungen', 'Datenschutz', 'Cookies', 'GDPR']),
     footer: { description: 'Ein einfaches System für Unternehmen, die Aufträge, Mitarbeiter, Fotos, Stunden und Kunden im Außendienst steuern.', web: 'Website', legal: 'Rechtliches', contact: 'Kontakt', appLogin: 'Zur App anmelden', setupHelp: 'Ich möchte Hilfe beim Start', copyright: 'Alle Rechte vorbehalten.' },
     home: {
       heroEyebrow: 'Einfaches System für Teams vor Ort',
@@ -2764,7 +2765,7 @@ export const marketingContent: Record<Locale, MarketingContent> = {
     },
     common: { login: 'Logowanie', trial: 'Zacznij za darmo', demo: 'Uruchom demo', createAccount: 'Utwórz konto', openMenu: 'Otwórz menu', closeMenu: 'Zamknij menu', popular: 'Popularne', notReady: 'Tryb demo jest w przygotowaniu.' },
     navLinks: nav(['Funkcje', 'Jak to działa', 'Cennik', 'Branże', 'Demo', 'Kontakt']),
-    legalLinks: legal(['Prywatność', 'Regulamin', 'Cookies']),
+    legalLinks: legal(['Regulamin', 'Prywatność', 'Cookies', 'GDPR']),
     footer: { description: 'Prosty system dla firm, które zarządzają zleceniami, pracownikami, zdjęciami, godzinami i klientami w terenie.', web: 'Strona', legal: 'Prawo', contact: 'Kontakt', appLogin: 'Logowanie do aplikacji', setupHelp: 'Chcę pomoc w konfiguracji', copyright: 'Wszelkie prawa zastrzeżone.' },
     home: {
       heroEyebrow: 'Prosty system dla firm terenowych',
@@ -3009,7 +3010,7 @@ export const marketingContent: Record<Locale, MarketingContent> = {
     },
     common: { login: 'Belépés', trial: 'Ingyenes próba', demo: 'Demo indítása', createAccount: 'Fiók létrehozása', openMenu: 'Menü megnyitása', closeMenu: 'Menü bezárása', popular: 'Népszerű', notReady: 'A demo mód készül.' },
     navLinks: nav(['Funkciók', 'Hogyan működik', 'Árak', 'Ágazatok', 'Demo', 'Kapcsolat']),
-    legalLinks: legal(['Adatvédelem', 'Feltételek', 'Cookies']),
+    legalLinks: legal(['Feltételek', 'Adatvédelem', 'Cookies', 'GDPR']),
     footer: { description: 'Egyszerű rendszer cégeknek, amelyek terepen kezelnek munkákat, dolgozókat, fotókat, órákat és ügyfeleket.', web: 'Web', legal: 'Jogi', contact: 'Kapcsolat', appLogin: 'Belépés az appba', setupHelp: 'Segítséget kérek a beállításhoz', copyright: 'Minden jog fenntartva.' },
     home: {
       heroEyebrow: 'Egyszerű rendszer terepi csapatoknak',
@@ -3254,7 +3255,7 @@ export const marketingContent: Record<Locale, MarketingContent> = {
     },
     common: { login: 'Iniciar sesión', trial: 'Probar gratis', demo: 'Abrir demo', createAccount: 'Crear cuenta', openMenu: 'Abrir menú', closeMenu: 'Cerrar menú', popular: 'Popular', notReady: 'El modo demo está en preparación.' },
     navLinks: nav(['Funciones', 'Cómo funciona', 'Precios', 'Sectores', 'Demo', 'Contacto']),
-    legalLinks: legal(['Privacidad', 'Condiciones', 'Cookies']),
+    legalLinks: legal(['Condiciones', 'Privacidad', 'Cookies', 'GDPR']),
     footer: { description: 'Un sistema simple para empresas que gestionan trabajos, empleados, fotos, horas y clientes en campo.', web: 'Web', legal: 'Legal', contact: 'Contacto', appLogin: 'Entrar en la app', setupHelp: 'Quiero ayuda con la configuración', copyright: 'Todos los derechos reservados.' },
     home: {
       heroEyebrow: 'Software simple para equipos de campo',
@@ -3499,7 +3500,7 @@ export const marketingContent: Record<Locale, MarketingContent> = {
     },
     common: { login: 'Accedi', trial: 'Prova gratis', demo: 'Avvia demo', createAccount: 'Crea account', openMenu: 'Apri menu', closeMenu: 'Chiudi menu', popular: 'Popolare', notReady: 'La modalità demo è in preparazione.' },
     navLinks: nav(['Funzioni', 'Come funziona', 'Prezzi', 'Settori', 'Demo', 'Contatto']),
-    legalLinks: legal(['Privacy', 'Termini', 'Cookies']),
+    legalLinks: legal(['Termini', 'Privacy', 'Cookies', 'GDPR']),
     footer: { description: 'Un sistema semplice per aziende che gestiscono lavori, operatori, foto, ore e clienti sul campo.', web: 'Web', legal: 'Legale', contact: 'Contatto', appLogin: 'Accedi all’app', setupHelp: 'Voglio aiuto con la configurazione', copyright: 'Tutti i diritti riservati.' },
     home: {
       heroEyebrow: 'Sistema semplice per team sul campo',
@@ -3744,7 +3745,7 @@ export const marketingContent: Record<Locale, MarketingContent> = {
     },
     common: { login: 'Connexion', trial: 'Essayer gratuitement', demo: 'Lancer la démo', createAccount: 'Créer un compte', openMenu: 'Ouvrir le menu', closeMenu: 'Fermer le menu', popular: 'Populaire', notReady: 'Le mode démo est en préparation.' },
     navLinks: nav(['Fonctions', 'Comment ça marche', 'Tarifs', 'Secteurs', 'Démo', 'Contact']),
-    legalLinks: legal(['Confidentialité', 'Conditions', 'Cookies']),
+    legalLinks: legal(['Conditions', 'Confidentialité', 'Cookies', 'GDPR']),
     footer: { description: 'Un système simple pour les entreprises qui gèrent interventions, équipes, photos, heures et clients sur le terrain.', web: 'Web', legal: 'Légal', contact: 'Contact', appLogin: 'Connexion à l’app', setupHelp: 'Je veux de l’aide pour configurer', copyright: 'Tous droits réservés.' },
     home: {
       heroEyebrow: 'Système simple pour équipes terrain',

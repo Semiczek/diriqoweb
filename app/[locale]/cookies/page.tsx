@@ -1,7 +1,7 @@
-import { LegalContent } from '@/components/marketing/LocalizedPages'
+import { LegalPageLayout } from '@/components/marketing/LegalPageLayout'
 import { getMarketingContent } from '@/lib/marketing/content'
+import { createLegalMetadata, getLegalDocument } from '@/lib/marketing/legal-documents'
 import {
-  createLocalizedMetadata,
   generateLocaleStaticParams,
   getLocaleFromParams,
   type LocalePageProps,
@@ -9,13 +9,16 @@ import {
 
 export const generateStaticParams = generateLocaleStaticParams
 
-export function generateMetadata({ params }: LocalePageProps) {
-  return createLocalizedMetadata(params, 'cookies', '/cookies')
+export async function generateMetadata({ params }: LocalePageProps) {
+  const locale = await getLocaleFromParams(params)
+  const content = getMarketingContent(locale)
+
+  return createLegalMetadata(locale, 'cookies', content)
 }
 
 export default async function CookiesPage({ params }: LocalePageProps) {
   const locale = await getLocaleFromParams(params)
   const content = getMarketingContent(locale)
 
-  return <LegalContent content={content} locale={locale} page="cookies" />
+  return <LegalPageLayout document={getLegalDocument(locale, 'cookies', content)} locale={locale} page="cookies" />
 }

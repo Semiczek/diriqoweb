@@ -379,30 +379,3 @@ export function ContactContent({ content }: LocalizedPageProps) {
     </main>
   )
 }
-
-type LegalContentProps = LocalizedPageProps & {
-  page: 'privacy' | 'terms' | 'cookies'
-}
-
-export function LegalContent({ content, page }: LegalContentProps) {
-  const copy = content.legal[page]
-
-  return (
-    <main className="bg-white">
-      <section className="mx-auto w-full max-w-4xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-        <p className="text-sm font-black uppercase tracking-wide text-blue-700">{content.legal.eyebrow}</p>
-        <h1 className="mt-4 text-4xl font-black text-slate-950 sm:text-5xl">{copy.title}</h1>
-        <p className="mt-5 text-lg leading-8 text-slate-600">{copy.intro}</p>
-
-        <div className="mt-10 grid gap-8 text-base leading-7 text-slate-700">
-          {copy.sections.map((section) => (
-            <section key={section.title}>
-              <h2 className="text-2xl font-black text-slate-950">{section.title}</h2>
-              <p className="mt-3">{section.text}</p>
-            </section>
-          ))}
-        </div>
-      </section>
-    </main>
-  )
-}
