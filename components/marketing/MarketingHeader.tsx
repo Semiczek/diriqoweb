@@ -136,7 +136,7 @@ export function MarketingHeader({ content, locale }: MarketingHeaderProps) {
       </div>
 
       {open ? (
-        <div className="border-t border-white/10 bg-slate-950/[0.96] px-4 py-4 shadow-2xl shadow-slate-950/40 backdrop-blur-2xl 2xl:hidden">
+        <div className="max-h-[calc(100dvh-4.65rem)] overflow-y-auto overscroll-contain border-t border-white/10 bg-slate-950/[0.96] px-4 py-4 shadow-2xl shadow-slate-950/40 backdrop-blur-2xl 2xl:hidden">
           <nav className="mx-auto grid max-w-7xl gap-2" aria-label="Mobile navigation">
             {content.navLinks.map((item) => (
               <Link
@@ -223,10 +223,10 @@ function LanguageDropdown({
 
       {languageOpen ? (
         <div
-          className={`z-50 max-h-[70vh] overflow-y-auto rounded-xl border border-cyan-100/20 bg-[#050816]/[0.96] p-2 shadow-2xl shadow-slate-950/70 ring-1 ring-white/10 backdrop-blur-xl ${
-            mobile ? 'mt-2' : 'absolute right-0 top-full mt-2 w-64'
+          className={`z-50 overflow-y-auto overscroll-contain rounded-xl border border-cyan-100/20 bg-[#050816]/[0.96] p-2 shadow-2xl shadow-slate-950/70 ring-1 ring-white/10 backdrop-blur-xl ${
+            mobile ? 'mt-2 max-h-[calc(100dvh-9rem)]' : 'absolute right-0 top-full mt-2 max-h-[70vh] w-64'
           }`}
-          style={{ zIndex: 140 }}
+          style={{ zIndex: 140, WebkitOverflowScrolling: 'touch' }}
           role="menu"
         >
           <div className="grid gap-1">
