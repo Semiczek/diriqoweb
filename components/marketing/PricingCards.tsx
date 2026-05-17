@@ -72,7 +72,7 @@ export function PricingCards({ content }: PricingCardsProps) {
           </button>
         </div>
         <div className="flex flex-wrap items-center gap-2 text-sm font-bold text-slate-600">
-          <span>{isAnnual ? ui.annualSavingText : ui.noCreditCardText}</span>
+          <span>{ui.annualSavingText}</span>
           <span className="rounded-full bg-cyan-100 px-3 py-1 text-xs font-black text-cyan-800">
             {ui.annualBadge}
           </span>
