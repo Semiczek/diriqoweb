@@ -79,7 +79,7 @@ export function PricingCards({ content }: PricingCardsProps) {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {content.pricingPlans.map((plan, index) => {
           const isContactSales = Boolean(plan.contactSales)
           const monthlyPrice = formatPrice(plan.monthlyPrice, plan.currency, plan.price)
@@ -186,6 +186,23 @@ export function PricingCards({ content }: PricingCardsProps) {
           )
         })}
       </div>
+
+      {content.pricingCustomSetup ? (
+        <div className="reveal-up mt-6 rounded-2xl border border-cyan-100/80 bg-white/[0.88] p-5 shadow-[0_18px_44px_rgba(15,23,42,0.07)] ring-1 ring-white/70 backdrop-blur sm:flex sm:items-center sm:justify-between sm:gap-6">
+          <div>
+            <h3 className="text-lg font-black text-slate-950">{content.pricingCustomSetup.title}</h3>
+            <p className="mt-2 max-w-3xl text-sm font-bold leading-6 text-slate-600">
+              {content.pricingCustomSetup.text}
+            </p>
+          </div>
+          <a
+            href={content.pricingCustomSetup.href ?? '/contact'}
+            className="mt-4 inline-flex min-h-11 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-slate-950 px-5 text-sm font-black !text-white shadow-lg shadow-slate-950/15 transition duration-200 hover:-translate-y-0.5 hover:bg-slate-800 sm:mt-0"
+          >
+            {content.pricingCustomSetup.cta}
+          </a>
+        </div>
+      ) : null}
     </div>
   )
 }

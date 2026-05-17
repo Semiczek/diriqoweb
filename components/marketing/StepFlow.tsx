@@ -3,6 +3,7 @@ type Step =
   | {
       title: string
       text: string
+      note?: string
     }
 
 type StepFlowProps = {
@@ -12,7 +13,7 @@ type StepFlowProps = {
 
 export function StepFlow({ steps, compact = false }: StepFlowProps) {
   return (
-    <div className="relative grid gap-4 md:grid-cols-3">
+    <div className="relative grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute left-8 right-8 top-5 hidden h-px bg-gradient-to-r from-transparent via-blue-300/70 to-transparent md:block"
@@ -20,6 +21,7 @@ export function StepFlow({ steps, compact = false }: StepFlowProps) {
       {steps.map((step, index) => {
         const title = typeof step === 'string' ? step : step.title
         const text = typeof step === 'string' ? null : step.text
+        const note = typeof step === 'string' ? null : step.note
 
         return (
           <article
@@ -32,6 +34,11 @@ export function StepFlow({ steps, compact = false }: StepFlowProps) {
             </div>
             <h3 className="mt-5 text-lg font-black text-slate-950">{title}</h3>
             {text ? <p className="mt-3 text-sm leading-6 text-slate-600">{text}</p> : null}
+            {note ? (
+              <p className="mt-3 rounded-xl border border-cyan-100 bg-cyan-50/80 px-3 py-2 text-xs font-bold leading-5 text-cyan-900">
+                {note}
+              </p>
+            ) : null}
             {compact ? null : <div className="mt-5 h-1 rounded-full bg-gradient-to-r from-blue-600 via-cyan-400 to-emerald-300 shadow-[0_0_18px_rgba(6,182,212,0.3)]" />}
           </article>
         )

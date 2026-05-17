@@ -107,6 +107,7 @@ export type NavItem = {
 export type StepItem = {
   title: string
   text: string
+  note?: string
 }
 
 export type FeatureCardItem = {
@@ -142,6 +143,13 @@ export type PricingUiCopy = {
   noCreditCardText: string
   monthlyPeriod: string
   yearlyPeriod: string
+}
+
+export type PricingCustomSetupCopy = {
+  title: string
+  text: string
+  cta: string
+  href?: string
 }
 
 export type FAQItem = {
@@ -259,6 +267,22 @@ export type IndustryDetail = {
   points: string[]
 }
 
+export type IndustrySeoGroup = {
+  title: string
+  intro: string
+  professions: string[]
+}
+
+export type IndustriesSeoContent = {
+  title: string
+  intro: string
+  groups: IndustrySeoGroup[]
+  seoText: string
+  problemsTitle: string
+  problemsIntro: string
+  problems: string[]
+}
+
 export type MetadataCopy = {
   title: string
   description: string
@@ -323,6 +347,7 @@ export type MarketingContent = {
   industries: string[]
   pricingPlans: PricingPlan[]
   pricingUi?: PricingUiCopy
+  pricingCustomSetup?: PricingCustomSetupCopy
   addon: {
     title: string
     price: string
@@ -354,6 +379,7 @@ export type MarketingContent = {
     text: string
   }
   industryDetails: IndustryDetail[]
+  industriesSeo?: IndustriesSeoContent
   demoPage: {
     eyebrow: string
     title: string
@@ -443,8 +469,8 @@ function legal(labels: string[]): NavItem[] {
 const commonPricing = {
   starterPrice: '19 EUR',
   growthPrice: '39 EUR',
-  scalePrice: '99 EUR',
-  enterprisePrice: '149 EUR',
+  businessPrice: '79 EUR',
+  scalePrice: '149 EUR',
   addonPrice: '+999 EUR',
   addonSetupPrice: websiteAddonPricing.price,
 }
@@ -991,7 +1017,6 @@ export type PricingPageCopy = {
   introBullets: string[]
   planDescriptions: string[]
   commonFeatures: string[]
-  enterpriseCta: string
   checkoutCta?: string
   contactSalesCta?: string
   noCreditCardText?: string
@@ -1019,7 +1044,7 @@ const pricingOverrides: Record<Locale, Partial<PricingPageCopy>> = {
     introTitle: 'Vyber tarif podle počtu lidí.',
     introText:
       'Vyberte velikost týmu a vytvořte účet. Firmu nastavíte v dalším kroku.',
-    introBullets: ['Nejdřív účet, potom nastavení firmy.', 'Zakázky, pracovníci, zákazníci a plánování na jednom místě.', 'Týmy nad 30 pracovníků řešíme individuálně.'],
+    introBullets: ['Nejdřív účet, potom nastavení firmy.', 'Zakázky, pracovníci, zákazníci a plánování na jednom místě.', 'Diriqo je pro malé a střední týmy v terénu. Nad 50 pracovníků připravíme individuální nastavení.'],
     checkoutCta: 'Začít zdarma',
     contactSalesCta: 'Kontaktovat',
     noCreditCardText: 'Bez platební karty',
@@ -1033,11 +1058,11 @@ const pricingOverrides: Record<Locale, Partial<PricingPageCopy>> = {
   },
   en: {
     title: 'Simple pricing by team size.',
-    description: 'Clear plans by team size. Create your account first, then set up your company.',
+    description: 'Diriqo is built for small and medium field service teams that want simplicity instead of enterprise complexity.',
     introTitle: 'Pick a plan by number of people.',
     introText:
       'Choose the team size that fits you, create your account and set up your company in the next step.',
-    introBullets: ['Create your account first, then set up your company.', 'Jobs, workers, customers and scheduling in one place.', 'Teams above 30 workers use custom pricing.'],
+    introBullets: ['Create your account first, then set up your company.', 'Jobs, workers, customers and scheduling in one place.', 'Teams above 50 workers can get a custom setup.'],
     checkoutCta: 'Start trial',
     contactSalesCta: 'Contact us',
     noCreditCardText: 'No credit card required',
@@ -1055,7 +1080,7 @@ const pricingOverrides: Record<Locale, Partial<PricingPageCopy>> = {
     introTitle: 'Wähle den Tarif nach Anzahl der Personen.',
     introText:
       'Nutzer/Mitarbeiter umfasst interne Leute, externe Kräfte, Subunternehmer, Aushilfen und temporäre Teams. Die Website übergibt nur Tarif und Abrechnungszeitraum an die Registrierung.',
-    introBullets: ['Feste Abos in EUR.', 'Jährliche Zahlung bedeutet 12 Monate Nutzung zum Preis von 10.', '100+ Nutzer/Mitarbeiter bekommen individuelle Preise.'],
+    introBullets: ['Feste Abos in EUR.', 'Jährliche Zahlung bedeutet 12 Monate Nutzung zum Preis von 10.', 'Ab 51 Nutzern/Mitarbeitern bereiten wir ein individuelles Setup vor.'],
     checkoutCta: 'Kostenlos testen',
     contactSalesCta: 'Kontakt aufnehmen',
     noCreditCardText: 'Keine Kreditkarte nötig',
@@ -1073,7 +1098,7 @@ const pricingOverrides: Record<Locale, Partial<PricingPageCopy>> = {
     introTitle: 'Wybierz plan według liczby osób.',
     introText:
       'Użytkownicy/pracownicy obejmują osoby wewnętrzne, zewnętrznych wykonawców, podwykonawców, brygady i personel tymczasowy. Strona przekazuje tylko plan i okres rozliczenia do rejestracji.',
-    introBullets: ['Stałe subskrypcje w EUR.', 'Płatność roczna daje 12 miesięcy używania w cenie 10.', '100+ użytkowników/pracowników ma cenę indywidualną.'],
+    introBullets: ['Stałe subskrypcje w EUR.', 'Płatność roczna daje 12 miesięcy używania w cenie 10.', 'Od 51 użytkowników/pracowników przygotujemy indywidualne ustawienie.'],
     checkoutCta: 'Zacznij za darmo',
     contactSalesCta: 'Skontaktuj się',
     noCreditCardText: 'Bez karty płatniczej',
@@ -1091,7 +1116,7 @@ const pricingOverrides: Record<Locale, Partial<PricingPageCopy>> = {
     introTitle: 'Válassz csomagot létszám szerint.',
     introText:
       'A felhasználók/dolgozók közé tartoznak a belső emberek, külsősök, alvállalkozók, brigádok és ideiglenes munkatársak. A web csak a választott csomagot és időszakot adja át a regisztrációnak.',
-    introBullets: ['Fix előfizetések EUR-ban.', 'Éves fizetéssel 12 hónap használatot kapsz 10 hónap áráért.', '100+ felhasználó/dolgozó esetén egyedi ár van.'],
+    introBullets: ['Fix előfizetések EUR-ban.', 'Éves fizetéssel 12 hónap használatot kapsz 10 hónap áráért.', '51+ felhasználó/dolgozó esetén egyedi beállítást készítünk.'],
     checkoutCta: 'Ingyenes próba indítása',
     contactSalesCta: 'Kapcsolat',
     noCreditCardText: 'Bankkártya nem szükséges',
@@ -1109,7 +1134,7 @@ const pricingOverrides: Record<Locale, Partial<PricingPageCopy>> = {
     introTitle: 'Elige plan según el número de personas.',
     introText:
       'Usuarios/trabajadores incluye personal interno, externos, subcontratistas, cuadrillas y personal temporal. La web solo envía el plan y el intervalo de facturación al registro.',
-    introBullets: ['Suscripciones fijas en EUR.', 'El pago anual da 12 meses de uso por el precio de 10.', '100+ usuarios/trabajadores tienen precio personalizado.'],
+    introBullets: ['Suscripciones fijas en EUR.', 'El pago anual da 12 meses de uso por el precio de 10.', 'Para 51+ usuarios/trabajadores preparamos una configuración a medida.'],
     checkoutCta: 'Iniciar prueba gratis',
     contactSalesCta: 'Contactar',
     noCreditCardText: 'No se requiere tarjeta',
@@ -1127,7 +1152,7 @@ const pricingOverrides: Record<Locale, Partial<PricingPageCopy>> = {
     introTitle: 'Scegli il piano in base al numero di persone.',
     introText:
       'Utenti/operatori include personale interno, esterni, subappaltatori, squadre e personale temporaneo. Il sito invia alla registrazione solo piano e periodo di fatturazione.',
-    introBullets: ['Abbonamenti fissi in EUR.', 'Il pagamento annuale dà 12 mesi di uso al prezzo di 10.', '100+ utenti/operatori hanno prezzo personalizzato.'],
+    introBullets: ['Abbonamenti fissi in EUR.', 'Il pagamento annuale dà 12 mesi di uso al prezzo di 10.', 'Per 51+ utenti/operatori prepariamo una configurazione su misura.'],
     checkoutCta: 'Avvia prova gratis',
     contactSalesCta: 'Contattaci',
     noCreditCardText: 'Carta non richiesta',
@@ -1145,7 +1170,7 @@ const pricingOverrides: Record<Locale, Partial<PricingPageCopy>> = {
     introTitle: 'Choisis un plan selon le nombre de personnes.',
     introText:
       'Utilisateurs/équipes inclut les personnes internes, externes, sous-traitants, groupes et renforts temporaires. Le site transmet seulement le plan et la période de facturation à l’inscription.',
-    introBullets: ['Abonnements fixes en EUR.', 'Le paiement annuel donne 12 mois d’usage pour le prix de 10.', '100+ utilisateurs/équipes ont un tarif personnalisé.'],
+    introBullets: ['Abonnements fixes en EUR.', 'Le paiement annuel donne 12 mois d’usage pour le prix de 10.', 'Pour 51+ utilisateurs/équipes, nous préparons une configuration adaptée.'],
     checkoutCta: 'Démarrer l’essai gratuit',
     contactSalesCta: 'Nous contacter',
     noCreditCardText: 'Carte bancaire non requise',
@@ -1159,70 +1184,97 @@ const pricingOverrides: Record<Locale, Partial<PricingPageCopy>> = {
   },
 }
 
-const localizedPlanDescriptions: Record<Locale, Record<WebPricingPlanId, string>> = {
+const pricingCustomSetupByLocale: Record<Locale, PricingCustomSetupCopy> = {
+  cs: {
+    title: 'Potřebujete více než 50 pracovníků?',
+    text: 'Diriqo má zůstat jednoduché pro malé a střední firmy v terénu. Pokud řídíte větší provoz, připravíme nastavení podle vašeho workflow.',
+    cta: 'Ozvat se kvůli individuálnímu nastavení',
+  },
+  en: {
+    title: 'Need more than 50 workers?',
+    text: 'Diriqo is designed to stay simple for small and medium field service teams. If you run a larger operation, we can prepare a custom setup based on your workflow.',
+    cta: 'Contact us for a custom setup',
+  },
+  de: {
+    title: 'Mehr als 50 Mitarbeiter?',
+    text: 'Diriqo soll für kleine und mittlere Teams im Außendienst einfach bleiben. Für größere Betriebe bereiten wir ein Setup nach eurem Workflow vor.',
+    cta: 'Kontakt für individuelles Setup',
+  },
+  pl: {
+    title: 'Potrzebujesz więcej niż 50 pracowników?',
+    text: 'Diriqo ma pozostać proste dla małych i średnich zespołów terenowych. Przy większej operacji przygotujemy ustawienie pod Wasz workflow.',
+    cta: 'Napisz w sprawie indywidualnego ustawienia',
+  },
+  hu: {
+    title: 'Több mint 50 dolgozó?',
+    text: 'A Diriqo egyszerű marad kis és közepes terepi csapatoknak. Nagyobb működésnél egyedi beállítást készítünk a workflow alapján.',
+    cta: 'Kapcsolat egyedi beállításhoz',
+  },
+  es: {
+    title: '¿Más de 50 trabajadores?',
+    text: 'Diriqo está pensado para seguir siendo simple en equipos de campo pequeños y medianos. Para una operación más grande preparamos una configuración según vuestro flujo.',
+    cta: 'Contactar para configuración a medida',
+  },
+  it: {
+    title: 'Più di 50 operatori?',
+    text: 'Diriqo resta semplice per team sul campo piccoli e medi. Per operazioni più grandi prepariamo una configurazione basata sul vostro workflow.',
+    cta: 'Contattaci per una configurazione su misura',
+  },
+  fr: {
+    title: 'Plus de 50 personnes ?',
+    text: 'Diriqo doit rester simple pour les petites et moyennes équipes terrain. Pour une opération plus grande, nous préparons une configuration selon votre workflow.',
+    cta: 'Nous contacter pour une configuration adaptée',
+  },
+}
+
+const localizedPlanDescriptions: Record<Locale, Record<string, string>> = {
   cs: {
     starter: 'Pro malé týmy na začátku.',
     growth: 'Pro rostoucí servisní firmy.',
     business: 'Pro větší týmy a více provozu.',
     scale: 'Pro větší provozy s více lidmi a potřebou lepšího přehledu.',
-    enterprise: 'Pro velké týmy, které potřebují více kapacity a struktury.',
-    custom: 'Pro firmy s individuálními požadavky.',
   },
   en: {
     starter: 'For small teams getting started.',
     growth: 'For growing service businesses.',
     business: 'For larger teams with more operations.',
     scale: 'For bigger operations with more people and stronger oversight.',
-    enterprise: 'For large teams that need more capacity and structure.',
-    custom: 'For companies with custom requirements.',
   },
   de: {
     starter: 'Für kleine Servicefirmen, die starten.',
     growth: 'Für wachsende Teams mit mehreren Mitarbeitern und Aufträgen.',
     business: 'Für etablierte Servicefirmen mit größerem Betrieb.',
     scale: 'Für größere Betriebe mit mehr Menschen und besserem Überblick.',
-    enterprise: 'Für große Teams mit mehr Kapazität und Struktur.',
-    custom: 'Für Firmen mit individuellen Anforderungen.',
   },
   pl: {
     starter: 'Dla małych firm usługowych na start.',
     growth: 'Dla rosnących zespołów z większą liczbą pracowników i zleceń.',
     business: 'Dla stabilnych firm usługowych z większym operacyjnym ruchem.',
     scale: 'Dla większych operacji z większą liczbą ludzi i lepszym przeglądem.',
-    enterprise: 'Dla dużych zespołów, które potrzebują więcej pojemności i struktury.',
-    custom: 'Dla firm z indywidualnymi wymaganiami.',
   },
   hu: {
     starter: 'Kis szolgáltató cégeknek induláshoz.',
     growth: 'Növekvő csapatoknak több dolgozóval és munkával.',
     business: 'Bejáratott szolgáltató cégeknek nagyobb működéssel.',
     scale: 'Nagyobb működéshez több emberrel és jobb áttekintéssel.',
-    enterprise: 'Nagy csapatoknak nagyobb kapacitással és struktúrával.',
-    custom: 'Egyedi igényű cégeknek.',
   },
   es: {
     starter: 'Para pequeñas empresas de servicios que empiezan.',
     growth: 'Para equipos en crecimiento con más trabajadores y trabajos.',
     business: 'Para empresas de servicios establecidas con más operación.',
     scale: 'Para operaciones más grandes con más personas y mejor control.',
-    enterprise: 'Para equipos grandes que necesitan más capacidad y estructura.',
-    custom: 'Para empresas con requisitos personalizados.',
   },
   it: {
     starter: 'Per piccole aziende di servizi che iniziano.',
     growth: 'Per team in crescita con più operatori e lavori.',
     business: 'Per aziende di servizi avviate con operatività più ampia.',
     scale: 'Per operazioni più grandi con più persone e controllo migliore.',
-    enterprise: 'Per team grandi che richiedono più capacità e struttura.',
-    custom: 'Per aziende con esigenze personalizzate.',
   },
   fr: {
     starter: 'Pour petites entreprises de service qui démarrent.',
     growth: 'Pour équipes en croissance avec plus de personnes et d’interventions.',
     business: 'Pour entreprises de service établies avec plus d’activité.',
     scale: 'Pour opérations plus grandes avec plus de personnes et un meilleur suivi.',
-    enterprise: 'Pour grandes équipes qui ont besoin de plus de capacité et de structure.',
-    custom: 'Pour entreprises avec besoins personnalisés.',
   },
 }
 
@@ -1250,17 +1302,6 @@ const pricingPlanMarketingCopyByLocale: Partial<
       description: 'Pro větší provozy s více lidmi a potřebou lepšího přehledu.',
       features: ['vše v Business', 'vyšší kapacita týmu', 'více provozního přehledu', 'lepší kontrola napříč zakázkami'],
     },
-    enterprise: {
-      people: 'Do 100 pracovníků',
-      description: 'Pro velké týmy, které potřebují více kapacity a struktury.',
-      features: ['vše ve Scale', 'nejvyšší standardní kapacita', 'strukturovanější provoz', 'připraveno pro větší firmy'],
-    },
-    custom: {
-      name: 'Custom',
-      people: 'Nad 100 pracovníků',
-      description: 'Pro firmy s individuálními požadavky.',
-      features: ['individuální domluva', 'větší týmy', 'příprava na specifický provoz'],
-    },
   },
   en: {
     starter: {
@@ -1283,17 +1324,6 @@ const pricingPlanMarketingCopyByLocale: Partial<
       description: 'For bigger operations with more people and stronger oversight.',
       features: ['everything in Business', 'higher team capacity', 'more operational overview', 'better control across jobs'],
     },
-    enterprise: {
-      people: 'Up to 100 workers',
-      description: 'For large teams that need more capacity and structure.',
-      features: ['everything in Scale', 'highest standard capacity', 'more structured operations', 'prepared for larger companies'],
-    },
-    custom: {
-      name: 'Custom',
-      people: 'Over 100 workers',
-      description: 'For companies with custom requirements.',
-      features: ['custom agreement', 'larger teams', 'prepared for specific operations'],
-    },
   },
 }
 
@@ -1303,14 +1333,14 @@ function getPricingPlanMarketingCopy(locale: Locale, planId: WebPricingPlanId) {
 
 function formatLocalizedWorkerRange(locale: Locale, min: number, max: number | null) {
   const ranges: Record<Locale, string> = {
-    cs: max === null ? '100+ uživatelů/pracovníků' : `${min}–${max} uživatelů/pracovníků`,
-    en: max === null ? '100+ users/workers' : `${min}–${max} users/workers`,
-    de: max === null ? '100+ Nutzer/Mitarbeiter' : `${min}–${max} Nutzer/Mitarbeiter`,
-    pl: max === null ? '100+ użytkowników/pracowników' : `${min}–${max} użytkowników/pracowników`,
-    hu: max === null ? '100+ felhasználó/dolgozó' : `${min}–${max} felhasználó/dolgozó`,
-    es: max === null ? '100+ usuarios/trabajadores' : `${min}–${max} usuarios/trabajadores`,
-    it: max === null ? '100+ utenti/operatori' : `${min}–${max} utenti/operatori`,
-    fr: max === null ? '100+ utilisateurs/personnes' : `${min}–${max} utilisateurs/personnes`,
+    cs: max === null ? '51+ uživatelů/pracovníků' : `${min}–${max} uživatelů/pracovníků`,
+    en: max === null ? '51+ users/workers' : `${min}–${max} users/workers`,
+    de: max === null ? '51+ Nutzer/Mitarbeiter' : `${min}–${max} Nutzer/Mitarbeiter`,
+    pl: max === null ? '51+ użytkowników/pracowników' : `${min}–${max} użytkowników/pracowników`,
+    hu: max === null ? '51+ felhasználó/dolgozó' : `${min}–${max} felhasználó/dolgozó`,
+    es: max === null ? '51+ usuarios/trabajadores' : `${min}–${max} usuarios/trabajadores`,
+    it: max === null ? '51+ utenti/operatori' : `${min}–${max} utenti/operatori`,
+    fr: max === null ? '51+ utilisateurs/personnes' : `${min}–${max} utilisateurs/personnes`,
   }
 
   return ranges[locale]
@@ -1326,14 +1356,14 @@ const pricingPageCopy: Record<Locale, PricingPageCopy> = {
       'Neplatíš za odemykání běžných funkcí. Základní Diriqo je řízení práce uvnitř firmy: zakázky, lidé, fotky, hodiny, zákazníci, kalendář, náklady a přehledy. Vyber tarif podle počtu lidí, které potřebuješ řídit.',
     introBullets: [
       'Všechny běžné tarify mají zakázky, lidi, mobil, fotky, kalendář, práci, náklady a přehledy.',
-      'Starter až Enterprise se liší hlavně limitem lidí v týmu. Custom je pro individuální požadavky.',
+      'Standardní tarify končí na 50 pracovnících. Větší provozy řešíme individuálním nastavením.',
       'Web, poptávky a zákaznický portál jsou samostatný nadstavbový balíček.',
     ],
     planDescriptions: [
       'Pro malé týmy, které chtějí pořádek v zakázkách a lidech.',
       'Pro rostoucí firmy, které potřebují řídit více lidí v terénu.',
       'Pro větší provozní týmy s více pracovníky a adminy.',
-      'Pro týmy nad 30 lidí nebo specifické provozy.',
+      'Pro větší provozy od 31 do 50 pracovníků.',
     ],
     commonFeatures: [
       'zakázky a zákazníci',
@@ -1346,7 +1376,6 @@ const pricingPageCopy: Record<Locale, PricingPageCopy> = {
       'více adminů podle rolí',
       'základní i pokročilé řízení provozu',
     ],
-    enterpriseCta: 'Domluvit řešení',
     addon: {
       title: 'Web + poptávky + zákaznický portál',
       price: commonPricing.addonSetupPrice,
@@ -1372,14 +1401,14 @@ const pricingPageCopy: Record<Locale, PricingPageCopy> = {
       'You do not pay to unlock everyday features. Core Diriqo is for managing work inside the company. Choose the plan by the number of people you need to manage.',
     introBullets: [
       'All standard plans include jobs, people, mobile, photos, calendar, work records, costs and reports.',
-      'Starter through Enterprise mainly differ by team size. Custom is for individual requirements.',
+      'Standard plans go up to 50 workers. Larger operations use a custom setup.',
       'Website, inquiries and customer portal are a separate add-on.',
     ],
     planDescriptions: [
       'For small teams that want order in jobs and people.',
       'For growing companies managing more people in the field.',
       'For larger operations teams with more workers and admins.',
-      'For teams over 30 people or specific operations.',
+      'For larger operations with 31 to 50 workers.',
     ],
     commonFeatures: [
       'jobs and customers',
@@ -1392,7 +1421,6 @@ const pricingPageCopy: Record<Locale, PricingPageCopy> = {
       'multiple admins where roles allow',
       'basic and advanced operations management',
     ],
-    enterpriseCta: 'Discuss a solution',
     addon: {
       title: 'Website + customer inquiries + customer portal',
       price: commonPricing.addonSetupPrice,
@@ -1418,14 +1446,14 @@ const pricingPageCopy: Record<Locale, PricingPageCopy> = {
       'Du zahlst nicht für das Freischalten normaler Funktionen. Diriqo Basis ist für die interne Arbeitssteuerung. Wähle den Tarif nach der Anzahl der Personen.',
     introBullets: [
       'Alle normalen Tarife enthalten Aufträge, Menschen, Mobile, Fotos, Kalender, Arbeitserfassung, Kosten und Auswertungen.',
-      'Starter bis Enterprise unterscheiden sich hauptsächlich nach Teamgröße. Custom ist für individuelle Anforderungen.',
+      'Standardtarife gehen bis 50 Mitarbeiter. Größere Betriebe bekommen ein individuelles Setup.',
       'Website, Anfragen und Kundenportal sind ein separates Add-on.',
     ],
     planDescriptions: [
       'Für kleine Teams, die Ordnung in Aufträgen und Menschen wollen.',
       'Für wachsende Firmen mit mehr Menschen im Außendienst.',
       'Für größere operative Teams mit mehr Mitarbeitern und Admins.',
-      'Für Teams über 30 Personen oder spezielle Abläufe.',
+      'Für größere Betriebe mit 31 bis 50 Mitarbeitern.',
     ],
     commonFeatures: [
       'Aufträge und Kunden',
@@ -1438,7 +1466,6 @@ const pricingPageCopy: Record<Locale, PricingPageCopy> = {
       'mehrere Admins, wenn Rollen es erlauben',
       'Basis- und erweiterte Betriebssteuerung',
     ],
-    enterpriseCta: 'Lösung besprechen',
     addon: {
       title: 'Website, Anfragen und Kundenportal',
       price: commonPricing.addonSetupPrice,
@@ -1464,14 +1491,14 @@ const pricingPageCopy: Record<Locale, PricingPageCopy> = {
       'Nie płacisz za odblokowanie codziennych funkcji. Podstawowe Diriqo służy do zarządzania pracą wewnątrz firmy. Wybierz plan według liczby osób.',
     introBullets: [
       'Wszystkie standardowe plany mają zlecenia, ludzi, mobile, zdjęcia, kalendarz, ewidencję pracy, koszty i raporty.',
-      'Starter do Enterprise różnią się głównie limitem osób. Custom jest dla indywidualnych wymagań.',
+      'Standardowe plany kończą się na 50 pracownikach. Większe operacje mają indywidualne ustawienie.',
       'Strona, zapytania i portal klienta są osobnym dodatkiem.',
     ],
     planDescriptions: [
       'Dla małych zespołów, które chcą porządku w zleceniach i ludziach.',
       'Dla rosnących firm z większą liczbą ludzi w terenie.',
       'Dla większych zespołów operacyjnych z większą liczbą pracowników i adminów.',
-      'Dla zespołów powyżej 30 osób lub specyficznych procesów.',
+      'Dla większych operacji od 31 do 50 pracowników.',
     ],
     commonFeatures: [
       'zlecenia i klienci',
@@ -1484,7 +1511,6 @@ const pricingPageCopy: Record<Locale, PricingPageCopy> = {
       'więcej adminów, jeśli role na to pozwalają',
       'podstawowe i zaawansowane zarządzanie operacjami',
     ],
-    enterpriseCta: 'Uzgodnić rozwiązanie',
     addon: {
       title: 'Strona, zapytania i portal klienta',
       price: commonPricing.addonSetupPrice,
@@ -1510,14 +1536,14 @@ const pricingPageCopy: Record<Locale, PricingPageCopy> = {
       'Nem a mindennapi funkciók feloldásáért fizetsz. Az alap Diriqo a cégen belüli munka kezelésére való. Válassz csomagot létszám szerint.',
     introBullets: [
       'Minden normál csomag tartalmaz munkákat, embereket, mobilt, fotókat, naptárt, munkaidőt, költségeket és riportokat.',
-      'A Startertől az Enterprise-ig főleg a létszám különbözik. A Custom egyedi igényekre van.',
+      'A standard csomagok 50 dolgozóig mennek. Nagyobb működéshez egyedi beállítás készül.',
       'A weboldal, érdeklődések és ügyfélportál külön add-on.',
     ],
     planDescriptions: [
       'Kis csapatoknak, amelyek rendet akarnak a munkákban és emberekben.',
       'Növekvő cégeknek több terepi dolgozóval.',
       'Nagyobb operatív csapatoknak több dolgozóval és adminnal.',
-      '30 fő feletti csapatoknak vagy speciális működéshez.',
+      'Nagyobb működéshez 31-50 dolgozóval.',
     ],
     commonFeatures: [
       'munkák és ügyfelek',
@@ -1530,7 +1556,6 @@ const pricingPageCopy: Record<Locale, PricingPageCopy> = {
       'több admin, ha a szerepkörök engedik',
       'alap és haladó működéskezelés',
     ],
-    enterpriseCta: 'Megoldás egyeztetése',
     addon: {
       title: 'Weboldal, érdeklődések és ügyfélportál',
       price: commonPricing.addonSetupPrice,
@@ -1556,14 +1581,14 @@ const pricingPageCopy: Record<Locale, PricingPageCopy> = {
       'No pagas por desbloquear funciones habituales. Diriqo básico es para gestionar el trabajo dentro de la empresa. Elige el plan por número de personas.',
     introBullets: [
       'Todos los planes estándar incluyen trabajos, personas, móvil, fotos, calendario, registros, costes e informes.',
-      'De Starter a Enterprise se diferencian sobre todo por tamaño de equipo. Custom es para requisitos individuales.',
+      'Los planes estándar llegan hasta 50 trabajadores. Operaciones mayores usan configuración a medida.',
       'Web, solicitudes y portal de clientes son un add-on separado.',
     ],
     planDescriptions: [
       'Para equipos pequeños que quieren orden en trabajos y personas.',
       'Para empresas en crecimiento con más personas en campo.',
       'Para equipos operativos más grandes con más empleados y admins.',
-      'Para equipos de más de 30 personas o procesos específicos.',
+      'Para operaciones más grandes con 31 a 50 trabajadores.',
     ],
     commonFeatures: [
       'trabajos y clientes',
@@ -1576,7 +1601,6 @@ const pricingPageCopy: Record<Locale, PricingPageCopy> = {
       'varios admins si los roles lo permiten',
       'gestión operativa básica y avanzada',
     ],
-    enterpriseCta: 'Hablar de solución',
     addon: {
       title: 'Web, solicitudes y portal de clientes',
       price: commonPricing.addonSetupPrice,
@@ -1602,14 +1626,14 @@ const pricingPageCopy: Record<Locale, PricingPageCopy> = {
       'Non paghi per sbloccare funzioni quotidiane. Diriqo base serve a gestire il lavoro dentro l’azienda. Scegli il piano in base al numero di persone.',
     introBullets: [
       'Tutti i piani standard includono lavori, persone, mobile, foto, calendario, registri, costi e report.',
-      'Da Starter a Enterprise differiscono principalmente per dimensione del team. Custom è per esigenze personalizzate.',
+      'I piani standard arrivano fino a 50 operatori. Le operazioni più grandi usano una configurazione su misura.',
       'Sito, richieste e portale clienti sono un add-on separato.',
     ],
     planDescriptions: [
       'Per piccoli team che vogliono ordine in lavori e persone.',
       'Per aziende in crescita con più persone sul campo.',
       'Per team operativi più grandi con più operatori e admin.',
-      'Per team oltre 30 persone o processi specifici.',
+      'Per operazioni più grandi con 31-50 operatori.',
     ],
     commonFeatures: [
       'lavori e clienti',
@@ -1622,7 +1646,6 @@ const pricingPageCopy: Record<Locale, PricingPageCopy> = {
       'più admin se i ruoli lo permettono',
       'gestione operativa base e avanzata',
     ],
-    enterpriseCta: 'Definire soluzione',
     addon: {
       title: 'Sito, richieste e portale clienti',
       price: commonPricing.addonSetupPrice,
@@ -1648,14 +1671,14 @@ const pricingPageCopy: Record<Locale, PricingPageCopy> = {
       'Tu ne paies pas pour débloquer les fonctions courantes. Diriqo de base sert à gérer le travail dans l’entreprise. Choisis le plan selon le nombre de personnes.',
     introBullets: [
       'Tous les plans standard incluent interventions, personnes, mobile, photos, calendrier, suivi, coûts et rapports.',
-      'De Starter à Enterprise, les plans diffèrent surtout par la taille d’équipe. Custom est pour les besoins personnalisés.',
+      'Les plans standard vont jusqu’à 50 personnes. Les opérations plus grandes passent par une configuration adaptée.',
       'Site web, demandes et portail client sont un add-on séparé.',
     ],
     planDescriptions: [
       'Pour petites équipes qui veulent de l’ordre dans interventions et personnes.',
       'Pour entreprises en croissance avec plus de personnes sur le terrain.',
       'Pour équipes opérationnelles plus grandes avec plus d’équipiers et admins.',
-      'Pour équipes de plus de 30 personnes ou opérations spécifiques.',
+      'Pour opérations plus grandes avec 31 à 50 personnes.',
     ],
     commonFeatures: [
       'interventions et clients',
@@ -1668,7 +1691,6 @@ const pricingPageCopy: Record<Locale, PricingPageCopy> = {
       'plusieurs admins si les rôles le permettent',
       'gestion opérationnelle de base et avancée',
     ],
-    enterpriseCta: 'Discuter solution',
     addon: {
       title: 'Site web, demandes et portail client',
       price: commonPricing.addonSetupPrice,
@@ -1704,17 +1726,17 @@ export const marketingContent: Record<Locale, MarketingContent> = {
       howItWorks: {
         title: 'Jak funguje Diriqo - jednoduchý průvodce',
         description:
-          'Podívej se na jednoduchý flow: firma, pracovníci, zákazník, zakázka, fotky, čas a přehled práce.',
+          'Podívej se na jednoduchý tok od poptávky přes nabídku, zakázku, mobil pracovníka, náklady a fakturu až po zákaznický přehled.',
       },
       pricing: {
         title: 'Ceník Diriqo - jednoduchá cena podle velikosti týmu',
         description:
-          'Tarify Diriqo Starter, Growth, Business, Scale, Enterprise a Custom podle počtu pracovníků.',
+          'Tarify Diriqo Starter, Growth, Business a Scale do 50 pracovníků. Větší provozy řešíme individuálním nastavením.',
       },
       industries: {
-        title: 'Pro koho je Diriqo - úklid, servis, montáže a správa objektů',
+        title: 'Pro koho je Diriqo - software pro řemeslníky, úklid, servis a stavební firmy',
         description:
-          'Diriqo pomáhá firmám v terénu: úklidovým, servisním, montážním, stavebním a správcům objektů.',
+          'Diriqo je systém pro zakázky, plánování pracovníků, docházku, fotodokumentaci a řízení práce v terénu pro úklidové, servisní, řemeslné a stavební firmy.',
       },
       demo: {
         title: 'Demo Diriqo - klikací ukázka systému',
@@ -1837,6 +1859,7 @@ export const marketingContent: Record<Locale, MarketingContent> = {
       'Úklidové firmy',
       'Servisní firmy',
       'Montáže',
+      'Řemeslníci',
       'Stavební party',
       'Správa objektů',
       'Malé provozní týmy',
@@ -1860,18 +1883,19 @@ export const marketingContent: Record<Locale, MarketingContent> = {
         features: ['zakázky a zákazníci', 'pracovníci a role', 'mobilní aplikace', 'fotky ze zakázek', 'kalendář a evidence práce', 'náklady a přehledy'],
       },
       {
-        name: 'Scale',
-        price: commonPricing.scalePrice,
+        name: 'Business',
+        price: commonPricing.businessPrice,
         period: '/ měsíc',
         people: '16-30 lidí',
         description: 'Pro větší provozní týmy s více pracovníky a adminy.',
         features: ['zakázky a zákazníci', 'pracovníci a role', 'mobilní aplikace', 'fotky ze zakázek', 'kalendář a evidence práce', 'náklady a přehledy'],
       },
       {
-        name: 'Enterprise',
-        price: 'Individuálně',
-        people: 'Nad 30 lidí',
-        description: 'Pro týmy nad 30 lidí nebo specifické provozy.',
+        name: 'Scale',
+        price: commonPricing.scalePrice,
+        period: '/ měsíc',
+        people: '31-50 lidí',
+        description: 'Pro větší provozy, které chtějí stále jednoduché řízení práce.',
         features: ['zakázky a zákazníci', 'pracovníci a role', 'mobilní aplikace', 'fotky ze zakázek', 'kalendář a evidence práce', 'náklady a přehledy'],
       },
     ],
@@ -1979,30 +2003,28 @@ export const marketingContent: Record<Locale, MarketingContent> = {
     ],
     howPage: {
       eyebrow: 'Jak to funguje',
-      title: 'Od zákazníka po hotovou zakázku bez zbytečností.',
-      text: 'Rychle pochopíš, kde začít a co se děje dál.',
+      title: 'Od poptávky po fakturu v jednom toku.',
+      text: 'Poptávka, nabídka, zakázka, mobil pracovníka, náklady, faktura i zákaznický přehled drží pohromadě.',
       cards: [
-        { title: 'Pracovník ví, kam jet', text: 'V mobilu vidí práci, adresu, poznámky a termín.' },
-        { title: 'Fotky jsou u práce', text: 'Před/po fotky se ukládají k zakázce, ne do chatu.' },
-        { title: 'Admin má klidnější den', text: 'Vidí stav práce, čas i náklady bez obvolávání.' },
+        { title: 'Mobil je součást provozu', text: 'Pracovník vidí práci, potvrdí výsledek a nahraje fotky přímo v terénu.' },
+        { title: 'Ekonomika je u zakázky', text: 'Čas, náklady a orientační zisk jsou vidět bez hledání v tabulkách.' },
+        { title: 'Portál je volitelný doplněk', text: 'Webový balíček přidá poptávky z webu a zákaznický přehled.' },
       ],
     },
     howItWorksSteps: [
-      'Vytvoříš firmu',
-      'Přidáš pracovníky',
-      'Přidáš zákazníka',
-      'Vytvoříš zakázku',
-      'Přiřadíš pracovníky',
+      'Poptávka přijde do Diriqo',
+      'Odešleš chytrou nabídku',
+      'Ze schválené nabídky vznikne zakázka',
       'Pracovník vidí práci v mobilu',
-      'Nahraje fotky a čas',
-      'Admin zkontroluje výsledek',
-      'Zakázka se uzavře',
-      'Vidíš přehled práce a nákladů',
+      'Potvrdí práci, čas a fotky',
+      'Vidíš náklady a zisk',
+      'Odešleš fakturu',
+      'Zákazník má vlastní přehled',
     ],
     industriesPage: {
       eyebrow: 'Obory',
-      title: 'Diriqo není jen pro jednu oblast.',
-      text: 'Hodí se všude, kde se práce plánuje, dělá v terénu a potřebuje fotky, čas, lidi a přehled.',
+      title: 'Diriqo se hodí pro každého, kdo dělá zakázky.',
+      text: 'Není vázané na jeden obor. Hodí se všude, kde se práce plánuje, dělá u zákazníka nebo v terénu a potřebuje fotky, čas, lidi, náklady a přehled.',
     },
     industryDetails: [
       {
@@ -2021,6 +2043,11 @@ export const marketingContent: Record<Locale, MarketingContent> = {
         points: ['plánování lidí', 'materiál a náklady', 'stav zakázky', 'fotodokumentace'],
       },
       {
+        title: 'Řemeslníci',
+        text: 'Menší zakázky, výjezdy k zákazníkům, fotky práce a přehled, co je hotové.',
+        points: ['výjezdy k zákazníkům', 'menší zakázky', 'fotky práce', 'čas a náklady'],
+      },
+      {
         title: 'Stavební a dokončovací práce',
         text: 'Zakázky běží více dní, pracuje na nich více lidí a výsledek je potřeba předat.',
         points: ['více dní', 'více lidí', 'postup prací', 'předávací fotky'],
@@ -2031,6 +2058,126 @@ export const marketingContent: Record<Locale, MarketingContent> = {
         points: ['opakované práce', 'požadavky zákazníků', 'kontrola splnění'],
       },
     ],
+    industriesSeo: {
+      title: 'Pro jaké firmy je Diriqo vhodné',
+      intro:
+        'Diriqo je pro firmy a týmy, které nepracují jen u jednoho stolu. Pomáhá plánovat zakázky, posílat lidi do terénu, ukládat fotky, hlídat čas, náklady a stav práce.',
+      groups: [
+        {
+          title: 'Úklid a facility',
+          intro: 'Hodí se pro úklidové a facility provozy, kde je potřeba dokazovat výsledek, plánovat opakované práce a mít fotky u správné zakázky.',
+          professions: [
+            'úklidové firmy',
+            'generální úklidy',
+            'postavební úklidy',
+            'mytí oken',
+            'čištění podlah',
+            'průmyslové čištění',
+            'specializované čištění',
+            'údržba objektů',
+            'facility management',
+            'správa budov',
+            'technická správa objektů',
+            'výškové práce',
+            'dezinfekce',
+            'deratizace',
+          ],
+        },
+        {
+          title: 'Řemeslníci',
+          intro: 'Jako software pro řemeslníky pomáhá Diriqo udržet přehled o výjezdech, zakázkách, fotkách, materiálu, čase a komunikaci se zákazníkem.',
+          professions: [
+            'malíři',
+            'podlaháři',
+            'elektrikáři',
+            'instalatéři',
+            'topenáři',
+            'truhláři',
+            'zámečníci',
+            'obkladači',
+            'sádrokartonáři',
+            'klempíři',
+            'pokrývači',
+            'zedníci',
+            'fasádníci',
+            'hodinoví manželé',
+            'zahradníci',
+            'kominíci',
+            'servisní technici',
+          ],
+        },
+        {
+          title: 'Stavby a montáže',
+          intro: 'Pro stavební a montážní týmy slouží Diriqo jako software pro stavební firmy, evidence zakázek a jednoduché plánování lidí na práci.',
+          professions: [
+            'stavební firmy',
+            'dokončovací práce',
+            'montážní firmy',
+            'montážní technici',
+            'instalační firmy',
+            'montáže nábytku',
+            'montáže kuchyní',
+            'montáže technologií',
+            'rekuperace',
+            'klimatizace',
+            'vzduchotechnika',
+            'HVAC firmy',
+            'montáže ocelových konstrukcí',
+            'lešenářské práce',
+          ],
+        },
+        {
+          title: 'Servis',
+          intro: 'Jako systém pro servisní firmy a aplikace pro techniky pomáhá Diriqo řešit termíny, historii práce, fotodokumentaci zakázek a stav každého výjezdu.',
+          professions: [
+            'servis klimatizací',
+            'servis kotlů',
+            'servis tepelných čerpadel',
+            'servis elektro zařízení',
+            'servis strojů',
+            'revizní technici',
+            'technické kontroly',
+            'údržba zařízení',
+          ],
+        },
+        {
+          title: 'Další provozní týmy',
+          intro: 'Diriqo využijí i další firmy, které plánují práci lidí, řeší zákazníky, úkoly, fotky, čas a přehled nákladů mimo kancelář.',
+          professions: [
+            'autoservisy',
+            'detailing',
+            'pneuservisy',
+            'stěhovací firmy',
+            'rozvozové firmy',
+            'catering',
+            'pekárny',
+            'výroba',
+            'skladové provozy',
+            'bezpečnostní služby',
+            'ostraha objektů',
+          ],
+        },
+      ],
+      seoText:
+        'Diriqo je vhodné pro firmy, které plánují zakázky, řídí pracovníky v terénu, potřebují evidovat docházku, fotodokumentaci, náklady, komunikaci se zákazníky a stav práce. Systém využijí malé firmy, živnostníci i větší týmy s více pracovníky. Pomáhá jako systém pro zakázky, aplikace pro pracovníky v terénu, software pro úklidové firmy, systém pro servisní firmy, software pro řemeslníky i jednoduchý nástroj pro řízení zakázek.',
+      problemsTitle: 'Jaké problémy Diriqo řeší',
+      problemsIntro:
+        'Nejde o složitý firemní systém. Diriqo dává běžné provozní věci na jedno místo, aby se práce nemusela skládat z telefonu, chatu a tabulek.',
+      problems: [
+        'chaos ve WhatsAppu',
+        'nepřehledné Excel tabulky',
+        'ztracené fotky zakázek',
+        'nejasná docházka pracovníků',
+        'chybějící přehled nákladů',
+        'špatná komunikace mezi pracovníky',
+        'ztracené cenové nabídky',
+        'nepořádek v zakázkách',
+        'nejasný stav práce',
+        'chybějící historie zakázek',
+        'plánování pracovníků bez přehledu',
+        'docházka zaměstnanců mimo zakázky',
+      ],
+    },
     demoPage: {
       eyebrow: 'Demo',
       title: 'Podívej se na základní flow.',
@@ -2117,8 +2264,8 @@ export const marketingContent: Record<Locale, MarketingContent> = {
     meta: {
       home: { title: 'Diriqo - Finally simple job management', description: 'A simple system for jobs, workers, photos, hours, customers and cost overview.' },
       features: { title: 'Diriqo Features - jobs, people, photos and work overview', description: 'Modules for jobs, workers, mobile work, photos, hours, calendar, customers, costs and portal.' },
-      howItWorks: { title: 'How Diriqo works - a simple guide', description: 'From company setup to workers, customers, jobs, photos, time and work overview.' },
-      pricing: { title: 'Diriqo Pricing - simple price by team size', description: 'Starter, Growth, Business, Scale, Enterprise and Custom plans by number of workers.' },
+      howItWorks: { title: 'How Diriqo works - a simple guide', description: 'From inquiry to quote, job, worker mobile app, costs, invoice and customer overview.' },
+      pricing: { title: 'Diriqo Pricing - simple price by team size', description: 'Starter, Growth, Business and Scale plans for teams up to 50 workers. Larger operations can use a custom setup.' },
       industries: { title: 'Who Diriqo is for - cleaning, service, installation and facility teams', description: 'Diriqo helps field teams in cleaning, service, installation, construction and facility management.' },
       demo: { title: 'Diriqo Demo - job management preview', description: 'A preview of the basic Diriqo flow: dashboard, job, mobile app, photos and worker time.' },
       contact: { title: 'Contact Diriqo', description: 'Contact Diriqo about a trial, setup, website, customer portal or product questions.' },
@@ -2171,12 +2318,12 @@ export const marketingContent: Record<Locale, MarketingContent> = {
       { title: 'Customers', text: 'Contacts, job history and notes in one place.' },
       { title: 'Quotes and inquiries', text: 'From inquiry to quote to work without copying data.' },
     ],
-    industries: ['Cleaning companies', 'Service companies', 'Installations', 'Construction crews', 'Facility management', 'Small operations teams'],
+    industries: ['Cleaning companies', 'Service companies', 'Installations', 'Tradespeople', 'Construction crews', 'Facility management', 'Small operations teams'],
     pricingPlans: [
       { name: 'Starter', price: commonPricing.starterPrice, period: '/ month', people: 'Up to 5 people', description: 'For small teams and new companies.', features: ['jobs', 'customers', 'workers', 'mobile app', 'photos', 'basic overview'] },
       { name: 'Growth', price: commonPricing.growthPrice, period: '/ month', people: '6-15 people', description: 'For companies that need clear control of people and work.', featured: true, features: ['everything in Starter', 'calendar', 'work records', 'job costs', 'better overviews'] },
-      { name: 'Scale', price: commonPricing.scalePrice, period: '/ month', people: '16-30 people', description: 'For larger operations teams.', features: ['everything in Growth', 'more admins', 'extended statistics', 'higher limits', 'better operations overview'] },
-      { name: 'Enterprise', price: 'Custom', people: 'Over 30 people', description: 'For larger teams and specific operations.', features: ['custom agreement', 'onboarding', 'larger teams', 'specific needs'] },
+      { name: 'Business', price: commonPricing.businessPrice, period: '/ month', people: '16-30 people', description: 'For established service companies with larger operations.', features: ['jobs', 'customers', 'workers', 'mobile app', 'photos', 'calendar', 'work records', 'job costs', 'reports'] },
+      { name: 'Scale', price: commonPricing.scalePrice, period: '/ month', people: '31-50 people', description: 'For larger service teams that still want simple operations management.', features: ['jobs', 'customers', 'workers', 'mobile app', 'photos', 'calendar', 'work records', 'job costs', 'reports'] },
     ],
     addon: { title: 'Website & Customer Portal', price: `${commonPricing.addonPrice} setup`, description: 'For companies that want to manage work, win inquiries and give customers a professional portal.', features: ['company website', 'inquiry forms', 'Diriqo connection', 'customer portal', 'public quotes', 'company branding'], note: 'The price is indicative and can vary by website and portal scope.' },
     faqs: [
@@ -2200,16 +2347,137 @@ export const marketingContent: Record<Locale, MarketingContent> = {
       { title: 'Costs and profit', solves: 'The owner does not know if a job paid off.', helps: 'You see rough costs, work and result without a complex spreadsheet.', example: 'After finishing, you check price, hours and materials.' },
       { title: 'Quotes, inquiries and portal', solves: 'Inquiries and quotes do not get lost in email.', helps: 'A customer request can become the next step in the system.', example: 'A new website inquiry becomes a customer and prepared quote.' },
     ],
-    howPage: { eyebrow: 'How it works', title: 'From customer to finished job without extra noise.', text: 'You quickly understand where to start and what happens next.', cards: [{ title: 'Worker knows where to go', text: 'They see work, address, notes and date on mobile.' }, { title: 'Photos stay with the job', text: 'Before/after photos are saved to the job, not to chat.' }, { title: 'Admin has a calmer day', text: 'They see job status, time and costs without calling everyone.' }] },
-    howItWorksSteps: ['Create a company', 'Add workers', 'Add a customer', 'Create a job', 'Assign workers', 'Worker sees work on mobile', 'Uploads photos and time', 'Admin checks the result', 'Job is closed', 'You see work and cost overview'],
-    industriesPage: { eyebrow: 'Industries', title: 'Diriqo is not just for one industry.', text: 'It fits any work that is planned, done in the field and needs photos, time, people and overview.' },
+    howPage: { eyebrow: 'How it works', title: 'From inquiry to invoice in one flow.', text: 'Inquiry, quote, job, worker mobile app, costs, invoice and customer overview stay connected.', cards: [{ title: 'Mobile is part of operations', text: 'Workers see the job, confirm the result and upload photos in the field.' }, { title: 'Job economics stay visible', text: 'Time, costs and estimated profit stay with the job.' }, { title: 'Portal is optional', text: 'The website package adds website inquiries and a customer overview.' }] },
+    howItWorksSteps: ['Inquiry comes into Diriqo', 'Send a smart quote', 'Approved quote becomes a job', 'Worker sees the job on mobile', 'Worker confirms time and photos', 'You see costs and profit', 'Send the invoice', 'Customer has their own overview'],
+    industriesPage: { eyebrow: 'Industries', title: 'Diriqo fits anyone who works with jobs.', text: 'It is not tied to one industry. It fits wherever work is planned, done at customer sites or in the field, and needs photos, time, people, costs and overview.' },
     industryDetails: [
       { title: 'Cleaning companies', text: 'Many jobs per day, before/after photos and customers who want proof.', points: ['before/after photos', 'work checks', 'attendance', 'many jobs per day', 'proof for customer'] },
       { title: 'Service companies', text: 'Field technicians need clear dates, addresses and work history.', points: ['field technicians', 'appointments', 'customers', 'work history'] },
       { title: 'Installation companies', text: 'People planning, job status and photo documentation without chat chaos.', points: ['people planning', 'materials and costs', 'job status', 'photo documentation'] },
+      { title: 'Tradespeople', text: 'Smaller jobs, customer visits, work photos and a clear view of what is done.', points: ['customer visits', 'small jobs', 'work photos', 'time and costs'] },
       { title: 'Construction and finishing work', text: 'Jobs run for several days, with more people and handover photos.', points: ['multiple days', 'multiple people', 'work progress', 'handover photos'] },
       { title: 'Facility management', text: 'Recurring work, customer requests and checks that work is done.', points: ['recurring work', 'customer requests', 'completion checks'] },
     ],
+    industriesSeo: {
+      title: 'What types of companies Diriqo fits',
+      intro:
+        'Diriqo is for companies and teams that do not work from one desk all day. It helps plan jobs, send people into the field, store photos, track time, costs and work status.',
+      groups: [
+        {
+          title: 'Cleaning and facility',
+          intro: 'Useful for cleaning and facility teams that need proof of work, recurring jobs and photos saved with the right job.',
+          professions: [
+            'cleaning companies',
+            'deep cleaning',
+            'post-construction cleaning',
+            'window cleaning',
+            'floor cleaning',
+            'industrial cleaning',
+            'specialized cleaning',
+            'property maintenance',
+            'facility management',
+            'building management',
+            'technical building management',
+            'work at heights',
+            'disinfection',
+            'pest control',
+          ],
+        },
+        {
+          title: 'Tradespeople',
+          intro: 'As software for tradespeople, Diriqo keeps customer visits, jobs, photos, materials, time and customer communication in one place.',
+          professions: [
+            'painters',
+            'floor layers',
+            'electricians',
+            'plumbers',
+            'heating engineers',
+            'carpenters',
+            'locksmiths',
+            'tilers',
+            'drywall installers',
+            'sheet metal workers',
+            'roofers',
+            'bricklayers',
+            'facade workers',
+            'handyman services',
+            'gardeners',
+            'chimney sweeps',
+            'service technicians',
+          ],
+        },
+        {
+          title: 'Construction and installation',
+          intro: 'For construction and installation teams, Diriqo works as job management software, job records and simple worker scheduling.',
+          professions: [
+            'construction companies',
+            'finishing work',
+            'installation companies',
+            'installation technicians',
+            'fitting companies',
+            'furniture assembly',
+            'kitchen installation',
+            'technology installation',
+            'heat recovery systems',
+            'air conditioning',
+            'ventilation',
+            'HVAC companies',
+            'steel structure installation',
+            'scaffolding work',
+          ],
+        },
+        {
+          title: 'Service',
+          intro: 'As a system for service companies and an app for technicians, Diriqo helps with appointments, work history, job photos and the status of each visit.',
+          professions: [
+            'air conditioning service',
+            'boiler service',
+            'heat pump service',
+            'electrical equipment service',
+            'machine service',
+            'inspection technicians',
+            'technical inspections',
+            'equipment maintenance',
+          ],
+        },
+        {
+          title: 'Other operations teams',
+          intro: 'Diriqo also fits teams that plan people, handle customers, tasks, photos, time and costs outside the office.',
+          professions: [
+            'car repair shops',
+            'detailing',
+            'tire services',
+            'moving companies',
+            'delivery companies',
+            'catering',
+            'bakeries',
+            'production',
+            'warehouse operations',
+            'security services',
+            'property security',
+          ],
+        },
+      ],
+      seoText:
+        'Diriqo is suitable for companies that plan jobs, manage workers in the field, track attendance, job photos, costs, customer communication and work status. Small businesses, sole traders and larger teams with more workers can use it as job management software, a field worker app, software for cleaning companies, a system for service companies, software for tradespeople and a simple tool for operational job control.',
+      problemsTitle: 'Problems Diriqo solves',
+      problemsIntro:
+        'It is not a heavy company system. Diriqo puts everyday operations in one place, so work does not have to be pieced together from calls, chats and spreadsheets.',
+      problems: [
+        'chaos in WhatsApp',
+        'messy Excel sheets',
+        'lost job photos',
+        'unclear worker attendance',
+        'missing cost overview',
+        'poor communication between workers',
+        'lost quotes',
+        'messy job records',
+        'unclear work status',
+        'missing job history',
+        'worker scheduling without overview',
+        'employee attendance outside jobs',
+      ],
+    },
     demoPage: { eyebrow: 'Demo', title: 'See the basic flow.', text: 'Demo mode is coming soon. For now, create a test account and see how Diriqo handles jobs, people, photos and time.', samplesTitle: 'Previews', dashboardTitle: 'Owner dashboard', dashboardText: 'Today’s jobs, people, hours and rough result.', mobileTitle: 'Worker mobile app', mobileText: 'Work on mobile, photos and time without complex training.' },
     contactPage: { eyebrow: 'Contact', title: 'Tell us what you need to manage.', text: 'We will get back to you about Diriqo trial, company setup or the Website & Customer Portal add-on.', setupTitle: 'I want help with setup', setupText: 'Describe your company, team size and type of work. We will suggest a simple start.', support: 'Support', form: { name: 'Name', email: 'E-mail', company: 'Company', message: 'Message', submit: 'Send' } },
     legal: {
@@ -2241,8 +2509,8 @@ export const marketingContent: Record<Locale, MarketingContent> = {
     meta: {
       home: { title: 'Diriqo - Endlich einfache Steuerung von Aufträgen', description: 'Ein einfaches System für Aufträge, Mitarbeiter, Fotos, Stunden, Kunden und Kostenüberblick.' },
       features: { title: 'Diriqo Funktionen - Aufträge, Menschen, Fotos und Überblick', description: 'Module für Aufträge, Mitarbeiter, mobile Arbeit, Fotos, Stunden, Kalender, Kunden, Kosten und Portal.' },
-      howItWorks: { title: 'So funktioniert Diriqo - einfache Anleitung', description: 'Von Firma und Mitarbeitern bis zu Kunden, Aufträgen, Fotos, Zeit und Überblick.' },
-      pricing: { title: 'Diriqo Preise - einfache Preise nach Teamgröße', description: 'Starter, Growth, Scale und Enterprise nach Anzahl der Personen.' },
+      howItWorks: { title: 'So funktioniert Diriqo - einfache Anleitung', description: 'Von Anfrage zu Angebot, Auftrag, mobiler App, Kosten, Rechnung und Kundenübersicht.' },
+      pricing: { title: 'Diriqo Preise - einfache Preise nach Teamgröße', description: 'Starter, Growth, Business und Scale für Teams bis 50 Mitarbeiter. Größere Betriebe bekommen ein individuelles Setup.' },
       industries: { title: 'Für wen ist Diriqo - Reinigung, Service, Montage und Objektbetreuung', description: 'Diriqo hilft Teams im Außendienst und vor Ort.' },
       demo: { title: 'Diriqo Demo - Vorschau des Systems', description: 'Vorschau auf Dashboard, Auftrag, mobile App, Fotos und Arbeitszeit.' },
       contact: { title: 'Kontakt Diriqo', description: 'Kontaktiere Diriqo für Testzugang, Einrichtung, Website, Kundenportal oder Fragen.' },
@@ -2295,12 +2563,12 @@ export const marketingContent: Record<Locale, MarketingContent> = {
       { title: 'Kunden', text: 'Kontakte, Auftragsverlauf und Notizen an einem Ort.' },
       { title: 'Angebote und Anfragen', text: 'Von Anfrage zu Angebot zu Arbeit ohne Kopieren.' },
     ],
-    industries: ['Reinigungsfirmen', 'Servicefirmen', 'Montage', 'Bauteams', 'Objektbetreuung', 'Kleine Betriebsteams'],
+    industries: ['Reinigungsfirmen', 'Servicefirmen', 'Montage', 'Handwerker', 'Bauteams', 'Objektbetreuung', 'Kleine Betriebsteams'],
     pricingPlans: [
       { name: 'Starter', price: commonPricing.starterPrice, period: '/ Monat', people: 'Bis 5 Personen', description: 'Für kleine Teams und junge Firmen.', features: ['Aufträge', 'Kunden', 'Mitarbeiter', 'mobile App', 'Fotos', 'Basisüberblick'] },
       { name: 'Growth', price: commonPricing.growthPrice, period: '/ Monat', people: '6-15 Personen', description: 'Für Firmen, die Menschen und Arbeit klar steuern müssen.', featured: true, features: ['alles aus Starter', 'Kalender', 'Arbeitsnachweise', 'Auftragskosten', 'bessere Übersichten'] },
-      { name: 'Scale', price: commonPricing.scalePrice, period: '/ Monat', people: '16-30 Personen', description: 'Für größere operative Teams.', features: ['alles aus Growth', 'mehr Admins', 'erweiterte Statistiken', 'höhere Limits', 'besserer Betriebsüberblick'] },
-      { name: 'Enterprise', price: 'Individuell', people: 'Über 30 Personen', description: 'Für größere Teams und besondere Abläufe.', features: ['individuelle Vereinbarung', 'Onboarding', 'größere Teams', 'spezifische Anforderungen'] },
+      { name: 'Business', price: commonPricing.businessPrice, period: '/ Monat', people: '16-30 Personen', description: 'Für etablierte Servicefirmen mit größerem Betrieb.', features: ['Aufträge', 'Kunden', 'Mitarbeiter', 'mobile App', 'Fotos', 'Kalender', 'Arbeitserfassung', 'Auftragskosten', 'Auswertungen'] },
+      { name: 'Scale', price: commonPricing.scalePrice, period: '/ Monat', people: '31-50 Personen', description: 'Für größere Teams, die einfache Betriebssteuerung behalten wollen.', features: ['Aufträge', 'Kunden', 'Mitarbeiter', 'mobile App', 'Fotos', 'Kalender', 'Arbeitserfassung', 'Auftragskosten', 'Auswertungen'] },
     ],
     addon: { title: 'Website & Customer Portal', price: `${commonPricing.addonPrice} Einrichtung`, description: 'Für Firmen, die Arbeit steuern, Anfragen gewinnen und Kunden ein professionelles Portal geben wollen.', features: ['Firmenwebsite', 'Anfrageformulare', 'Diriqo Anbindung', 'Kundenportal', 'öffentliche Angebote', 'Branding'], note: 'Der Preis ist Richtwert und kann je nach Umfang variieren.' },
     faqs: [
@@ -2324,16 +2592,137 @@ export const marketingContent: Record<Locale, MarketingContent> = {
       { title: 'Kosten und Gewinn', solves: 'Der Chef weiß nicht, ob sich ein Auftrag lohnt.', helps: 'Grobe Kosten und Ergebnis ohne komplizierte Tabelle.', example: 'Nach Abschluss prüfst du Preis, Stunden und Material.' },
       { title: 'Angebote, Anfragen und Portal', solves: 'Anfragen und Angebote gehen nicht in E-Mails verloren.', helps: 'Eine Kundenanfrage wird zum nächsten Schritt.', example: 'Eine Web-Anfrage wird Kunde und vorbereitetes Angebot.' },
     ],
-    howPage: { eyebrow: 'So funktioniert es', title: 'Vom Kunden bis zum fertigen Auftrag ohne Ballast.', text: 'Du verstehst schnell, womit du startest und was danach passiert.', cards: [{ title: 'Mitarbeiter weiß, wohin', text: 'Mobil sieht er Arbeit, Adresse, Notizen und Termin.' }, { title: 'Fotos bleiben beim Auftrag', text: 'Vorher/Nachher-Fotos landen nicht im Chat.' }, { title: 'Admin hat mehr Ruhe', text: 'Status, Zeit und Kosten sind sichtbar.' }] },
-    howItWorksSteps: ['Firma erstellen', 'Mitarbeiter hinzufügen', 'Kunden hinzufügen', 'Auftrag erstellen', 'Mitarbeiter zuweisen', 'Mitarbeiter sieht Arbeit mobil', 'Fotos und Zeit hochladen', 'Admin prüft Ergebnis', 'Auftrag schließen', 'Überblick über Arbeit und Kosten sehen'],
-    industriesPage: { eyebrow: 'Branchen', title: 'Diriqo ist nicht nur für eine Branche.', text: 'Es passt überall, wo Arbeit geplant, vor Ort erledigt und mit Fotos, Zeit und Menschen gesteuert wird.' },
+    howPage: { eyebrow: 'So funktioniert es', title: 'Von Anfrage bis Rechnung in einem Ablauf.', text: 'Anfrage, Angebot, Auftrag, mobile App, Kosten, Rechnung und Kundenübersicht bleiben verbunden.', cards: [{ title: 'Mobil gehört zum Betrieb', text: 'Mitarbeiter sehen den Auftrag, bestätigen das Ergebnis und laden Fotos vor Ort hoch.' }, { title: 'Wirtschaftlichkeit bleibt sichtbar', text: 'Zeit, Kosten und geschätzter Gewinn bleiben beim Auftrag.' }, { title: 'Portal ist optional', text: 'Das Website-Paket ergänzt Website-Anfragen und Kundenübersicht.' }] },
+    howItWorksSteps: ['Anfrage kommt in Diriqo', 'Smartes Angebot senden', 'Angenommenes Angebot wird Auftrag', 'Mitarbeiter sieht Auftrag mobil', 'Zeit und Fotos bestätigen', 'Kosten und Gewinn sehen', 'Rechnung senden', 'Kunde hat eigene Übersicht'],
+    industriesPage: { eyebrow: 'Branchen', title: 'Diriqo passt für alle, die Aufträge erledigen.', text: 'Es ist nicht an eine Branche gebunden. Es passt überall, wo Arbeit geplant, beim Kunden oder vor Ort erledigt wird und Fotos, Zeit, Menschen, Kosten und Überblick braucht.' },
     industryDetails: [
       { title: 'Reinigungsfirmen', text: 'Viele Jobs am Tag, Vorher/Nachher-Fotos und Kunden, die Nachweise wollen.', points: ['Vorher/Nachher-Fotos', 'Kontrolle', 'Anwesenheit', 'viele Jobs pro Tag', 'Nachweis'] },
       { title: 'Servicefirmen', text: 'Techniker brauchen klare Termine, Adressen und Verlauf.', points: ['Techniker', 'Termine', 'Kunden', 'Arbeitsverlauf'] },
       { title: 'Montagefirmen', text: 'Planung, Auftragsstatus und Fotodokumentation ohne Chat-Chaos.', points: ['Planung', 'Material und Kosten', 'Status', 'Fotos'] },
+      { title: 'Handwerker', text: 'Kleinere Aufträge, Kundentermine, Arbeitsfotos und Überblick, was erledigt ist.', points: ['Kundentermine', 'kleine Aufträge', 'Arbeitsfotos', 'Zeit und Kosten'] },
       { title: 'Bau und Ausbau', text: 'Mehrere Tage, mehrere Menschen und Fotos zur Übergabe.', points: ['mehrere Tage', 'mehrere Menschen', 'Fortschritt', 'Übergabefotos'] },
       { title: 'Objektbetreuung', text: 'Wiederkehrende Arbeiten, Kundenanforderungen und Abschlusskontrolle.', points: ['wiederkehrende Arbeit', 'Kundenanfragen', 'Kontrolle'] },
     ],
+    industriesSeo: {
+      title: 'Für welche Firmen Diriqo geeignet ist',
+      intro:
+        'Diriqo ist für Firmen und Teams, die nicht den ganzen Tag an einem Schreibtisch arbeiten. Es hilft bei Aufträgen, Mitarbeitern im Außendienst, Fotos, Zeiten, Kosten und Arbeitsstatus.',
+      groups: [
+        {
+          title: 'Reinigung und Facility',
+          intro: 'Geeignet für Reinigungs- und Facility-Teams, die Ergebnisse nachweisen, wiederkehrende Arbeiten planen und Fotos beim richtigen Auftrag speichern müssen.',
+          professions: [
+            'Reinigungsfirmen',
+            'Grundreinigungen',
+            'Bauendreinigungen',
+            'Fensterreinigung',
+            'Bodenreinigung',
+            'Industriereinigung',
+            'Spezialreinigung',
+            'Objektwartung',
+            'Facility Management',
+            'Gebäudeverwaltung',
+            'technische Objektbetreuung',
+            'Höhenarbeiten',
+            'Desinfektion',
+            'Schädlingsbekämpfung',
+          ],
+        },
+        {
+          title: 'Handwerker',
+          intro: 'Als Software für Handwerker hält Diriqo Einsätze, Aufträge, Fotos, Material, Zeit und Kundenkommunikation zusammen.',
+          professions: [
+            'Maler',
+            'Bodenleger',
+            'Elektriker',
+            'Installateure',
+            'Heizungsbauer',
+            'Tischler',
+            'Schlosser',
+            'Fliesenleger',
+            'Trockenbauer',
+            'Klempner',
+            'Dachdecker',
+            'Maurer',
+            'Fassadenbauer',
+            'Hausmeisterdienste',
+            'Gärtner',
+            'Schornsteinfeger',
+            'Servicetechniker',
+          ],
+        },
+        {
+          title: 'Bau und Montage',
+          intro: 'Für Bau- und Montageteams dient Diriqo als Software für Aufträge, Auftragsdokumentation und einfache Mitarbeiterplanung.',
+          professions: [
+            'Baufirmen',
+            'Ausbauarbeiten',
+            'Montagefirmen',
+            'Montagetechniker',
+            'Installationsfirmen',
+            'Möbelmontage',
+            'Küchenmontage',
+            'Technikmontage',
+            'Lüftungsanlagen mit Wärmerückgewinnung',
+            'Klimaanlagen',
+            'Lüftungstechnik',
+            'HVAC-Firmen',
+            'Stahlbaumontage',
+            'Gerüstbau',
+          ],
+        },
+        {
+          title: 'Service',
+          intro: 'Als System für Servicefirmen und App für Techniker hilft Diriqo mit Terminen, Arbeitsverlauf, Auftragsfotos und Status jedes Einsatzes.',
+          professions: [
+            'Klimaservice',
+            'Kesselservice',
+            'Wärmepumpenservice',
+            'Service für Elektrogeräte',
+            'Maschinenservice',
+            'Prüftechniker',
+            'technische Kontrollen',
+            'Gerätewartung',
+          ],
+        },
+        {
+          title: 'Weitere operative Teams',
+          intro: 'Diriqo passt auch für Teams, die Menschen, Kunden, Aufgaben, Fotos, Zeit und Kosten außerhalb des Büros steuern.',
+          professions: [
+            'Autowerkstätten',
+            'Fahrzeugaufbereitung',
+            'Reifenservice',
+            'Umzugsfirmen',
+            'Lieferdienste',
+            'Catering',
+            'Bäckereien',
+            'Produktion',
+            'Lagerbetriebe',
+            'Sicherheitsdienste',
+            'Objektschutz',
+          ],
+        },
+      ],
+      seoText:
+        'Diriqo eignet sich für Firmen, die Aufträge planen, Mitarbeiter im Außendienst steuern, Anwesenheit, Fotodokumentation, Kosten, Kundenkommunikation und Arbeitsstatus erfassen müssen. Kleine Firmen, Selbstständige und größere Teams nutzen es als System für Aufträge, App für Außendienstmitarbeiter, Software für Reinigungsfirmen, System für Servicefirmen, Software für Handwerker und einfaches Werkzeug zur Auftragssteuerung.',
+      problemsTitle: 'Welche Probleme Diriqo löst',
+      problemsIntro:
+        'Es ist kein schweres Firmensystem. Diriqo bringt alltägliche Abläufe an einen Ort, damit Arbeit nicht aus Telefon, Chat und Tabellen zusammengesetzt werden muss.',
+      problems: [
+        'Chaos in WhatsApp',
+        'unübersichtliche Excel-Tabellen',
+        'verlorene Auftragsfotos',
+        'unklare Anwesenheit der Mitarbeiter',
+        'fehlender Kostenüberblick',
+        'schlechte Kommunikation im Team',
+        'verlorene Angebote',
+        'Unordnung in Aufträgen',
+        'unklarer Arbeitsstatus',
+        'fehlende Auftragshistorie',
+        'Mitarbeiterplanung ohne Überblick',
+        'Arbeitszeiten außerhalb von Aufträgen',
+      ],
+    },
     demoPage: { eyebrow: 'Demo', title: 'Sieh dir den Grundablauf an.', text: 'Der Demo-Modus ist in Vorbereitung. Bis dahin kannst du ein Testkonto erstellen und Diriqo ausprobieren.', samplesTitle: 'Vorschau', dashboardTitle: 'Dashboard des Inhabers', dashboardText: 'Heutige Aufträge, Menschen, Stunden und grobes Ergebnis.', mobileTitle: 'Mobile App für Mitarbeiter', mobileText: 'Arbeit, Fotos und Zeit mobil ohne komplizierte Schulung.' },
     contactPage: { eyebrow: 'Kontakt', title: 'Sag uns, was du steuern willst.', text: 'Wir melden uns zum Test, zur Einrichtung oder zum Website & Customer Portal Add-on.', setupTitle: 'Ich möchte Hilfe beim Start', setupText: 'Beschreibe Firma, Teamgröße und Art der Arbeit. Wir schlagen einen einfachen Start vor.', support: 'Support', form: { name: 'Name', email: 'E-Mail', company: 'Firma', message: 'Nachricht', submit: 'Senden' } },
     legal: {
@@ -2365,8 +2754,8 @@ export const marketingContent: Record<Locale, MarketingContent> = {
     meta: {
       home: { title: 'Diriqo - wreszcie proste zarządzanie zleceniami', description: 'Prosty system do zleceń, pracowników, zdjęć, godzin, klientów i kosztów.' },
       features: { title: 'Funkcje Diriqo - zlecenia, ludzie, zdjęcia i przegląd pracy', description: 'Moduły dla zleceń, pracowników, telefonu, zdjęć, godzin, kalendarza, klientów i kosztów.' },
-      howItWorks: { title: 'Jak działa Diriqo - prosty przewodnik', description: 'Od firmy i pracowników do klienta, zlecenia, zdjęć, czasu i przeglądu pracy.' },
-      pricing: { title: 'Cennik Diriqo - prosta cena według wielkości zespołu', description: 'Plany Starter, Growth, Scale i Enterprise według liczby osób.' },
+      howItWorks: { title: 'Jak działa Diriqo - prosty przewodnik', description: 'Od zapytania przez ofertę, zlecenie, aplikację mobilną, koszty i fakturę po widok klienta.' },
+      pricing: { title: 'Cennik Diriqo - prosta cena według wielkości zespołu', description: 'Plany Starter, Growth, Business i Scale dla zespołów do 50 pracowników. Większe operacje mają indywidualne ustawienie.' },
       industries: { title: 'Dla kogo jest Diriqo - sprzątanie, serwis, montaże i obsługa obiektów', description: 'Diriqo pomaga firmom pracującym w terenie.' },
       demo: { title: 'Demo Diriqo - podgląd systemu', description: 'Podgląd flow: dashboard, zlecenie, aplikacja mobilna, zdjęcia i czas.' },
       contact: { title: 'Kontakt Diriqo', description: 'Skontaktuj się w sprawie testu, konfiguracji, strony, portalu klienta lub pytań.' },
@@ -2419,12 +2808,12 @@ export const marketingContent: Record<Locale, MarketingContent> = {
       { title: 'Klienci', text: 'Kontakty, historia zleceń i notatki w jednym miejscu.' },
       { title: 'Oferty i zapytania', text: 'Od zapytania przez ofertę do pracy bez przepisywania.' },
     ],
-    industries: ['Firmy sprzątające', 'Firmy serwisowe', 'Montaże', 'Ekipy budowlane', 'Obsługa obiektów', 'Małe zespoły operacyjne'],
+    industries: ['Firmy sprzątające', 'Firmy serwisowe', 'Montaże', 'Rzemieślnicy', 'Ekipy budowlane', 'Obsługa obiektów', 'Małe zespoły operacyjne'],
     pricingPlans: [
       { name: 'Starter', price: commonPricing.starterPrice, period: '/ miesiąc', people: 'Do 5 osób', description: 'Dla małych zespołów i nowych firm.', features: ['zlecenia', 'klienci', 'pracownicy', 'aplikacja mobilna', 'zdjęcia', 'podstawowy przegląd'] },
       { name: 'Growth', price: commonPricing.growthPrice, period: '/ miesiąc', people: '6-15 osób', description: 'Dla firm, które muszą jasno prowadzić ludzi i pracę.', featured: true, features: ['wszystko ze Starter', 'kalendarz', 'ewidencja pracy', 'koszty zleceń', 'lepsze przeglądy'] },
-      { name: 'Scale', price: commonPricing.scalePrice, period: '/ miesiąc', people: '16-30 osób', description: 'Dla większych zespołów operacyjnych.', features: ['wszystko z Growth', 'więcej adminów', 'rozszerzone statystyki', 'wyższe limity', 'lepszy przegląd operacji'] },
-      { name: 'Enterprise', price: 'Indywidualnie', people: 'Powyżej 30 osób', description: 'Dla większych zespołów i specyficznych procesów.', features: ['indywidualne ustalenia', 'onboarding', 'większe zespoły', 'specyficzne wymagania'] },
+      { name: 'Business', price: commonPricing.businessPrice, period: '/ miesiąc', people: '16-30 osób', description: 'Dla stabilnych firm usługowych z większym operacyjnym ruchem.', features: ['zlecenia', 'klienci', 'pracownicy', 'aplikacja mobilna', 'zdjęcia', 'kalendarz', 'ewidencja pracy', 'koszty zleceń', 'raporty'] },
+      { name: 'Scale', price: commonPricing.scalePrice, period: '/ miesiąc', people: '31-50 osób', description: 'Dla większych zespołów, które chcą zachować proste zarządzanie.', features: ['zlecenia', 'klienci', 'pracownicy', 'aplikacja mobilna', 'zdjęcia', 'kalendarz', 'ewidencja pracy', 'koszty zleceń', 'raporty'] },
     ],
     addon: { title: 'Website & Customer Portal', price: `${commonPricing.addonPrice} setup`, description: 'Dla firm, które chcą zarządzać pracą, zdobywać zapytania i dać klientom profesjonalny portal.', features: ['strona firmowa', 'formularze zapytań', 'połączenie z Diriqo', 'portal klienta', 'publiczne oferty', 'branding firmy'], note: 'Cena jest orientacyjna i może zależeć od zakresu strony i portalu.' },
     faqs: [
@@ -2448,16 +2837,137 @@ export const marketingContent: Record<Locale, MarketingContent> = {
       { title: 'Koszty i zysk', solves: 'Właściciel nie wie, czy zlecenie się opłaciło.', helps: 'Widzisz koszty, pracę i wynik bez skomplikowanej tabeli.', example: 'Po zakończeniu sprawdzasz cenę, godziny i materiał.' },
       { title: 'Oferty, zapytania i portal', solves: 'Zapytania i oferty nie giną w e-mailu.', helps: 'Zapytanie klienta staje się kolejnym krokiem.', example: 'Zapytanie ze strony staje się klientem i ofertą.' },
     ],
-    howPage: { eyebrow: 'Jak to działa', title: 'Od klienta do zamkniętego zlecenia bez zbędnych kroków.', text: 'Szybko rozumiesz, od czego zacząć i co dzieje się dalej.', cards: [{ title: 'Pracownik wie, dokąd jechać', text: 'W telefonie widzi pracę, adres, notatki i termin.' }, { title: 'Zdjęcia są przy pracy', text: 'Zdjęcia przed/po zapisują się do zlecenia.' }, { title: 'Admin ma spokojniejszy dzień', text: 'Widoczny jest status, czas i koszty bez telefonów.' }] },
-    howItWorksSteps: ['Tworzysz firmę', 'Dodajesz pracowników', 'Dodajesz klienta', 'Tworzysz zlecenie', 'Przypisujesz pracowników', 'Pracownik widzi pracę w telefonie', 'Dodaje zdjęcia i czas', 'Admin sprawdza wynik', 'Zlecenie się zamyka', 'Widzisz pracę i koszty'],
-    industriesPage: { eyebrow: 'Branże', title: 'Diriqo nie jest tylko dla jednej branży.', text: 'Pasuje tam, gdzie praca jest planowana, wykonywana w terenie i potrzebuje zdjęć, czasu, ludzi i przeglądu.' },
+    howPage: { eyebrow: 'Jak to działa', title: 'Od zapytania do faktury w jednym flow.', text: 'Zapytanie, oferta, zlecenie, aplikacja mobilna, koszty, faktura i widok klienta są połączone.', cards: [{ title: 'Telefon jest częścią pracy', text: 'Pracownik widzi zlecenie, potwierdza wynik i dodaje zdjęcia w terenie.' }, { title: 'Ekonomia jest przy zleceniu', text: 'Czas, koszty i szacowany zysk zostają przy pracy.' }, { title: 'Portal jest opcjonalny', text: 'Pakiet webowy dodaje zapytania z webu i widok klienta.' }] },
+    howItWorksSteps: ['Zapytanie trafia do Diriqo', 'Wysyłasz inteligentną ofertę', 'Zaakceptowana oferta staje się zleceniem', 'Pracownik widzi zlecenie w telefonie', 'Potwierdza czas i zdjęcia', 'Widzisz koszty i zysk', 'Wysyłasz fakturę', 'Klient ma własny przegląd'],
+    industriesPage: { eyebrow: 'Branże', title: 'Diriqo pasuje do każdego, kto realizuje zlecenia.', text: 'Nie jest przypisane do jednej branży. Pasuje wszędzie tam, gdzie praca jest planowana, wykonywana u klienta lub w terenie i potrzebuje zdjęć, czasu, ludzi, kosztów oraz przeglądu.' },
     industryDetails: [
       { title: 'Firmy sprzątające', text: 'Wiele zleceń dziennie, zdjęcia przed/po i klient, który chce dowód.', points: ['zdjęcia przed/po', 'kontrola pracy', 'obecność', 'wiele zleceń', 'dowód dla klienta'] },
       { title: 'Firmy serwisowe', text: 'Technicy w terenie potrzebują terminów, adresów i historii.', points: ['technicy', 'terminy', 'klienci', 'historia prac'] },
       { title: 'Firmy montażowe', text: 'Planowanie ludzi, status zlecenia i dokumentacja bez chaosu w czacie.', points: ['planowanie', 'materiał i koszty', 'status', 'zdjęcia'] },
+      { title: 'Rzemieślnicy', text: 'Mniejsze zlecenia, wyjazdy do klientów, zdjęcia pracy i jasny status wykonania.', points: ['wyjazdy do klientów', 'mniejsze zlecenia', 'zdjęcia pracy', 'czas i koszty'] },
       { title: 'Budowa i wykończenia', text: 'Prace trwają kilka dni, z wieloma ludźmi i zdjęciami odbioru.', points: ['wiele dni', 'wiele osób', 'postęp', 'zdjęcia odbioru'] },
       { title: 'Obsługa obiektów', text: 'Prace cykliczne, zgłoszenia klientów i kontrola wykonania.', points: ['prace cykliczne', 'zgłoszenia', 'kontrola'] },
     ],
+    industriesSeo: {
+      title: 'Dla jakich firm Diriqo jest odpowiednie',
+      intro:
+        'Diriqo jest dla firm i zespołów, które nie pracują cały dzień przy jednym biurku. Pomaga planować zlecenia, wysyłać ludzi w teren, zapisywać zdjęcia, czas, koszty i status pracy.',
+      groups: [
+        {
+          title: 'Sprzątanie i facility',
+          intro: 'Pasuje do zespołów sprzątających i facility, które muszą pokazać efekt pracy, planować prace cykliczne i trzymać zdjęcia przy właściwym zleceniu.',
+          professions: [
+            'firmy sprzątające',
+            'sprzątanie generalne',
+            'sprzątanie po budowie',
+            'mycie okien',
+            'czyszczenie podłóg',
+            'czyszczenie przemysłowe',
+            'czyszczenie specjalistyczne',
+            'utrzymanie obiektów',
+            'facility management',
+            'zarządzanie budynkami',
+            'techniczne utrzymanie obiektów',
+            'prace wysokościowe',
+            'dezynfekcja',
+            'deratyzacja',
+          ],
+        },
+        {
+          title: 'Rzemieślnicy',
+          intro: 'Jako oprogramowanie dla rzemieślników Diriqo porządkuje wyjazdy, zlecenia, zdjęcia, materiały, czas i komunikację z klientem.',
+          professions: [
+            'malarze',
+            'posadzkarze',
+            'elektrycy',
+            'hydraulicy',
+            'instalatorzy ogrzewania',
+            'stolarze',
+            'ślusarze',
+            'glazurnicy',
+            'monterzy płyt g-k',
+            'blacharze',
+            'dekarze',
+            'murarze',
+            'elewatorzy',
+            'złote rączki',
+            'ogrodnicy',
+            'kominiarze',
+            'technicy serwisowi',
+          ],
+        },
+        {
+          title: 'Budowa i montaże',
+          intro: 'Dla ekip budowlanych i montażowych Diriqo działa jako system do zleceń, ewidencja pracy i proste planowanie pracowników.',
+          professions: [
+            'firmy budowlane',
+            'prace wykończeniowe',
+            'firmy montażowe',
+            'technicy montażowi',
+            'firmy instalacyjne',
+            'montaż mebli',
+            'montaż kuchni',
+            'montaż technologii',
+            'rekuperacja',
+            'klimatyzacja',
+            'wentylacja',
+            'firmy HVAC',
+            'montaż konstrukcji stalowych',
+            'prace rusztowaniowe',
+          ],
+        },
+        {
+          title: 'Serwis',
+          intro: 'Jako system dla firm serwisowych i aplikacja dla techników Diriqo pomaga z terminami, historią pracy, zdjęciami zleceń i statusem każdego wyjazdu.',
+          professions: [
+            'serwis klimatyzacji',
+            'serwis kotłów',
+            'serwis pomp ciepła',
+            'serwis urządzeń elektrycznych',
+            'serwis maszyn',
+            'technicy przeglądów',
+            'kontrole techniczne',
+            'utrzymanie urządzeń',
+          ],
+        },
+        {
+          title: 'Inne zespoły operacyjne',
+          intro: 'Diriqo wykorzystają też firmy, które planują ludzi, obsługują klientów, zadania, zdjęcia, czas i koszty poza biurem.',
+          professions: [
+            'warsztaty samochodowe',
+            'detailing',
+            'serwisy opon',
+            'firmy przeprowadzkowe',
+            'firmy dostawcze',
+            'catering',
+            'piekarnie',
+            'produkcja',
+            'magazyny',
+            'usługi ochrony',
+            'ochrona obiektów',
+          ],
+        },
+      ],
+      seoText:
+        'Diriqo jest odpowiednie dla firm, które planują zlecenia, zarządzają pracownikami w terenie, potrzebują ewidencji obecności, fotodokumentacji zleceń, kosztów, komunikacji z klientami i statusu pracy. Małe firmy, jednoosobowe działalności i większe zespoły użyją go jako systemu do zleceń, aplikacji dla pracowników terenowych, oprogramowania dla firm sprzątających, systemu dla firm serwisowych, oprogramowania dla rzemieślników i prostego narzędzia do zarządzania pracą.',
+      problemsTitle: 'Jakie problemy rozwiązuje Diriqo',
+      problemsIntro:
+        'To nie jest ciężki system firmowy. Diriqo zbiera codzienne sprawy operacyjne w jednym miejscu, żeby pracy nie składać z telefonu, czatu i tabel.',
+      problems: [
+        'chaos w WhatsAppie',
+        'nieczytelne tabele Excel',
+        'zgubione zdjęcia zleceń',
+        'niejasna obecność pracowników',
+        'brak przeglądu kosztów',
+        'słaba komunikacja między pracownikami',
+        'zgubione oferty',
+        'bałagan w zleceniach',
+        'niejasny status pracy',
+        'brak historii zleceń',
+        'planowanie pracowników bez przeglądu',
+        'obecność poza zleceniami',
+      ],
+    },
     demoPage: { eyebrow: 'Demo', title: 'Zobacz podstawowe flow.', text: 'Tryb demo jest w przygotowaniu. Na razie możesz utworzyć konto testowe i przejść przez zlecenia, ludzi, zdjęcia i czas.', samplesTitle: 'Podglądy', dashboardTitle: 'Dashboard właściciela', dashboardText: 'Dzisiejsze zlecenia, ludzie, godziny i orientacyjny wynik.', mobileTitle: 'Telefon pracownika', mobileText: 'Praca, zdjęcia i czas bez skomplikowanego szkolenia.' },
     contactPage: { eyebrow: 'Kontakt', title: 'Napisz, czym chcesz zarządzać.', text: 'Odezwiemy się w sprawie testu Diriqo, konfiguracji firmy lub dodatku Website & Customer Portal.', setupTitle: 'Chcę pomoc w konfiguracji', setupText: 'Opisz firmę, liczbę osób i typ pracy. Zaproponujemy prosty start.', support: 'Wsparcie', form: { name: 'Imię', email: 'E-mail', company: 'Firma', message: 'Wiadomość', submit: 'Wyślij' } },
     legal: {
@@ -2489,8 +2999,8 @@ export const marketingContent: Record<Locale, MarketingContent> = {
     meta: {
       home: { title: 'Diriqo - végre egyszerű munkakezelés', description: 'Egyszerű rendszer munkákhoz, dolgozókhoz, fotókhoz, órákhoz, ügyfelekhez és költségekhez.' },
       features: { title: 'Diriqo funkciók - munkák, emberek, fotók és áttekintés', description: 'Modulok munkákhoz, dolgozókhoz, mobilhoz, fotókhoz, órákhoz, naptárhoz, ügyfelekhez és költségekhez.' },
-      howItWorks: { title: 'Így működik a Diriqo - egyszerű útmutató', description: 'Cég, dolgozók, ügyfél, munka, fotók, idő és áttekintés.' },
-      pricing: { title: 'Diriqo árak - egyszerű ár csapatméret alapján', description: 'Starter, Growth, Scale és Enterprise csomagok létszám szerint.' },
+      howItWorks: { title: 'Így működik a Diriqo - egyszerű útmutató', description: 'Érdeklődéstől ajánlaton, munkán, mobil appon, költségeken és számlán át az ügyfélnézetig.' },
+      pricing: { title: 'Diriqo árak - egyszerű ár csapatméret alapján', description: 'Starter, Growth, Business és Scale csomagok 50 dolgozóig. Nagyobb működéshez egyedi beállítás készül.' },
       industries: { title: 'Kinek való a Diriqo - takarítás, szerviz, szerelés és üzemeltetés', description: 'Diriqo terepen dolgozó csapatoknak.' },
       demo: { title: 'Diriqo demo - rendszerbemutató', description: 'Alap flow: dashboard, munka, mobil app, fotók és munkaidő.' },
       contact: { title: 'Diriqo kapcsolat', description: 'Keress minket próba, beállítás, weboldal, ügyfélportál vagy kérdések miatt.' },
@@ -2543,12 +3053,12 @@ export const marketingContent: Record<Locale, MarketingContent> = {
       { title: 'Ügyfelek', text: 'Kontaktok, munkaelőzmények és jegyzetek egy helyen.' },
       { title: 'Ajánlatok és érdeklődések', text: 'Érdeklődéstől ajánlatig és munkáig másolgatás nélkül.' },
     ],
-    industries: ['Takarító cégek', 'Szerviz cégek', 'Szerelések', 'Építő csapatok', 'Létesítményüzemeltetés', 'Kis operatív csapatok'],
+    industries: ['Takarító cégek', 'Szerviz cégek', 'Szerelések', 'Szakemberek', 'Építő csapatok', 'Létesítményüzemeltetés', 'Kis operatív csapatok'],
     pricingPlans: [
       { name: 'Starter', price: commonPricing.starterPrice, period: '/ hónap', people: 'Legfeljebb 5 fő', description: 'Kis csapatoknak és induló cégeknek.', features: ['munkák', 'ügyfelek', 'dolgozók', 'mobil app', 'fotók', 'alap áttekintés'] },
       { name: 'Growth', price: commonPricing.growthPrice, period: '/ hónap', people: '6-15 fő', description: 'Cégeknek, amelyeknek tisztán kell irányítaniuk embereket és munkát.', featured: true, features: ['minden a Starterből', 'naptár', 'munkaidő nyilvántartás', 'munkaköltségek', 'jobb áttekintések'] },
-      { name: 'Scale', price: commonPricing.scalePrice, period: '/ hónap', people: '16-30 fő', description: 'Nagyobb operatív csapatoknak.', features: ['minden a Growthból', 'több admin', 'bővített statisztikák', 'magasabb limitek', 'jobb működési áttekintés'] },
-      { name: 'Enterprise', price: 'Egyedi', people: '30 fő felett', description: 'Nagyobb csapatoknak és speciális igényekhez.', features: ['egyedi megállapodás', 'onboarding', 'nagyobb csapatok', 'speciális követelmények'] },
+      { name: 'Business', price: commonPricing.businessPrice, period: '/ hónap', people: '16-30 fő', description: 'Bejáratott szolgáltató cégeknek nagyobb működéssel.', features: ['munkák', 'ügyfelek', 'dolgozók', 'mobil app', 'fotók', 'naptár', 'munkaidő', 'költségek', 'riportok'] },
+      { name: 'Scale', price: commonPricing.scalePrice, period: '/ hónap', people: '31-50 fő', description: 'Nagyobb csapatoknak, amelyek egyszerű működéskezelést akarnak.', features: ['munkák', 'ügyfelek', 'dolgozók', 'mobil app', 'fotók', 'naptár', 'munkaidő', 'költségek', 'riportok'] },
     ],
     addon: { title: 'Website & Customer Portal', price: `${commonPricing.addonPrice} setup`, description: 'Cégeknek, amelyek munkát kezelnek, érdeklődéseket gyűjtenek és ügyfeleknek profi portált adnak.', features: ['céges weboldal', 'érdeklődési űrlapok', 'Diriqo kapcsolat', 'ügyfélportál', 'nyilvános ajánlatok', 'céges branding'], note: 'Az ár tájékoztató jellegű, a web és portál terjedelmétől függhet.' },
     faqs: [
@@ -2572,16 +3082,137 @@ export const marketingContent: Record<Locale, MarketingContent> = {
       { title: 'Költség és profit', solves: 'A tulajdonos nem tudja, megérte-e a munka.', helps: 'Látod a durva költséget és eredményt táblázat nélkül.', example: 'Befejezés után ellenőrzöd az árat, órákat és anyagot.' },
       { title: 'Ajánlatok, érdeklődések és portál', solves: 'Az érdeklődések és ajánlatok nem vesznek el e-mailben.', helps: 'Az ügyfélkérésből következő lépés lesz.', example: 'Webes érdeklődésből ügyfél és ajánlat készül.' },
     ],
-    howPage: { eyebrow: 'Hogyan működik', title: 'Ügyféltől lezárt munkáig felesleges körök nélkül.', text: 'Gyorsan látod, hol kezdd és mi jön utána.', cards: [{ title: 'A dolgozó tudja, hová menjen', text: 'Mobilon látja a munkát, címet, jegyzetet és időpontot.' }, { title: 'Fotók a munkánál maradnak', text: 'Előtte/utána fotók a munkához mentődnek.' }, { title: 'Az admin napja nyugodtabb', text: 'Státusz, idő és költség látható hívogatás nélkül.' }] },
-    howItWorksSteps: ['Cég létrehozása', 'Dolgozók hozzáadása', 'Ügyfél hozzáadása', 'Munka létrehozása', 'Dolgozók hozzárendelése', 'Dolgozó mobilon látja a munkát', 'Fotókat és időt tölt fel', 'Admin ellenőrzi', 'Munka lezárása', 'Áttekintés munka és költségek szerint'],
-    industriesPage: { eyebrow: 'Ágazatok', title: 'A Diriqo nem csak egy területre való.', text: 'Mindenhol működik, ahol a munkát tervezni, terepen elvégezni és fotókkal, idővel, emberekkel követni kell.' },
+    howPage: { eyebrow: 'Hogyan működik', title: 'Érdeklődéstől számláig egy folyamatban.', text: 'Érdeklődés, ajánlat, munka, mobil app, költségek, számla és ügyfélnézet összekapcsolva.', cards: [{ title: 'A mobil a működés része', text: 'A dolgozó látja a munkát, visszaigazolja az eredményt és fotókat tölt fel terepen.' }, { title: 'A pénzügy a munkánál marad', text: 'Idő, költség és becsült profit a munkához kapcsolódik.' }, { title: 'A portál opcionális', text: 'A webes csomag webes érdeklődéseket és ügyfélnézetet ad.' }] },
+    howItWorksSteps: ['Érdeklődés érkezik a Diriqóba', 'Okos ajánlatot küldesz', 'Elfogadott ajánlatból munka lesz', 'Dolgozó mobilon látja', 'Időt és fotót rögzít', 'Látod a költséget és profitot', 'Számlát küldesz', 'Az ügyfél saját áttekintést kap'],
+    industriesPage: { eyebrow: 'Ágazatok', title: 'A Diriqo mindenkinek jó, aki munkákat kezel.', text: 'Nem egyetlen ágazathoz kötött. Ott működik jól, ahol a munkát tervezni kell, ügyfélnél vagy terepen végzik, és fotókra, időre, emberekre, költségekre és áttekintésre van szükség.' },
     industryDetails: [
       { title: 'Takarító cégek', text: 'Sok napi munka, előtte/utána fotók és ügyfél, aki bizonyítékot kér.', points: ['előtte/utána fotók', 'ellenőrzés', 'jelenlét', 'sok napi munka', 'bizonyíték'] },
       { title: 'Szerviz cégek', text: 'Terepi technikusoknak egyértelmű időpont, cím és előzmény kell.', points: ['technikusok', 'időpontok', 'ügyfelek', 'előzmények'] },
       { title: 'Szerelő cégek', text: 'Embertervezés, munkaállapot és fotódokumentáció chat-káosz nélkül.', points: ['tervezés', 'anyag és költség', 'állapot', 'fotók'] },
+      { title: 'Szakemberek', text: 'Kisebb munkák, ügyfélkiszállások, munkafotók és tiszta kép arról, mi készült el.', points: ['ügyfélkiszállások', 'kisebb munkák', 'munkafotók', 'idő és költség'] },
       { title: 'Építés és befejező munkák', text: 'Több napos munkák, több ember és átadási fotók.', points: ['több nap', 'több ember', 'haladás', 'átadási fotók'] },
       { title: 'Létesítményüzemeltetés', text: 'Ismétlődő munkák, ügyfélkérések és teljesítés ellenőrzése.', points: ['ismétlődő munka', 'ügyfélkérések', 'ellenőrzés'] },
     ],
+    industriesSeo: {
+      title: 'Milyen cégeknek való a Diriqo',
+      intro:
+        'A Diriqo azoknak a cégeknek és csapatoknak való, amelyek nem egy asztalnál dolgoznak egész nap. Segít munkákat tervezni, embereket terepre küldeni, fotókat, időt, költséget és munkastátuszt rögzíteni.',
+      groups: [
+        {
+          title: 'Takarítás és facility',
+          intro: 'Takarító és facility csapatoknak, ahol fontos az elvégzett munka bizonyítása, az ismétlődő munka tervezése és a fotók tárolása a megfelelő munkánál.',
+          professions: [
+            'takarító cégek',
+            'nagytakarítás',
+            'építkezés utáni takarítás',
+            'ablakmosás',
+            'padlótisztítás',
+            'ipari tisztítás',
+            'speciális tisztítás',
+            'objektumkarbantartás',
+            'facility management',
+            'épületkezelés',
+            'műszaki objektumkezelés',
+            'magasban végzett munka',
+            'fertőtlenítés',
+            'kártevőirtás',
+          ],
+        },
+        {
+          title: 'Szakemberek',
+          intro: 'Szakembereknek szánt szoftverként a Diriqo egyben tartja a kiszállásokat, munkákat, fotókat, anyagokat, időt és ügyfélkommunikációt.',
+          professions: [
+            'festők',
+            'burkolók',
+            'villanyszerelők',
+            'vízvezeték-szerelők',
+            'fűtésszerelők',
+            'asztalosok',
+            'lakatosok',
+            'csempézők',
+            'gipszkartonosok',
+            'bádogosok',
+            'tetőfedők',
+            'kőművesek',
+            'homlokzatosok',
+            'ezermesterek',
+            'kertészek',
+            'kéményseprők',
+            'szerviztechnikusok',
+          ],
+        },
+        {
+          title: 'Építés és szerelés',
+          intro: 'Építő és szerelő csapatoknak a Diriqo munkakezelő szoftverként, munkanyilvántartásként és egyszerű dolgozótervezőként működik.',
+          professions: [
+            'építőipari cégek',
+            'befejező munkák',
+            'szerelő cégek',
+            'szerelési technikusok',
+            'telepítő cégek',
+            'bútorszerelés',
+            'konyhaszerelés',
+            'technológiai telepítés',
+            'hővisszanyerő rendszerek',
+            'klíma',
+            'légtechnika',
+            'HVAC cégek',
+            'acélszerkezet-szerelés',
+            'állványozás',
+          ],
+        },
+        {
+          title: 'Szerviz',
+          intro: 'Szervizcégek rendszereként és technikusi appként a Diriqo segít időpontokkal, munkatörténettel, munkafotókkal és minden kiszállás állapotával.',
+          professions: [
+            'klímaszerviz',
+            'kazánszerviz',
+            'hőszivattyú szerviz',
+            'elektromos berendezések szervize',
+            'gépszerviz',
+            'felülvizsgáló technikusok',
+            'műszaki ellenőrzések',
+            'berendezés-karbantartás',
+          ],
+        },
+        {
+          title: 'További operatív csapatok',
+          intro: 'A Diriqo más olyan csapatoknak is hasznos, amelyek embereket, ügyfeleket, feladatokat, fotókat, időt és költségeket kezelnek irodán kívül.',
+          professions: [
+            'autószervizek',
+            'autókozmetika',
+            'gumiszervizek',
+            'költöztető cégek',
+            'kiszállító cégek',
+            'catering',
+            'pékségek',
+            'gyártás',
+            'raktári üzemek',
+            'biztonsági szolgáltatások',
+            'objektumőrzés',
+          ],
+        },
+      ],
+      seoText:
+        'A Diriqo olyan cégeknek alkalmas, amelyek munkákat terveznek, terepen dolgozó embereket irányítanak, jelenlétet, munkafotókat, költségeket, ügyfélkommunikációt és munkastátuszt rögzítenek. Kis cégek, egyéni vállalkozók és nagyobb csapatok is használhatják munkakezelő rendszerként, terepi dolgozói appként, takarító cégek szoftvereként, szervizcégek rendszereként, szakemberek szoftvereként és egyszerű operatív irányító eszközként.',
+      problemsTitle: 'Milyen problémákat old meg a Diriqo',
+      problemsIntro:
+        'Ez nem nehéz vállalati rendszer. A Diriqo egy helyre teszi a napi működési dolgokat, hogy a munkát ne telefonból, chatből és táblázatokból kelljen összerakni.',
+      problems: [
+        'káosz WhatsAppban',
+        'átláthatatlan Excel táblák',
+        'elveszett munkafotók',
+        'nem egyértelmű dolgozói jelenlét',
+        'hiányzó költségáttekintés',
+        'rossz kommunikáció a dolgozók között',
+        'elveszett ajánlatok',
+        'rendetlen munkanyilvántartás',
+        'nem egyértelmű munkastátusz',
+        'hiányzó munkatörténet',
+        'dolgozótervezés áttekintés nélkül',
+        'jelenlét munkákon kívül',
+      ],
+    },
     demoPage: { eyebrow: 'Demo', title: 'Nézd meg az alap flow-t.', text: 'A demo mód készül. Addig létrehozhatsz tesztfiókot, és megnézheted a munkákat, embereket, fotókat és időt.', samplesTitle: 'Előnézetek', dashboardTitle: 'Tulajdonosi dashboard', dashboardText: 'Mai munkák, emberek, órák és durva eredmény.', mobileTitle: 'Dolgozói mobil', mobileText: 'Munka mobilon, fotók és idő bonyolult oktatás nélkül.' },
     contactPage: { eyebrow: 'Kapcsolat', title: 'Írd meg, mit szeretnél kezelni.', text: 'Visszajelzünk a Diriqo próbával, cégbeállítással vagy Website & Customer Portal add-onnal kapcsolatban.', setupTitle: 'Segítséget kérek a beállításhoz', setupText: 'Írd le a céget, létszámot és munkatípust. Javaslunk egyszerű indulást.', support: 'Támogatás', form: { name: 'Név', email: 'E-mail', company: 'Cég', message: 'Üzenet', submit: 'Küldés' } },
     legal: {
@@ -2613,8 +3244,8 @@ export const marketingContent: Record<Locale, MarketingContent> = {
     meta: {
       home: { title: 'Diriqo - gestión de trabajos por fin sencilla', description: 'Un sistema simple para trabajos, empleados, fotos, horas, clientes y costes.' },
       features: { title: 'Funciones de Diriqo - trabajos, personas, fotos y control', description: 'Módulos para trabajos, empleados, móvil, fotos, horas, calendario, clientes y costes.' },
-      howItWorks: { title: 'Cómo funciona Diriqo - guía sencilla', description: 'Desde la empresa y empleados hasta clientes, trabajos, fotos, tiempo y control.' },
-      pricing: { title: 'Precios de Diriqo - precio simple por tamaño de equipo', description: 'Planes Starter, Growth, Scale y Enterprise por número de personas.' },
+      howItWorks: { title: 'Cómo funciona Diriqo - guía sencilla', description: 'De solicitud a presupuesto, trabajo, app móvil, costes, factura y vista del cliente.' },
+      pricing: { title: 'Precios de Diriqo - precio simple por tamaño de equipo', description: 'Planes Starter, Growth, Business y Scale para equipos de hasta 50 trabajadores. Operaciones mayores usan configuración a medida.' },
       industries: { title: 'Para quién es Diriqo - limpieza, servicio, montajes y mantenimiento', description: 'Diriqo ayuda a equipos que trabajan en campo.' },
       demo: { title: 'Demo de Diriqo - vista del sistema', description: 'Vista del flujo básico: dashboard, trabajo, app móvil, fotos y tiempo.' },
       contact: { title: 'Contacto Diriqo', description: 'Contacta con Diriqo para prueba, configuración, web, portal de clientes o preguntas.' },
@@ -2667,12 +3298,12 @@ export const marketingContent: Record<Locale, MarketingContent> = {
       { title: 'Clientes', text: 'Contactos, historial y notas en un lugar.' },
       { title: 'Ofertas y solicitudes', text: 'De solicitud a oferta y trabajo sin copiar datos.' },
     ],
-    industries: ['Empresas de limpieza', 'Empresas de servicio', 'Montajes', 'Equipos de obra', 'Mantenimiento de inmuebles', 'Pequeños equipos operativos'],
+    industries: ['Empresas de limpieza', 'Empresas de servicio', 'Montajes', 'Oficios', 'Equipos de obra', 'Mantenimiento de inmuebles', 'Pequeños equipos operativos'],
     pricingPlans: [
       { name: 'Starter', price: commonPricing.starterPrice, period: '/ mes', people: 'Hasta 5 personas', description: 'Para equipos pequeños y empresas que empiezan.', features: ['trabajos', 'clientes', 'empleados', 'app móvil', 'fotos', 'vista básica'] },
       { name: 'Growth', price: commonPricing.growthPrice, period: '/ mes', people: '6-15 personas', description: 'Para empresas que necesitan controlar personas y trabajo.', featured: true, features: ['todo Starter', 'calendario', 'registro de trabajo', 'costes de trabajos', 'mejores vistas'] },
-      { name: 'Scale', price: commonPricing.scalePrice, period: '/ mes', people: '16-30 personas', description: 'Para equipos operativos más grandes.', features: ['todo Growth', 'más admins', 'estadísticas ampliadas', 'límites mayores', 'mejor vista operativa'] },
-      { name: 'Enterprise', price: 'A medida', people: 'Más de 30 personas', description: 'Para equipos grandes y necesidades específicas.', features: ['acuerdo individual', 'onboarding', 'equipos grandes', 'requisitos específicos'] },
+      { name: 'Business', price: commonPricing.businessPrice, period: '/ mes', people: '16-30 personas', description: 'Para empresas de servicios establecidas con más operación.', features: ['trabajos', 'clientes', 'empleados', 'app móvil', 'fotos', 'calendario', 'registros', 'costes', 'informes'] },
+      { name: 'Scale', price: commonPricing.scalePrice, period: '/ mes', people: '31-50 personas', description: 'Para equipos más grandes que quieren mantener una gestión simple.', features: ['trabajos', 'clientes', 'empleados', 'app móvil', 'fotos', 'calendario', 'registros', 'costes', 'informes'] },
     ],
     addon: { title: 'Website & Customer Portal', price: `${commonPricing.addonPrice} setup`, description: 'Para empresas que quieren gestionar trabajo, recibir solicitudes y dar a clientes un portal profesional.', features: ['web corporativa', 'formularios de solicitud', 'conexión con Diriqo', 'portal de clientes', 'ofertas públicas', 'branding'], note: 'El precio es orientativo y puede variar según el alcance.' },
     faqs: [
@@ -2696,16 +3327,137 @@ export const marketingContent: Record<Locale, MarketingContent> = {
       { title: 'Costes y beneficio', solves: 'El dueño no sabe si un trabajo salió rentable.', helps: 'Ves costes aproximados y resultado sin hoja compleja.', example: 'Al terminar revisas precio, horas y material.' },
       { title: 'Ofertas, solicitudes y portal', solves: 'Solicitudes y ofertas no se pierden en e-mail.', helps: 'Una solicitud se convierte en el siguiente paso.', example: 'Una solicitud web se convierte en cliente y oferta.' },
     ],
-    howPage: { eyebrow: 'Cómo funciona', title: 'Del cliente al trabajo cerrado sin pasos inútiles.', text: 'Entiendes rápido por dónde empezar y qué sigue.', cards: [{ title: 'El empleado sabe dónde ir', text: 'Ve trabajo, dirección, notas y fecha en el móvil.' }, { title: 'Las fotos quedan con el trabajo', text: 'Fotos antes/después se guardan en la ficha.' }, { title: 'El admin tiene un día más tranquilo', text: 'Estado, tiempo y costes visibles sin llamar.' }] },
-    howItWorksSteps: ['Creas la empresa', 'Añades empleados', 'Añades cliente', 'Creas trabajo', 'Asignas empleados', 'Empleado ve el trabajo en móvil', 'Sube fotos y tiempo', 'Admin revisa resultado', 'Trabajo se cierra', 'Ves trabajo y costes'],
-    industriesPage: { eyebrow: 'Sectores', title: 'Diriqo no es solo para un sector.', text: 'Encaja donde el trabajo se planifica, se hace en campo y necesita fotos, tiempo, personas y control.' },
+    howPage: { eyebrow: 'Cómo funciona', title: 'De solicitud a factura en un flujo.', text: 'Solicitud, presupuesto, trabajo, app móvil, costes, factura y vista del cliente permanecen conectados.', cards: [{ title: 'El móvil es parte del trabajo', text: 'El trabajador ve el trabajo, confirma el resultado y sube fotos en campo.' }, { title: 'La economía queda en el trabajo', text: 'Tiempo, costes y beneficio estimado quedan junto al trabajo.' }, { title: 'El portal es opcional', text: 'El paquete web añade solicitudes desde la web y vista del cliente.' }] },
+    howItWorksSteps: ['La solicitud entra en Diriqo', 'Envías un presupuesto inteligente', 'El presupuesto aprobado crea el trabajo', 'El trabajador lo ve en móvil', 'Confirma tiempo y fotos', 'Ves costes y beneficio', 'Envías la factura', 'El cliente tiene su vista'],
+    industriesPage: { eyebrow: 'Sectores', title: 'Diriqo sirve para cualquiera que gestione trabajos.', text: 'No está atado a un solo sector. Encaja donde el trabajo se planifica, se hace en casa del cliente o en campo y necesita fotos, tiempo, personas, costes y control.' },
     industryDetails: [
       { title: 'Empresas de limpieza', text: 'Muchos trabajos al día, fotos antes/después y cliente que quiere prueba.', points: ['fotos antes/después', 'control de trabajo', 'asistencia', 'muchos trabajos', 'prueba para cliente'] },
       { title: 'Empresas de servicio', text: 'Técnicos en campo necesitan fechas, direcciones e historial.', points: ['técnicos', 'citas', 'clientes', 'historial'] },
       { title: 'Empresas de montaje', text: 'Planificación de personas, estado y fotos sin caos de chat.', points: ['planificación', 'material y costes', 'estado', 'fotos'] },
+      { title: 'Oficios', text: 'Trabajos pequeños, visitas a clientes, fotos del trabajo y una vista clara de lo terminado.', points: ['visitas a clientes', 'trabajos pequeños', 'fotos del trabajo', 'tiempo y costes'] },
       { title: 'Construcción y acabados', text: 'Trabajos de varios días, más personas y fotos de entrega.', points: ['varios días', 'varias personas', 'progreso', 'fotos de entrega'] },
       { title: 'Mantenimiento de inmuebles', text: 'Trabajos repetidos, solicitudes de clientes y control de finalización.', points: ['trabajo recurrente', 'solicitudes', 'control'] },
     ],
+    industriesSeo: {
+      title: 'Para qué tipos de empresas sirve Diriqo',
+      intro:
+        'Diriqo es para empresas y equipos que no trabajan todo el día desde una mesa. Ayuda a planificar trabajos, enviar personas al campo, guardar fotos, registrar tiempo, costes y estado del trabajo.',
+      groups: [
+        {
+          title: 'Limpieza y facility',
+          intro: 'Para equipos de limpieza y facility que necesitan demostrar el resultado, planificar trabajos recurrentes y guardar fotos en el trabajo correcto.',
+          professions: [
+            'empresas de limpieza',
+            'limpiezas generales',
+            'limpiezas post obra',
+            'limpieza de ventanas',
+            'limpieza de suelos',
+            'limpieza industrial',
+            'limpieza especializada',
+            'mantenimiento de inmuebles',
+            'facility management',
+            'gestión de edificios',
+            'gestión técnica de inmuebles',
+            'trabajos en altura',
+            'desinfección',
+            'control de plagas',
+          ],
+        },
+        {
+          title: 'Oficios',
+          intro: 'Como software para oficios, Diriqo mantiene juntas las visitas a clientes, trabajos, fotos, materiales, tiempo y comunicación.',
+          professions: [
+            'pintores',
+            'instaladores de suelos',
+            'electricistas',
+            'fontaneros',
+            'técnicos de calefacción',
+            'carpinteros',
+            'cerrajeros',
+            'alicatadores',
+            'instaladores de pladur',
+            'chapistas',
+            'techadores',
+            'albañiles',
+            'especialistas en fachadas',
+            'manitas',
+            'jardineros',
+            'deshollinadores',
+            'técnicos de servicio',
+          ],
+        },
+        {
+          title: 'Construcción y montajes',
+          intro: 'Para equipos de construcción y montaje, Diriqo funciona como software para trabajos, registro de trabajos y planificación simple de personas.',
+          professions: [
+            'empresas de construcción',
+            'trabajos de acabados',
+            'empresas de montaje',
+            'técnicos de montaje',
+            'empresas instaladoras',
+            'montaje de muebles',
+            'montaje de cocinas',
+            'montaje de tecnología',
+            'recuperación de calor',
+            'aire acondicionado',
+            'ventilación',
+            'empresas HVAC',
+            'montaje de estructuras metálicas',
+            'andamios',
+          ],
+        },
+        {
+          title: 'Servicio',
+          intro: 'Como sistema para empresas de servicio y app para técnicos, Diriqo ayuda con citas, historial, fotos del trabajo y estado de cada visita.',
+          professions: [
+            'servicio de aire acondicionado',
+            'servicio de calderas',
+            'servicio de bombas de calor',
+            'servicio de equipos eléctricos',
+            'servicio de máquinas',
+            'técnicos de revisión',
+            'controles técnicos',
+            'mantenimiento de equipos',
+          ],
+        },
+        {
+          title: 'Otros equipos operativos',
+          intro: 'Diriqo también encaja en empresas que planifican personas, clientes, tareas, fotos, tiempo y costes fuera de la oficina.',
+          professions: [
+            'talleres mecánicos',
+            'detailing',
+            'servicios de neumáticos',
+            'empresas de mudanzas',
+            'empresas de reparto',
+            'catering',
+            'panaderías',
+            'producción',
+            'operaciones de almacén',
+            'servicios de seguridad',
+            'vigilancia de inmuebles',
+          ],
+        },
+      ],
+      seoText:
+        'Diriqo es adecuado para empresas que planifican trabajos, gestionan trabajadores en campo, necesitan registrar asistencia, fotodocumentación de trabajos, costes, comunicación con clientes y estado del trabajo. Lo pueden usar pequeñas empresas, autónomos y equipos más grandes como sistema para trabajos, app para trabajadores en campo, software para empresas de limpieza, sistema para empresas de servicio, software para oficios y herramienta simple de gestión operativa.',
+      problemsTitle: 'Qué problemas resuelve Diriqo',
+      problemsIntro:
+        'No es un sistema pesado de empresa. Diriqo pone las cosas operativas diarias en un lugar para que el trabajo no se reconstruya desde llamadas, chat y hojas de cálculo.',
+      problems: [
+        'caos en WhatsApp',
+        'tablas de Excel poco claras',
+        'fotos de trabajos perdidas',
+        'asistencia de trabajadores poco clara',
+        'falta de vista de costes',
+        'mala comunicación entre trabajadores',
+        'presupuestos perdidos',
+        'desorden en los trabajos',
+        'estado del trabajo poco claro',
+        'historial de trabajos incompleto',
+        'planificación de trabajadores sin vista clara',
+        'asistencia fuera de los trabajos',
+      ],
+    },
     demoPage: { eyebrow: 'Demo', title: 'Mira el flujo básico.', text: 'El modo demo está en preparación. Mientras tanto puedes crear una cuenta de prueba y ver trabajos, personas, fotos y tiempo.', samplesTitle: 'Vistas', dashboardTitle: 'Dashboard del dueño', dashboardText: 'Trabajos de hoy, personas, horas y resultado aproximado.', mobileTitle: 'Móvil del empleado', mobileText: 'Trabajo, fotos y tiempo sin formación compleja.' },
     contactPage: { eyebrow: 'Contacto', title: 'Cuéntanos qué necesitas gestionar.', text: 'Te responderemos sobre prueba, configuración o el add-on Website & Customer Portal.', setupTitle: 'Quiero ayuda con la configuración', setupText: 'Describe tu empresa, número de personas y tipo de trabajo. Te propondremos un inicio simple.', support: 'Soporte', form: { name: 'Nombre', email: 'E-mail', company: 'Empresa', message: 'Mensaje', submit: 'Enviar' } },
     legal: {
@@ -2737,8 +3489,8 @@ export const marketingContent: Record<Locale, MarketingContent> = {
     meta: {
       home: { title: 'Diriqo - finalmente gestione lavori semplice', description: 'Un sistema semplice per lavori, operatori, foto, ore, clienti e costi.' },
       features: { title: 'Funzioni Diriqo - lavori, persone, foto e controllo', description: 'Moduli per lavori, operatori, mobile, foto, ore, calendario, clienti e costi.' },
-      howItWorks: { title: 'Come funziona Diriqo - guida semplice', description: 'Da azienda e operatori a clienti, lavori, foto, tempo e controllo.' },
-      pricing: { title: 'Prezzi Diriqo - prezzo semplice per dimensione team', description: 'Piani Starter, Growth, Scale ed Enterprise per numero di persone.' },
+      howItWorks: { title: 'Come funziona Diriqo - guida semplice', description: 'Da richiesta a preventivo, lavoro, app mobile, costi, fattura e vista cliente.' },
+      pricing: { title: 'Prezzi Diriqo - prezzo semplice per dimensione team', description: 'Piani Starter, Growth, Business e Scale per team fino a 50 operatori. Operazioni più grandi usano una configurazione su misura.' },
       industries: { title: 'Per chi è Diriqo - pulizie, service, installazioni e facility', description: 'Diriqo aiuta team che lavorano sul campo.' },
       demo: { title: 'Demo Diriqo - anteprima del sistema', description: 'Anteprima del flow: dashboard, lavoro, app mobile, foto e tempo.' },
       contact: { title: 'Contatto Diriqo', description: 'Contatta Diriqo per prova, configurazione, sito, portale clienti o domande.' },
@@ -2791,12 +3543,12 @@ export const marketingContent: Record<Locale, MarketingContent> = {
       { title: 'Clienti', text: 'Contatti, storico lavori e note in un posto.' },
       { title: 'Preventivi e richieste', text: 'Da richiesta a preventivo e lavoro senza copiare dati.' },
     ],
-    industries: ['Imprese di pulizie', 'Aziende di servizio', 'Installazioni', 'Squadre edili', 'Facility management', 'Piccoli team operativi'],
+    industries: ['Imprese di pulizie', 'Aziende di servizio', 'Installazioni', 'Artigiani', 'Squadre edili', 'Facility management', 'Piccoli team operativi'],
     pricingPlans: [
       { name: 'Starter', price: commonPricing.starterPrice, period: '/ mese', people: 'Fino a 5 persone', description: 'Per piccoli team e aziende che iniziano.', features: ['lavori', 'clienti', 'operatori', 'app mobile', 'foto', 'vista base'] },
       { name: 'Growth', price: commonPricing.growthPrice, period: '/ mese', people: '6-15 persone', description: 'Per aziende che devono gestire chiaramente persone e lavoro.', featured: true, features: ['tutto Starter', 'calendario', 'registrazione lavoro', 'costi lavori', 'viste migliori'] },
-      { name: 'Scale', price: commonPricing.scalePrice, period: '/ mese', people: '16-30 persone', description: 'Per team operativi più grandi.', features: ['tutto Growth', 'più admin', 'statistiche estese', 'limiti più alti', 'migliore controllo operativo'] },
-      { name: 'Enterprise', price: 'Su misura', people: 'Oltre 30 persone', description: 'Per team più grandi e requisiti specifici.', features: ['accordo individuale', 'onboarding', 'team grandi', 'esigenze specifiche'] },
+      { name: 'Business', price: commonPricing.businessPrice, period: '/ mese', people: '16-30 persone', description: 'Per aziende di servizi avviate con operatività più ampia.', features: ['lavori', 'clienti', 'operatori', 'app mobile', 'foto', 'calendario', 'registri', 'costi', 'report'] },
+      { name: 'Scale', price: commonPricing.scalePrice, period: '/ mese', people: '31-50 persone', description: 'Per team più grandi che vogliono mantenere una gestione semplice.', features: ['lavori', 'clienti', 'operatori', 'app mobile', 'foto', 'calendario', 'registri', 'costi', 'report'] },
     ],
     addon: { title: 'Website & Customer Portal', price: `${commonPricing.addonPrice} setup`, description: 'Per aziende che vogliono gestire lavoro, ottenere richieste e offrire un portale professionale ai clienti.', features: ['sito aziendale', 'moduli richiesta', 'collegamento Diriqo', 'portale clienti', 'preventivi pubblici', 'branding'], note: 'Il prezzo è indicativo e può variare in base al progetto.' },
     faqs: [
@@ -2820,16 +3572,137 @@ export const marketingContent: Record<Locale, MarketingContent> = {
       { title: 'Costi e profitto', solves: 'Il titolare non sa se un lavoro è redditizio.', helps: 'Vedi costi e risultato senza tabella complessa.', example: 'Alla fine controlli prezzo, ore e materiale.' },
       { title: 'Preventivi, richieste e portale', solves: 'Richieste e preventivi non si perdono in e-mail.', helps: 'Una richiesta cliente diventa il passo successivo.', example: 'Una richiesta web diventa cliente e preventivo.' },
     ],
-    howPage: { eyebrow: 'Come funziona', title: 'Dal cliente al lavoro chiuso senza rumore.', text: 'Capisci subito da dove partire e cosa succede dopo.', cards: [{ title: 'L’operatore sa dove andare', text: 'Vede lavoro, indirizzo, note e data sul telefono.' }, { title: 'Le foto restano nel lavoro', text: 'Foto prima/dopo vengono salvate nella scheda.' }, { title: 'L’admin ha una giornata più tranquilla', text: 'Stato, tempo e costi sono visibili senza chiamate.' }] },
-    howItWorksSteps: ['Crei l’azienda', 'Aggiungi operatori', 'Aggiungi cliente', 'Crei lavoro', 'Assegni operatori', 'L’operatore vede il lavoro sul mobile', 'Carica foto e tempo', 'Admin controlla risultato', 'Lavoro chiuso', 'Vedi lavoro e costi'],
-    industriesPage: { eyebrow: 'Settori', title: 'Diriqo non è solo per un settore.', text: 'Funziona ovunque il lavoro si pianifica, si fa sul campo e richiede foto, tempo, persone e controllo.' },
+    howPage: { eyebrow: 'Come funziona', title: 'Da richiesta a fattura in un flusso.', text: 'Richiesta, preventivo, lavoro, app mobile, costi, fattura e vista cliente restano collegati.', cards: [{ title: 'Il mobile fa parte del lavoro', text: 'L’operatore vede il lavoro, conferma il risultato e carica foto sul campo.' }, { title: 'Economia dentro il lavoro', text: 'Tempo, costi e profitto stimato restano collegati al lavoro.' }, { title: 'Il portale è opzionale', text: 'Il pacchetto web aggiunge richieste dal sito e vista cliente.' }] },
+    howItWorksSteps: ['La richiesta entra in Diriqo', 'Invii un preventivo intelligente', 'Il preventivo approvato diventa lavoro', 'L’operatore lo vede sul mobile', 'Conferma tempo e foto', 'Vedi costi e profitto', 'Invii la fattura', 'Il cliente ha una vista propria'],
+    industriesPage: { eyebrow: 'Settori', title: 'Diriqo è adatto a chiunque gestisca lavori.', text: 'Non è legato a un solo settore. Funziona dove il lavoro si pianifica, si svolge dal cliente o sul campo e richiede foto, tempo, persone, costi e controllo.' },
     industryDetails: [
       { title: 'Imprese di pulizie', text: 'Molti lavori al giorno, foto prima/dopo e clienti che chiedono prova.', points: ['foto prima/dopo', 'controllo', 'presenze', 'molti lavori', 'prova cliente'] },
       { title: 'Aziende di servizio', text: 'Tecnici sul campo hanno bisogno di date, indirizzi e storico.', points: ['tecnici', 'appuntamenti', 'clienti', 'storico'] },
       { title: 'Aziende di installazione', text: 'Pianificazione persone, stato lavoro e foto senza caos in chat.', points: ['pianificazione', 'materiale e costi', 'stato', 'foto'] },
+      { title: 'Artigiani', text: 'Piccoli lavori, visite dai clienti, foto del lavoro e vista chiara di ciò che è finito.', points: ['visite clienti', 'piccoli lavori', 'foto del lavoro', 'tempo e costi'] },
       { title: 'Edilizia e finiture', text: 'Lavori su più giorni, più persone e foto di consegna.', points: ['più giorni', 'più persone', 'progresso', 'foto consegna'] },
       { title: 'Facility management', text: 'Lavori ricorrenti, richieste clienti e controllo completamento.', points: ['lavori ricorrenti', 'richieste', 'controllo'] },
     ],
+    industriesSeo: {
+      title: 'Per quali aziende è adatto Diriqo',
+      intro:
+        'Diriqo è per aziende e team che non lavorano tutto il giorno alla stessa scrivania. Aiuta a pianificare lavori, mandare persone sul campo, salvare foto, registrare tempo, costi e stato del lavoro.',
+      groups: [
+        {
+          title: 'Pulizie e facility',
+          intro: 'Per team di pulizie e facility che devono dimostrare il risultato, pianificare lavori ricorrenti e tenere le foto nel lavoro corretto.',
+          professions: [
+            'imprese di pulizie',
+            'pulizie generali',
+            'pulizie post cantiere',
+            'lavaggio vetri',
+            'pulizia pavimenti',
+            'pulizia industriale',
+            'pulizia specializzata',
+            'manutenzione immobili',
+            'facility management',
+            'gestione edifici',
+            'gestione tecnica immobili',
+            'lavori in quota',
+            'disinfezione',
+            'derattizzazione',
+          ],
+        },
+        {
+          title: 'Artigiani',
+          intro: 'Come software per artigiani, Diriqo tiene insieme visite clienti, lavori, foto, materiali, tempo e comunicazione.',
+          professions: [
+            'imbianchini',
+            'posatori di pavimenti',
+            'elettricisti',
+            'idraulici',
+            'termotecnici',
+            'falegnami',
+            'fabbri',
+            'piastrellisti',
+            'cartongessisti',
+            'lattonieri',
+            'copritetto',
+            'muratori',
+            'specialisti facciate',
+            'tuttofare',
+            'giardinieri',
+            'spazzacamini',
+            'tecnici di servizio',
+          ],
+        },
+        {
+          title: 'Edilizia e installazioni',
+          intro: 'Per team edili e di installazione, Diriqo funziona come software lavori, registro operativo e semplice pianificazione delle persone.',
+          professions: [
+            'imprese edili',
+            'lavori di finitura',
+            'aziende di installazione',
+            'tecnici installatori',
+            'imprese impiantistiche',
+            'montaggio mobili',
+            'montaggio cucine',
+            'installazione tecnologie',
+            'recupero di calore',
+            'climatizzazione',
+            'ventilazione',
+            'aziende HVAC',
+            'montaggio strutture metalliche',
+            'ponteggi',
+          ],
+        },
+        {
+          title: 'Service',
+          intro: 'Come sistema per aziende di service e app per tecnici, Diriqo aiuta con appuntamenti, storico lavori, foto e stato di ogni intervento.',
+          professions: [
+            'service climatizzatori',
+            'service caldaie',
+            'service pompe di calore',
+            'service apparecchi elettrici',
+            'service macchine',
+            'tecnici revisori',
+            'controlli tecnici',
+            'manutenzione attrezzature',
+          ],
+        },
+        {
+          title: 'Altri team operativi',
+          intro: 'Diriqo si adatta anche ad aziende che pianificano persone, clienti, attività, foto, tempo e costi fuori dall’ufficio.',
+          professions: [
+            'officine auto',
+            'detailing',
+            'gommisti',
+            'ditte di traslochi',
+            'aziende di consegna',
+            'catering',
+            'panifici',
+            'produzione',
+            'magazzini',
+            'servizi di sicurezza',
+            'vigilanza immobili',
+          ],
+        },
+      ],
+      seoText:
+        'Diriqo è adatto ad aziende che pianificano lavori, gestiscono operatori sul campo, registrano presenze, foto dei lavori, costi, comunicazione con clienti e stato del lavoro. Piccole aziende, artigiani e team più grandi possono usarlo come sistema per lavori, app per operatori sul campo, software per imprese di pulizie, sistema per aziende di service, software per artigiani e strumento semplice per la gestione operativa.',
+      problemsTitle: 'Quali problemi risolve Diriqo',
+      problemsIntro:
+        'Non è un sistema aziendale pesante. Diriqo mette le attività operative quotidiane in un posto, così il lavoro non va ricostruito da chiamate, chat e fogli di calcolo.',
+      problems: [
+        'caos su WhatsApp',
+        'tabelle Excel poco chiare',
+        'foto dei lavori perse',
+        'presenze operatori poco chiare',
+        'mancanza di vista sui costi',
+        'comunicazione debole tra operatori',
+        'preventivi persi',
+        'disordine nei lavori',
+        'stato del lavoro poco chiaro',
+        'storico lavori mancante',
+        'pianificazione persone senza visione',
+        'presenze fuori dai lavori',
+      ],
+    },
     demoPage: { eyebrow: 'Demo', title: 'Guarda il flow di base.', text: 'La modalità demo è in preparazione. Per ora puoi creare un account test e vedere lavori, persone, foto e tempo.', samplesTitle: 'Anteprime', dashboardTitle: 'Dashboard titolare', dashboardText: 'Lavori di oggi, persone, ore e risultato indicativo.', mobileTitle: 'Mobile operatore', mobileText: 'Lavoro, foto e tempo senza formazione complessa.' },
     contactPage: { eyebrow: 'Contatto', title: 'Scrivici cosa devi gestire.', text: 'Ti risponderemo per prova Diriqo, configurazione o add-on Website & Customer Portal.', setupTitle: 'Voglio aiuto con la configurazione', setupText: 'Descrivi azienda, numero di persone e tipo di lavoro. Ti proponiamo un avvio semplice.', support: 'Supporto', form: { name: 'Nome', email: 'E-mail', company: 'Azienda', message: 'Messaggio', submit: 'Invia' } },
     legal: {
@@ -2861,8 +3734,8 @@ export const marketingContent: Record<Locale, MarketingContent> = {
     meta: {
       home: { title: 'Diriqo - enfin une gestion simple des interventions', description: 'Un système simple pour interventions, équipes, photos, heures, clients et coûts.' },
       features: { title: 'Fonctions Diriqo - interventions, personnes, photos et suivi', description: 'Modules pour interventions, équipes, mobile, photos, heures, calendrier, clients et coûts.' },
-      howItWorks: { title: 'Comment fonctionne Diriqo - guide simple', description: 'De l’entreprise et des équipes au client, intervention, photos, temps et suivi.' },
-      pricing: { title: 'Tarifs Diriqo - prix simple selon la taille d’équipe', description: 'Plans Starter, Growth, Scale et Enterprise selon le nombre de personnes.' },
+      howItWorks: { title: 'Comment fonctionne Diriqo - guide simple', description: 'De la demande au devis, intervention, app mobile, coûts, facture et vue client.' },
+      pricing: { title: 'Tarifs Diriqo - prix simple selon la taille d’équipe', description: 'Plans Starter, Growth, Business et Scale pour équipes jusqu’à 50 personnes. Les opérations plus grandes passent par une configuration adaptée.' },
       industries: { title: 'Pour qui est Diriqo - nettoyage, service, installation et facility', description: 'Diriqo aide les équipes qui travaillent sur le terrain.' },
       demo: { title: 'Démo Diriqo - aperçu du système', description: 'Aperçu du flow: dashboard, intervention, app mobile, photos et temps.' },
       contact: { title: 'Contact Diriqo', description: 'Contacte Diriqo pour essai, configuration, site web, portail client ou questions.' },
@@ -2915,12 +3788,12 @@ export const marketingContent: Record<Locale, MarketingContent> = {
       { title: 'Clients', text: 'Contacts, historique et notes au même endroit.' },
       { title: 'Devis et demandes', text: 'De la demande au devis puis au travail sans recopier.' },
     ],
-    industries: ['Entreprises de nettoyage', 'Sociétés de service', 'Installations', 'Équipes bâtiment', 'Gestion d’immeubles', 'Petites équipes opérationnelles'],
+    industries: ['Entreprises de nettoyage', 'Sociétés de service', 'Installations', 'Artisans', 'Équipes bâtiment', 'Gestion d’immeubles', 'Petites équipes opérationnelles'],
     pricingPlans: [
       { name: 'Starter', price: commonPricing.starterPrice, period: '/ mois', people: 'Jusqu’à 5 personnes', description: 'Pour petites équipes et entreprises qui démarrent.', features: ['interventions', 'clients', 'équipes', 'app mobile', 'photos', 'vue de base'] },
       { name: 'Growth', price: commonPricing.growthPrice, period: '/ mois', people: '6-15 personnes', description: 'Pour entreprises qui doivent piloter clairement personnes et travail.', featured: true, features: ['tout Starter', 'calendrier', 'suivi du travail', 'coûts des interventions', 'meilleures vues'] },
-      { name: 'Scale', price: commonPricing.scalePrice, period: '/ mois', people: '16-30 personnes', description: 'Pour équipes opérationnelles plus grandes.', features: ['tout Growth', 'plus d’admins', 'statistiques étendues', 'limites plus hautes', 'meilleur suivi opérationnel'] },
-      { name: 'Enterprise', price: 'Sur mesure', people: 'Plus de 30 personnes', description: 'Pour grandes équipes et besoins spécifiques.', features: ['accord individuel', 'onboarding', 'grandes équipes', 'besoins spécifiques'] },
+      { name: 'Business', price: commonPricing.businessPrice, period: '/ mois', people: '16-30 personnes', description: 'Pour entreprises de service établies avec plus d’activité.', features: ['interventions', 'clients', 'équipes', 'app mobile', 'photos', 'calendrier', 'suivi', 'coûts', 'rapports'] },
+      { name: 'Scale', price: commonPricing.scalePrice, period: '/ mois', people: '31-50 personnes', description: 'Pour équipes plus grandes qui veulent garder une gestion simple.', features: ['interventions', 'clients', 'équipes', 'app mobile', 'photos', 'calendrier', 'suivi', 'coûts', 'rapports'] },
     ],
     addon: { title: 'Website & Customer Portal', price: `${commonPricing.addonPrice} setup`, description: 'Pour entreprises qui veulent gérer le travail, recevoir des demandes et offrir un portail professionnel aux clients.', features: ['site d’entreprise', 'formulaires de demande', 'connexion Diriqo', 'portail client', 'devis publics', 'branding'], note: 'Le prix est indicatif et peut varier selon le périmètre.' },
     faqs: [
@@ -2944,16 +3817,137 @@ export const marketingContent: Record<Locale, MarketingContent> = {
       { title: 'Coûts et marge', solves: 'Le dirigeant ne sait pas si le travail est rentable.', helps: 'Tu vois coûts et résultat sans tableau compliqué.', example: 'À la fin, tu vérifies prix, heures et matériel.' },
       { title: 'Devis, demandes et portail', solves: 'Demandes et devis ne se perdent pas dans l’e-mail.', helps: 'Une demande client devient l’étape suivante.', example: 'Une demande web devient client et devis préparé.' },
     ],
-    howPage: { eyebrow: 'Comment ça marche', title: 'Du client à l’intervention terminée sans étapes inutiles.', text: 'Tu comprends vite où commencer et ce qui suit.', cards: [{ title: 'L’équipier sait où aller', text: 'Il voit travail, adresse, notes et date sur mobile.' }, { title: 'Les photos restent avec le travail', text: 'Photos avant/après enregistrées sur la fiche.' }, { title: 'L’admin a une journée plus calme', text: 'Statut, temps et coûts visibles sans appels.' }] },
-    howItWorksSteps: ['Créer l’entreprise', 'Ajouter les équipes', 'Ajouter un client', 'Créer une intervention', 'Affecter les équipes', 'L’équipier voit le travail sur mobile', 'Il charge photos et temps', 'L’admin vérifie', 'Intervention clôturée', 'Vue du travail et des coûts'],
-    industriesPage: { eyebrow: 'Secteurs', title: 'Diriqo n’est pas limité à un seul domaine.', text: 'Il convient partout où le travail est planifié, réalisé sur le terrain et suivi avec photos, temps et personnes.' },
+    howPage: { eyebrow: 'Comment ça marche', title: 'De la demande à la facture dans un flux.', text: 'Demande, devis, intervention, app mobile, coûts, facture et vue client restent reliés.', cards: [{ title: 'Le mobile fait partie du travail', text: 'L’équipe voit l’intervention, confirme le résultat et charge les photos terrain.' }, { title: 'L’économie reste sur l’intervention', text: 'Temps, coûts et marge estimée restent liés au travail.' }, { title: 'Le portail est optionnel', text: 'Le forfait web ajoute demandes depuis le site et vue client.' }] },
+    howItWorksSteps: ['La demande arrive dans Diriqo', 'Tu envoies un devis intelligent', 'Le devis accepté devient intervention', 'L’équipe la voit sur mobile', 'Elle confirme temps et photos', 'Tu vois coûts et marge', 'Tu envoies la facture', 'Le client a sa vue'],
+    industriesPage: { eyebrow: 'Secteurs', title: 'Diriqo convient à tous ceux qui gèrent des interventions.', text: 'Il n’est pas lié à un seul secteur. Il convient partout où le travail est planifié, réalisé chez le client ou sur le terrain, avec photos, temps, personnes, coûts et suivi.' },
     industryDetails: [
       { title: 'Entreprises de nettoyage', text: 'Beaucoup d’interventions par jour, photos avant/après et clients qui veulent une preuve.', points: ['photos avant/après', 'contrôle', 'présence', 'nombreuses interventions', 'preuve client'] },
       { title: 'Sociétés de service', text: 'Techniciens terrain avec besoin de dates, adresses et historique.', points: ['techniciens', 'rendez-vous', 'clients', 'historique'] },
       { title: 'Sociétés d’installation', text: 'Planification, statut et documentation photo sans chaos de chat.', points: ['planification', 'matériel et coûts', 'statut', 'photos'] },
+      { title: 'Artisans', text: 'Petites interventions, visites client, photos du travail et vue claire de ce qui est terminé.', points: ['visites client', 'petites interventions', 'photos du travail', 'temps et coûts'] },
       { title: 'Bâtiment et finitions', text: 'Travaux sur plusieurs jours, plusieurs personnes et photos de remise.', points: ['plusieurs jours', 'plusieurs personnes', 'progression', 'photos de remise'] },
       { title: 'Gestion d’immeubles', text: 'Travaux récurrents, demandes clients et contrôle de réalisation.', points: ['récurrent', 'demandes', 'contrôle'] },
     ],
+    industriesSeo: {
+      title: 'Pour quels types d’entreprises Diriqo est adapté',
+      intro:
+        'Diriqo est conçu pour les entreprises et équipes qui ne travaillent pas toute la journée derrière un bureau. Il aide à planifier les interventions, envoyer les personnes sur le terrain, enregistrer photos, temps, coûts et statut du travail.',
+      groups: [
+        {
+          title: 'Nettoyage et facility',
+          intro: 'Pour les équipes de nettoyage et facility qui doivent prouver le résultat, planifier des travaux récurrents et garder les photos avec la bonne intervention.',
+          professions: [
+            'entreprises de nettoyage',
+            'nettoyages généraux',
+            'nettoyages après chantier',
+            'lavage de vitres',
+            'nettoyage de sols',
+            'nettoyage industriel',
+            'nettoyage spécialisé',
+            'maintenance d’immeubles',
+            'facility management',
+            'gestion de bâtiments',
+            'gestion technique d’immeubles',
+            'travaux en hauteur',
+            'désinfection',
+            'dératisation',
+          ],
+        },
+        {
+          title: 'Artisans',
+          intro: 'Comme logiciel pour artisans, Diriqo garde ensemble visites client, interventions, photos, matériaux, temps et communication.',
+          professions: [
+            'peintres',
+            'poseurs de sols',
+            'électriciens',
+            'plombiers',
+            'chauffagistes',
+            'menuisiers',
+            'serruriers',
+            'carreleurs',
+            'plaquistes',
+            'zingueurs',
+            'couvreurs',
+            'maçons',
+            'façadiers',
+            'hommes à tout faire',
+            'jardiniers',
+            'ramoneurs',
+            'techniciens de service',
+          ],
+        },
+        {
+          title: 'Bâtiment et installations',
+          intro: 'Pour les équipes bâtiment et installation, Diriqo sert de logiciel d’interventions, registre de travail et planification simple des personnes.',
+          professions: [
+            'entreprises du bâtiment',
+            'travaux de finition',
+            'sociétés d’installation',
+            'techniciens d’installation',
+            'installateurs',
+            'montage de meubles',
+            'installation de cuisines',
+            'installation de technologies',
+            'récupération de chaleur',
+            'climatisation',
+            'ventilation',
+            'entreprises HVAC',
+            'montage de structures métalliques',
+            'échafaudage',
+          ],
+        },
+        {
+          title: 'Service',
+          intro: 'Comme système pour sociétés de service et app pour techniciens, Diriqo aide avec rendez-vous, historique, photos et statut de chaque visite.',
+          professions: [
+            'service climatisation',
+            'service chaudières',
+            'service pompes à chaleur',
+            'service équipements électriques',
+            'service machines',
+            'techniciens de contrôle',
+            'contrôles techniques',
+            'maintenance équipements',
+          ],
+        },
+        {
+          title: 'Autres équipes opérationnelles',
+          intro: 'Diriqo convient aussi aux entreprises qui planifient personnes, clients, tâches, photos, temps et coûts hors du bureau.',
+          professions: [
+            'garages automobiles',
+            'detailing',
+            'services pneus',
+            'sociétés de déménagement',
+            'sociétés de livraison',
+            'catering',
+            'boulangeries',
+            'production',
+            'opérations d’entrepôt',
+            'services de sécurité',
+            'surveillance d’immeubles',
+          ],
+        },
+      ],
+      seoText:
+        'Diriqo convient aux entreprises qui planifient des interventions, gèrent des équipes terrain, suivent présence, photos d’intervention, coûts, communication client et statut du travail. Petites entreprises, indépendants et équipes plus grandes peuvent l’utiliser comme système d’interventions, app pour équipes terrain, logiciel pour entreprises de nettoyage, système pour sociétés de service, logiciel pour artisans et outil simple de gestion opérationnelle.',
+      problemsTitle: 'Quels problèmes Diriqo résout',
+      problemsIntro:
+        'Ce n’est pas un système lourd. Diriqo rassemble les opérations quotidiennes au même endroit pour ne pas reconstruire le travail depuis appels, chats et tableurs.',
+      problems: [
+        'chaos dans WhatsApp',
+        'tableurs Excel peu clairs',
+        'photos d’intervention perdues',
+        'présence des équipes peu claire',
+        'manque de vue sur les coûts',
+        'mauvaise communication entre équipes',
+        'devis perdus',
+        'désordre dans les interventions',
+        'statut du travail peu clair',
+        'historique d’interventions manquant',
+        'planification des équipes sans vue claire',
+        'présence hors interventions',
+      ],
+    },
     demoPage: { eyebrow: 'Démo', title: 'Découvre le flow de base.', text: 'Le mode démo est en préparation. Tu peux déjà créer un compte test et voir travaux, équipes, photos et temps.', samplesTitle: 'Aperçus', dashboardTitle: 'Dashboard dirigeant', dashboardText: 'Interventions du jour, personnes, heures et résultat indicatif.', mobileTitle: 'Mobile équipier', mobileText: 'Travail, photos et temps sans formation complexe.' },
     contactPage: { eyebrow: 'Contact', title: 'Dis-nous ce que tu dois gérer.', text: 'Nous te répondrons pour un essai Diriqo, une configuration ou l’add-on Website & Customer Portal.', setupTitle: 'Je veux de l’aide pour configurer', setupText: 'Décris l’entreprise, le nombre de personnes et le type de travail. Nous proposerons un départ simple.', support: 'Support', form: { name: 'Nom', email: 'E-mail', company: 'Entreprise', message: 'Message', submit: 'Envoyer' } },
     legal: {
@@ -3046,6 +4040,10 @@ export function getMarketingContent(locale: Locale): MarketingContent {
       noCreditCardText: pricing.noCreditCardText ?? 'No credit card required',
       monthlyPeriod: pricing.monthlyPeriod ?? '/ month',
       yearlyPeriod: pricing.yearlyPeriod ?? '/ year',
+    },
+    pricingCustomSetup: {
+      ...pricingCustomSetupByLocale[locale],
+      href: localizePath(locale, '/contact'),
     },
     addon: pricing.addon,
   }

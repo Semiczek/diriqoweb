@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import { getSignupHref, localizePath, type Locale, type MarketingContent } from '@/lib/marketing/content'
 import { DashboardMockup } from './DashboardMockup'
+import { MobileAppMockup } from './MobileAppMockup'
 
 type HeroSectionProps = {
   content: MarketingContent
@@ -82,8 +83,11 @@ export function HeroSection({ content, locale }: HeroSectionProps) {
           ) : null}
         </div>
 
-        <div className="hero-visual hero-reveal min-w-0 lg:-mr-10 lg:translate-x-4 xl:-mr-20 xl:translate-x-8 2xl:-mr-24" style={{ animationDelay: '260ms' }}>
+        <div className="hero-visual hero-reveal min-w-0 lg:-mr-3 xl:-mr-6 2xl:-mr-8" style={{ animationDelay: '260ms' }}>
           <DashboardMockup dashboardTitle={content.mockup.dashboardTitle} locale={locale} />
+          <div className="hero-visual-phone">
+            <MobileAppMockup content={content} priority screen="rewards" />
+          </div>
         </div>
       </div>
     </section>

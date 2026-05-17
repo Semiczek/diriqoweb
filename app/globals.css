@@ -415,8 +415,8 @@ details[open] .faq-answer {
 @media (min-width: 640px) {
   .hero-visual-phone {
     position: absolute;
-    right: -0.65rem;
-    bottom: -1.4rem;
+    right: 0.35rem;
+    bottom: -1.2rem;
     top: auto;
     margin: 0;
     width: 8.5rem;
@@ -425,17 +425,17 @@ details[open] .faq-answer {
 
 @media (min-width: 1024px) {
   .hero-visual-phone {
-    right: -1.9rem;
-    bottom: -2rem;
+    right: 0.9rem;
+    bottom: -1.65rem;
     width: 9.25rem;
   }
 }
 
 @media (min-width: 1280px) {
   .hero-visual-phone {
-    right: -2.2rem;
-    bottom: -2.4rem;
-    width: 9.75rem;
+    right: 1.4rem;
+    bottom: -1.9rem;
+    width: 10.25rem;
   }
 }
 

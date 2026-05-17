@@ -3,7 +3,6 @@ export type BillingPlanId =
   | 'growth'
   | 'business'
   | 'scale'
-  | 'enterprise'
   | 'custom'
 
 export type BillingPlan = {
@@ -60,8 +59,8 @@ export const billingPlans: readonly BillingPlan[] = [
     id: 'business',
     name: 'Business',
     slug: 'business',
-    monthlyPrice: 59,
-    yearlyPrice: 590,
+    monthlyPrice: 79,
+    yearlyPrice: 790,
     currency: 'EUR',
     workerLimitMin: 16,
     workerLimitMax: 30,
@@ -76,8 +75,8 @@ export const billingPlans: readonly BillingPlan[] = [
     id: 'scale',
     name: 'Scale',
     slug: 'scale',
-    monthlyPrice: 99,
-    yearlyPrice: 990,
+    monthlyPrice: 149,
+    yearlyPrice: 1490,
     currency: 'EUR',
     workerLimitMin: 31,
     workerLimitMax: 50,
@@ -89,31 +88,15 @@ export const billingPlans: readonly BillingPlan[] = [
     contactSales: false,
   },
   {
-    id: 'enterprise',
-    name: 'Enterprise',
-    slug: 'enterprise',
-    monthlyPrice: 149,
-    yearlyPrice: 1490,
-    currency: 'EUR',
-    workerLimitMin: 51,
-    workerLimitMax: 100,
-    description: 'For large organizations requiring more workers and structured operations.',
-    stripeProductName: 'Diriqo Enterprise',
-    stripePriceId: process.env.STRIPE_PRICE_ENTERPRISE ?? 'STRIPE_PRICE_ENTERPRISE',
-    stripePriceEnvVar: 'STRIPE_PRICE_ENTERPRISE',
-    recommended: false,
-    contactSales: false,
-  },
-  {
     id: 'custom',
     name: 'Custom',
     slug: 'custom',
     monthlyPrice: null,
     yearlyPrice: null,
     currency: 'EUR',
-    workerLimitMin: 101,
+    workerLimitMin: 51,
     workerLimitMax: null,
-    description: 'For teams above 100 workers. Contact us for custom pricing.',
+    description: 'For teams above 50 workers. Contact us for a custom setup.',
     stripeProductName: null,
     stripePriceId: null,
     recommended: false,
@@ -135,7 +118,7 @@ export function getResolvedStripePriceId(plan: BillingPlan): string | null {
 }
 
 export function formatWorkerRange(plan: BillingPlan): string {
-  if (plan.workerLimitMax === null) return '100+ users/workers'
+  if (plan.workerLimitMax === null) return '51+ users/workers'
   return `${plan.workerLimitMin}–${plan.workerLimitMax} users/workers`
 }
 
@@ -170,7 +153,7 @@ export type WorkerLimitStatus = 'within-limit' | 'approaching-limit' | 'over-lim
 export function getWorkerLimitStatus(planId: BillingPlanId, workerCount: number): WorkerLimitStatus {
   const plan = getBillingPlanBySlug(planId)
   if (!plan || plan.contactSales || plan.workerLimitMax === null) return 'contact-sales'
-  if (workerCount > 100) return 'contact-sales'
+  if (workerCount > 50) return 'contact-sales'
   if (workerCount > plan.workerLimitMax) return 'over-limit'
   if (workerCount >= Math.ceil(plan.workerLimitMax * 0.8)) return 'approaching-limit'
   return 'within-limit'

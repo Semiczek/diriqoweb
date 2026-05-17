@@ -3,9 +3,12 @@ import { CTASection } from '@/components/marketing/CTASection'
 import { DiriqoDemoApp } from '@/components/demo/DiriqoDemoApp'
 import { FAQSection } from '@/components/marketing/FAQSection'
 import { FeatureGrid } from '@/components/marketing/FeatureGrid'
+import { getFieldWorkCopy } from '@/components/marketing/fieldWorkCopy'
 import { HeroSection } from '@/components/marketing/HeroSection'
 import { IndustryGrid } from '@/components/marketing/IndustryGrid'
+import { IndustrySeoSection } from '@/components/marketing/IndustrySeoSection'
 import { AddonCard } from '@/components/marketing/AddonCard'
+import { MobileWorkerSection } from '@/components/marketing/MobileWorkerSection'
 import { PricingCards } from '@/components/marketing/PricingCards'
 import { ProblemSection } from '@/components/marketing/ProblemSection'
 import { ProductShowcaseSection } from '@/components/marketing/ProductShowcaseSection'
@@ -13,6 +16,7 @@ import { SocialProofSection } from '@/components/marketing/SocialProofSection'
 import { SolutionSection } from '@/components/marketing/SolutionSection'
 import { StepFlow } from '@/components/marketing/StepFlow'
 import { SignupInfoBand } from '@/components/marketing/SignupInfoBand'
+import { TrustHelpSection } from '@/components/marketing/TrustHelpSection'
 import {
   contactEmail,
   demoSignupCopyByLocale,
@@ -33,14 +37,15 @@ type DemoContentProps = LocalizedPageProps & {
 
 export function HomeContent({ content, locale }: LocalizedPageProps) {
   const pricingCopy = getPricingPageCopy(locale)
+  const fieldWorkCopy = getFieldWorkCopy(locale)
 
   return (
     <main>
       <HeroSection content={content} locale={locale} />
       <ProblemSection content={content} />
       <SolutionSection content={content} />
-      <ProductShowcaseSection content={content} />
       <SignupInfoBand content={content} />
+      <MobileWorkerSection content={content} />
       <BeforeAfterSection content={content} />
 
       <section className="soft-section-bg relative overflow-hidden py-16 sm:py-20">
@@ -50,10 +55,10 @@ export function HomeContent({ content, locale }: LocalizedPageProps) {
           <div className="reveal-up max-w-3xl">
             <p className="text-sm font-black uppercase tracking-wide text-blue-700">{content.home.stepsEyebrow}</p>
             <h2 className="mt-3 text-3xl font-black text-slate-950 sm:text-4xl">{content.home.stepsTitle}</h2>
-            <p className="mt-4 text-lg leading-8 text-slate-600">{content.home.stepsText}</p>
+            <p className="mt-4 text-lg leading-8 text-slate-600">{fieldWorkCopy.workflowText}</p>
           </div>
           <div className="mt-10">
-            <StepFlow steps={content.homeSteps} />
+            <StepFlow steps={fieldWorkCopy.workflowSteps} />
           </div>
         </div>
       </section>
@@ -89,6 +94,8 @@ export function HomeContent({ content, locale }: LocalizedPageProps) {
       </section>
 
       <SocialProofSection content={content} />
+      <TrustHelpSection content={content} />
+      <ProductShowcaseSection content={content} />
 
       <section className="soft-section-bg relative overflow-hidden py-16 sm:py-20">
         <div aria-hidden="true" className="section-soft-divider absolute inset-x-0 top-0 h-20" />
@@ -168,6 +175,8 @@ export function FeaturesContent({ content }: LocalizedPageProps) {
 }
 
 export function HowItWorksContent({ content }: LocalizedPageProps) {
+  const fieldWorkCopy = getFieldWorkCopy(content.locale)
+
   return (
     <main>
       <section className="bg-white py-16 sm:py-20">
@@ -177,12 +186,13 @@ export function HowItWorksContent({ content }: LocalizedPageProps) {
             {content.howPage.title}
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">{content.howPage.text}</p>
+          <p className="mt-3 max-w-3xl text-base leading-7 text-slate-600">{fieldWorkCopy.workflowText}</p>
         </div>
       </section>
 
       <section className="bg-slate-50 py-16 sm:py-20">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <StepFlow steps={content.howItWorksSteps} compact />
+          <StepFlow steps={fieldWorkCopy.workflowSteps} compact />
         </div>
       </section>
 
@@ -276,6 +286,8 @@ export function IndustriesContent({ content }: LocalizedPageProps) {
         </div>
       </section>
 
+      <IndustrySeoSection content={content.industriesSeo} />
+
       <CTASection content={content} />
     </main>
   )
@@ -283,6 +295,7 @@ export function IndustriesContent({ content }: LocalizedPageProps) {
 
 export function DemoContent({ content, initialPath }: DemoContentProps) {
   const demoCopy = demoSignupCopyByLocale[content.locale]
+  const fieldWorkCopy = getFieldWorkCopy(content.locale)
 
   return (
     <>
@@ -292,6 +305,7 @@ export function DemoContent({ content, initialPath }: DemoContentProps) {
           <div>
             <p className="text-sm font-black text-cyan-100">{demoCopy.title}</p>
             <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-300">{demoCopy.text}</p>
+            <p className="mt-1 max-w-3xl text-sm leading-6 text-cyan-100/90">{fieldWorkCopy.demoDetail}</p>
           </div>
           <a
             href={getSignupHref(content.locale)}

@@ -1,3 +1,4 @@
+import { getFieldWorkCopy } from '@/components/marketing/fieldWorkCopy'
 import type { MarketingContent } from '@/lib/marketing/content'
 
 type FAQSectionProps = {
@@ -5,6 +6,9 @@ type FAQSectionProps = {
 }
 
 export function FAQSection({ content }: FAQSectionProps) {
+  const fieldWorkCopy = getFieldWorkCopy(content.locale)
+  const faqs = [...content.faqs, ...fieldWorkCopy.faqs]
+
   return (
     <section className="light-mesh-bg relative overflow-hidden py-16 sm:py-20">
       <div aria-hidden="true" className="section-soft-divider absolute inset-x-0 top-0 h-20" />
@@ -16,7 +20,7 @@ export function FAQSection({ content }: FAQSectionProps) {
         </div>
 
         <div className="mt-8 grid gap-3">
-          {content.faqs.map((item, index) => (
+          {faqs.map((item, index) => (
             <details
               key={item.question}
               className="group reveal-up rounded-2xl border border-slate-200/80 bg-white/[0.74] p-5 shadow-[0_14px_34px_rgba(15,23,42,0.06)] ring-1 ring-white/60 backdrop-blur-xl transition duration-200 open:border-cyan-200 open:bg-white hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_20px_48px_rgba(37,99,235,0.1),0_0_24px_rgba(6,182,212,0.08)]"

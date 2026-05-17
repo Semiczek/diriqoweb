@@ -1,4 +1,4 @@
-export type WebPricingPlanId = 'starter' | 'growth' | 'business' | 'scale' | 'enterprise' | 'custom'
+export type WebPricingPlanId = 'starter' | 'growth' | 'business' | 'scale'
 
 export type WebPricingPlan = {
   id: WebPricingPlanId
@@ -42,8 +42,8 @@ export const webPricingPlans: readonly WebPricingPlan[] = [
     id: 'business',
     name: 'Business',
     slug: 'business',
-    monthlyPrice: 59,
-    yearlyPrice: 590,
+    monthlyPrice: 79,
+    yearlyPrice: 790,
     currency: 'EUR',
     workerLimitMin: 16,
     workerLimitMax: 30,
@@ -54,37 +54,13 @@ export const webPricingPlans: readonly WebPricingPlan[] = [
     id: 'scale',
     name: 'Scale',
     slug: 'scale',
-    monthlyPrice: 99,
-    yearlyPrice: 990,
+    monthlyPrice: 149,
+    yearlyPrice: 1490,
     currency: 'EUR',
     workerLimitMin: 31,
     workerLimitMax: 50,
     recommended: false,
     contactSales: false,
-  },
-  {
-    id: 'enterprise',
-    name: 'Enterprise',
-    slug: 'enterprise',
-    monthlyPrice: 149,
-    yearlyPrice: 1490,
-    currency: 'EUR',
-    workerLimitMin: 51,
-    workerLimitMax: 100,
-    recommended: false,
-    contactSales: false,
-  },
-  {
-    id: 'custom',
-    name: 'Custom',
-    slug: 'custom',
-    monthlyPrice: null,
-    yearlyPrice: null,
-    currency: 'EUR',
-    workerLimitMin: 101,
-    workerLimitMax: null,
-    recommended: false,
-    contactSales: true,
   },
 ]
 
