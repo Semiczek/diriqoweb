@@ -48,6 +48,18 @@ type ParsedRoute =
   | { section: 'help' }
 
 type DemoMoneyFormatter = (value: number) => string
+type DemoDateFormatter = (value: string) => string
+
+const dateLocales: Record<Locale, string> = {
+  cs: 'cs-CZ',
+  en: 'en-US',
+  de: 'de-DE',
+  pl: 'pl-PL',
+  hu: 'hu-HU',
+  es: 'es-ES',
+  it: 'it-IT',
+  fr: 'fr-FR',
+}
 
 const navGroups: Array<{
   title: string
@@ -156,17 +168,18 @@ function parseRoute(segments: string[]): ParsedRoute {
 
 function renderRoute(route: ParsedRoute, onDemoAction: () => void, locale: Locale) {
   const formatMoneyForLocale: DemoMoneyFormatter = (value) => formatMoney(value, locale)
+  const formatDateForLocale: DemoDateFormatter = (value) => formatDate(value, locale)
   const currencyFormat = getLocalizedCurrencyFormat(locale)
 
-  if (route.section === 'jobs' && route.id) return <JobDetailPage jobId={route.id} onDemoAction={onDemoAction} formatMoney={formatMoneyForLocale} />
-  if (route.section === 'jobs') return <JobsPage onDemoAction={onDemoAction} formatMoney={formatMoneyForLocale} />
-  if (route.section === 'customers') return <CustomersPage customerId={route.id} onDemoAction={onDemoAction} formatMoney={formatMoneyForLocale} />
-  if (route.section === 'workers') return <WorkersPage workerId={route.id} onDemoAction={onDemoAction} formatMoney={formatMoneyForLocale} />
-  if (route.section === 'calendar') return <CalendarPage onDemoAction={onDemoAction} />
-  if (route.section === 'invoices') return <InvoicesPage invoiceId={route.id} onDemoAction={onDemoAction} formatMoney={formatMoneyForLocale} />
-  if (route.section === 'quotes' && route.publicPreview) return <PublicQuotePage quoteId={route.id} onDemoAction={onDemoAction} formatMoney={formatMoneyForLocale} />
-  if (route.section === 'quotes' && route.id) return <QuoteDetailPage quoteId={route.id} onDemoAction={onDemoAction} formatMoney={formatMoneyForLocale} />
-  if (route.section === 'quotes') return <QuotesPage onDemoAction={onDemoAction} formatMoney={formatMoneyForLocale} />
+  if (route.section === 'jobs' && route.id) return <JobDetailPage jobId={route.id} onDemoAction={onDemoAction} formatMoney={formatMoneyForLocale} formatDate={formatDateForLocale} />
+  if (route.section === 'jobs') return <JobsPage onDemoAction={onDemoAction} formatMoney={formatMoneyForLocale} formatDate={formatDateForLocale} />
+  if (route.section === 'customers') return <CustomersPage customerId={route.id} onDemoAction={onDemoAction} formatMoney={formatMoneyForLocale} formatDate={formatDateForLocale} />
+  if (route.section === 'workers') return <WorkersPage workerId={route.id} onDemoAction={onDemoAction} formatMoney={formatMoneyForLocale} formatDate={formatDateForLocale} />
+  if (route.section === 'calendar') return <CalendarPage onDemoAction={onDemoAction} formatDate={formatDateForLocale} />
+  if (route.section === 'invoices') return <InvoicesPage invoiceId={route.id} onDemoAction={onDemoAction} formatMoney={formatMoneyForLocale} formatDate={formatDateForLocale} />
+  if (route.section === 'quotes' && route.publicPreview) return <PublicQuotePage quoteId={route.id} onDemoAction={onDemoAction} formatMoney={formatMoneyForLocale} formatDate={formatDateForLocale} />
+  if (route.section === 'quotes' && route.id) return <QuoteDetailPage quoteId={route.id} onDemoAction={onDemoAction} formatMoney={formatMoneyForLocale} formatDate={formatDateForLocale} />
+  if (route.section === 'quotes') return <QuotesPage onDemoAction={onDemoAction} formatMoney={formatMoneyForLocale} formatDate={formatDateForLocale} />
   if (route.section === 'settings') return <SettingsPage onDemoAction={onDemoAction} formatMoney={formatMoneyForLocale} currencyCode={currencyFormat.currency} intlLocale={currencyFormat.locale} />
   if (route.section === 'help') return <HelpPage />
   return <DashboardPage onDemoAction={onDemoAction} formatMoney={formatMoneyForLocale} />
@@ -216,7 +229,7 @@ function Topbar({ onOpenMenu }: { onOpenMenu: () => void }) {
         <span />
       </button>
       <button type="button" className="demo-company-switch">
-        {demoCompany.name} v
+        {demoCompany.name}
       </button>
       <div className="demo-topbar-right">
         <label className="demo-language-control">
@@ -227,7 +240,7 @@ function Topbar({ onOpenMenu }: { onOpenMenu: () => void }) {
         </label>
         <button type="button" className="demo-user-chip">
           <span>{demoUser.initials}</span>
-          {demoUser.name} v
+          {demoUser.name}
         </button>
       </div>
     </header>
@@ -372,7 +385,7 @@ function DashboardPage({ onDemoAction, formatMoney }: { onDemoAction: () => void
   )
 }
 
-function JobsPage({ onDemoAction, formatMoney }: { onDemoAction: () => void; formatMoney: DemoMoneyFormatter }) {
+function JobsPage({ onDemoAction, formatMoney, formatDate }: { onDemoAction: () => void; formatMoney: DemoMoneyFormatter; formatDate: DemoDateFormatter }) {
   return (
     <div className="demo-page-wrap">
       <PageHero eyebrow="Zakázky" title="Zakázky" text="Plánuj práci, přiřazuj lidi a sleduj stav zakázek.">
@@ -414,7 +427,7 @@ function JobsPage({ onDemoAction, formatMoney }: { onDemoAction: () => void; for
   )
 }
 
-function JobDetailPage({ jobId, onDemoAction, formatMoney }: { jobId: string; onDemoAction: () => void; formatMoney: DemoMoneyFormatter }) {
+function JobDetailPage({ jobId, onDemoAction, formatMoney, formatDate }: { jobId: string; onDemoAction: () => void; formatMoney: DemoMoneyFormatter; formatDate: DemoDateFormatter }) {
   const job = demoJobs.find((item) => item.id === jobId) ?? demoJobs[0]
   const assignedWorkers = job.workerIds.map((workerId) => demoWorkers.find((worker) => worker.id === workerId)).filter(Boolean) as DemoWorker[]
 
@@ -523,7 +536,7 @@ function JobDetailPage({ jobId, onDemoAction, formatMoney }: { jobId: string; on
   )
 }
 
-function CustomersPage({ customerId, formatMoney }: { customerId?: string; onDemoAction: () => void; formatMoney: DemoMoneyFormatter }) {
+function CustomersPage({ customerId, formatMoney, formatDate }: { customerId?: string; onDemoAction: () => void; formatMoney: DemoMoneyFormatter; formatDate: DemoDateFormatter }) {
   const selected = customerId ? demoCustomers.find((customer) => customer.id === customerId) : null
 
   if (selected) {
@@ -578,7 +591,7 @@ function CustomersPage({ customerId, formatMoney }: { customerId?: string; onDem
   )
 }
 
-function WorkersPage({ workerId, onDemoAction, formatMoney }: { workerId?: string; onDemoAction: () => void; formatMoney: DemoMoneyFormatter }) {
+function WorkersPage({ workerId, onDemoAction, formatMoney, formatDate }: { workerId?: string; onDemoAction: () => void; formatMoney: DemoMoneyFormatter; formatDate: DemoDateFormatter }) {
   const selected = workerId ? demoWorkers.find((worker) => worker.id === workerId) : null
 
   if (selected) {
@@ -704,7 +717,7 @@ function getWorkerPayroll(worker: DemoWorker) {
   }
 }
 
-function InvoicesPage({ invoiceId, onDemoAction, formatMoney }: { invoiceId?: string; onDemoAction: () => void; formatMoney: DemoMoneyFormatter }) {
+function InvoicesPage({ invoiceId, onDemoAction, formatMoney, formatDate }: { invoiceId?: string; onDemoAction: () => void; formatMoney: DemoMoneyFormatter; formatDate: DemoDateFormatter }) {
   const selected = invoiceId ? demoInvoices.find((invoice) => invoice.id === invoiceId) : null
 
   if (selected) {
@@ -751,7 +764,7 @@ function InvoicesPage({ invoiceId, onDemoAction, formatMoney }: { invoiceId?: st
   )
 }
 
-function QuotesPage({ onDemoAction, formatMoney }: { onDemoAction: () => void; formatMoney: DemoMoneyFormatter }) {
+function QuotesPage({ onDemoAction, formatMoney, formatDate }: { onDemoAction: () => void; formatMoney: DemoMoneyFormatter; formatDate: DemoDateFormatter }) {
   return (
     <div className="demo-page-wrap">
       <PageHero eyebrow="Prodej" title="Cenové nabídky" text="Připravujte nabídky z položek a sledujte reakce zákazníka.">
@@ -785,7 +798,7 @@ function QuotesPage({ onDemoAction, formatMoney }: { onDemoAction: () => void; f
   )
 }
 
-function QuoteDetailPage({ quoteId, onDemoAction, formatMoney }: { quoteId?: string; onDemoAction: () => void; formatMoney: DemoMoneyFormatter }) {
+function QuoteDetailPage({ quoteId, onDemoAction, formatMoney, formatDate }: { quoteId?: string; onDemoAction: () => void; formatMoney: DemoMoneyFormatter; formatDate: DemoDateFormatter }) {
   const quote = demoQuotes.find((item) => item.id === quoteId) ?? demoQuotes[0]
 
   return (
@@ -817,7 +830,7 @@ function QuoteDetailPage({ quoteId, onDemoAction, formatMoney }: { quoteId?: str
   )
 }
 
-function PublicQuotePage({ quoteId, onDemoAction, formatMoney }: { quoteId?: string; onDemoAction: () => void; formatMoney: DemoMoneyFormatter }) {
+function PublicQuotePage({ quoteId, onDemoAction, formatMoney, formatDate }: { quoteId?: string; onDemoAction: () => void; formatMoney: DemoMoneyFormatter; formatDate: DemoDateFormatter }) {
   const quote = demoQuotes.find((item) => item.id === quoteId) ?? demoQuotes[0]
 
   return (
@@ -855,7 +868,7 @@ function PublicQuotePage({ quoteId, onDemoAction, formatMoney }: { quoteId?: str
   )
 }
 
-function CalendarPage({ onDemoAction }: { onDemoAction: () => void }) {
+function CalendarPage({ onDemoAction, formatDate }: { onDemoAction: () => void; formatDate: DemoDateFormatter }) {
   const [mode, setMode] = useState<'list' | 'week' | 'month'>('week')
 
   return (
@@ -870,14 +883,14 @@ function CalendarPage({ onDemoAction }: { onDemoAction: () => void }) {
           </button>
         ))}
       </section>
-      {mode === 'list' ? <CalendarList /> : null}
+      {mode === 'list' ? <CalendarList formatDate={formatDate} /> : null}
       {mode === 'week' ? <CalendarWeek /> : null}
       {mode === 'month' ? <CalendarMonth /> : null}
     </div>
   )
 }
 
-function CalendarList() {
+function CalendarList({ formatDate }: { formatDate: DemoDateFormatter }) {
   const dates = Array.from(new Set(demoCalendarEvents.map((event) => event.date)))
 
   return (
@@ -1322,8 +1335,8 @@ function formatMoney(value: number, locale: Locale) {
   return formatEurValueForLocale(value, locale)
 }
 
-function formatDate(value: string) {
-  return new Intl.DateTimeFormat('cs-CZ', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date(value))
+function formatDate(value: string, locale: Locale) {
+  return new Intl.DateTimeFormat(dateLocales[locale], { day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date(`${value}T00:00:00`))
 }
 
 function workStateLabel(state: DemoJobWorkState) {

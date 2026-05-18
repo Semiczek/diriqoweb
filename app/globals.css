@@ -907,6 +907,24 @@ details[open] .faq-answer {
   padding: 5px 9px;
 }
 
+.demo-company-switch,
+.demo-user-chip {
+  align-items: center;
+  display: inline-flex;
+  gap: 8px;
+}
+
+.demo-company-switch::after,
+.demo-user-chip::after {
+  border-bottom: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  content: '';
+  height: 6px;
+  opacity: .7;
+  transform: rotate(45deg) translateY(-1px);
+  width: 6px;
+}
+
 .demo-topbar-right {
   align-items: center;
   display: flex;
@@ -923,12 +941,6 @@ details[open] .faq-answer {
   color: #64748b;
   font-size: 12px;
   font-weight: 850;
-}
-
-.demo-user-chip {
-  align-items: center;
-  display: inline-flex;
-  gap: 8px;
 }
 
 .demo-user-chip span {

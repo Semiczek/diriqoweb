@@ -7,6 +7,7 @@ import type { Locale } from '@/lib/marketing/content'
 
 const translatedAttributes = ['placeholder', 'aria-label', 'title', 'alt']
 const ignoredTags = new Set(['SCRIPT', 'STYLE', 'TEXTAREA'])
+const exactOnlySources = new Set(['Ne', 'Po', 'Před', 'den', 'měsíc', 'směna', 'zásah', 'paušál'])
 
 type DemoLocalizerProps = {
   locale: Locale
@@ -20,11 +21,27 @@ export function DemoLocalizer({ locale }: DemoLocalizerProps) {
     const dictionary = getDemoDictionary(locale)
     const replacements = Object.entries(dictionary).sort((a, b) => b[0].length - a[0].length)
 
+    const replaceExactText = (value: string, source: string, target: string) => {
+      const start = value.search(/\S/)
+      if (start === -1) return value
+
+      const end = value.search(/\s*$/)
+      const text = value.slice(start, end)
+      if (text !== source) return value
+
+      return `${value.slice(0, start)}${target}${value.slice(end)}`
+    }
+
     const translate = (value: string) => {
       if (!value || replacements.length === 0) return value
 
       let nextValue = value
       for (const [source, target] of replacements) {
+        if (exactOnlySources.has(source)) {
+          nextValue = replaceExactText(nextValue, source, target)
+          continue
+        }
+
         nextValue = nextValue.split(source).join(target)
       }
       return nextValue
@@ -94,9 +111,6 @@ export function DemoLocalizer({ locale }: DemoLocalizerProps) {
     observer.observe(root, {
       childList: true,
       subtree: true,
-      characterData: true,
-      attributes: true,
-      attributeFilter: translatedAttributes,
     })
 
     return () => observer.disconnect()
