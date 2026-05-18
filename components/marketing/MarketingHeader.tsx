@@ -24,7 +24,6 @@ type MarketingHeaderProps = {
 }
 
 export function MarketingHeader({ content, locale }: MarketingHeaderProps) {
-  const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
   const currentPath = stripLocaleFromPath(pathname)
@@ -49,7 +48,7 @@ export function MarketingHeader({ content, locale }: MarketingHeaderProps) {
         background: scrolled
           ? 'linear-gradient(135deg, rgba(3, 10, 28, 0.96) 0%, rgba(5, 20, 53, 0.95) 46%, rgba(18, 17, 72, 0.94) 100%)'
           : 'linear-gradient(135deg, rgba(5, 16, 42, 0.94) 0%, rgba(7, 30, 72, 0.92) 50%, rgba(32, 24, 88, 0.9) 100%)',
-        zIndex: 120,
+        zIndex: 1000,
       }}
     >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -92,85 +91,76 @@ export function MarketingHeader({ content, locale }: MarketingHeaderProps) {
           <span className="text-2xl font-black tracking-tight text-white sm:text-3xl">diriqo</span>
         </Link>
 
-        <nav className="hidden flex-1 items-center justify-center gap-1 2xl:flex" aria-label="Main navigation">
+        <nav className="hidden flex-1 items-center justify-center gap-1 xl:flex" aria-label="Main navigation">
           {content.navLinks.map((item) => (
             <Link
               key={item.href}
               href={localizePath(locale, item.href)}
-              className="nav-link-polish flex w-28 justify-center whitespace-nowrap rounded-lg px-2 py-2 text-[13px] font-semibold text-slate-200 transition duration-200 hover:bg-white/[0.07] hover:text-white hover:shadow-[0_0_22px_rgba(6,182,212,0.12)]"
+              className="nav-link-polish flex w-[5.75rem] justify-center whitespace-nowrap rounded-lg px-2 py-2 text-[12px] font-semibold text-slate-200 transition duration-200 hover:bg-white/[0.07] hover:text-white hover:shadow-[0_0_22px_rgba(6,182,212,0.12)] 2xl:w-28 2xl:text-[13px]"
             >
               {item.label}
             </Link>
           ))}
         </nav>
 
-        <div className="hidden w-[460px] shrink-0 items-center justify-end gap-3 2xl:flex">
+        <div className="hidden w-[420px] shrink-0 items-center justify-end gap-3 xl:flex 2xl:w-[460px]">
           <a
             href={getLoginHref(locale)}
-            className="w-28 whitespace-nowrap rounded-lg border border-cyan-300/30 bg-white/[0.12] px-3 py-2.5 text-center text-sm font-black !text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_12px_28px_rgba(6,182,212,0.10)] ring-1 ring-white/[0.06] backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:border-cyan-200/55 hover:bg-white/[0.18] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_14px_34px_rgba(6,182,212,0.18)]"
+            className="w-24 whitespace-nowrap rounded-lg border border-cyan-300/30 bg-white/[0.12] px-3 py-2.5 text-center text-sm font-black !text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_12px_28px_rgba(6,182,212,0.10)] ring-1 ring-white/[0.06] backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:border-cyan-200/55 hover:bg-white/[0.18] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_14px_34px_rgba(6,182,212,0.18)] 2xl:w-28"
           >
             {content.common.login}
           </a>
           <a
             href={getSignupHref(locale)}
-            className="cta-light-sweep w-40 whitespace-nowrap rounded-lg bg-[linear-gradient(135deg,#8b5cf6_0%,#2563eb_48%,#06b6d4_100%)] px-3 py-2.5 text-center text-sm font-black !text-white shadow-[0_14px_36px_rgba(37,99,235,0.32),0_0_26px_rgba(124,58,237,0.18)] ring-1 ring-white/[0.14] transition duration-200 hover:-translate-y-0.5 hover:brightness-110 hover:shadow-[0_16px_42px_rgba(6,182,212,0.32),0_0_38px_rgba(124,58,237,0.26)] active:translate-y-0"
+            className="cta-light-sweep w-36 whitespace-nowrap rounded-lg bg-[linear-gradient(135deg,#8b5cf6_0%,#2563eb_48%,#06b6d4_100%)] px-3 py-2.5 text-center text-sm font-black !text-white shadow-[0_14px_36px_rgba(37,99,235,0.32),0_0_26px_rgba(124,58,237,0.18)] ring-1 ring-white/[0.14] transition duration-200 hover:-translate-y-0.5 hover:brightness-110 hover:shadow-[0_16px_42px_rgba(6,182,212,0.32),0_0_38px_rgba(124,58,237,0.26)] active:translate-y-0 2xl:w-40"
           >
             {content.common.trial}
           </a>
           <LanguageDropdown locale={locale} currentPath={currentPath} />
         </div>
 
-        <button
-          type="button"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-white/[0.15] bg-white/[0.08] text-white shadow-lg shadow-slate-950/20 transition hover:border-cyan-200/35 hover:bg-white/[0.14] 2xl:hidden"
-          aria-label={open ? content.common.closeMenu : content.common.openMenu}
-          aria-expanded={open}
-          onClick={() => setOpen((value) => !value)}
-        >
-          <span className="grid gap-1.5" aria-hidden="true">
-            <span className={`h-0.5 w-5 rounded-full bg-current transition ${open ? 'translate-y-2 rotate-45' : ''}`} />
-            <span className={`h-0.5 w-5 rounded-full bg-current transition ${open ? 'opacity-0' : ''}`} />
-            <span className={`h-0.5 w-5 rounded-full bg-current transition ${open ? '-translate-y-2 -rotate-45' : ''}`} />
-          </span>
-        </button>
-      </div>
+        <details data-marketing-menu className="group/menu relative z-[1010] xl:hidden">
+          <summary
+            className="inline-flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-lg border border-white/[0.15] bg-white/[0.08] text-white shadow-lg shadow-slate-950/20 transition hover:border-cyan-200/35 hover:bg-white/[0.14] [&::-webkit-details-marker]:hidden"
+            aria-label={content.common.openMenu}
+          >
+            <span className="grid gap-1.5" aria-hidden="true">
+              <span className="h-0.5 w-5 rounded-full bg-current transition group-open/menu:translate-y-2 group-open/menu:rotate-45" />
+              <span className="h-0.5 w-5 rounded-full bg-current transition group-open/menu:opacity-0" />
+              <span className="h-0.5 w-5 rounded-full bg-current transition group-open/menu:-translate-y-2 group-open/menu:-rotate-45" />
+            </span>
+          </summary>
 
-      {open ? (
-        <div className="max-h-[calc(100dvh-4.65rem)] overflow-y-auto overscroll-contain border-t border-white/10 bg-slate-950/[0.96] px-4 py-4 shadow-2xl shadow-slate-950/40 backdrop-blur-2xl 2xl:hidden">
-          <nav className="mx-auto grid max-w-7xl gap-2" aria-label="Mobile navigation">
-            {content.navLinks.map((item) => (
-              <Link
-                key={item.href}
-                href={localizePath(locale, item.href)}
-                className="rounded-lg px-3 py-3 text-base font-semibold text-slate-100 transition hover:bg-white/[0.08]"
-                onClick={() => setOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
-            <div className="mt-2 grid gap-2 border-t border-white/10 pt-4">
-              <a
-                href={getLoginHref(locale)}
-                className="rounded-lg border border-cyan-300/30 bg-white/[0.12] px-3 py-3 text-center font-black !text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_12px_28px_rgba(6,182,212,0.10)] transition hover:bg-white/[0.18]"
-              >
-                {content.common.login}
-              </a>
-              <a
-                href={getSignupHref(locale)}
-                className="cta-light-sweep rounded-lg bg-[linear-gradient(135deg,#8b5cf6_0%,#2563eb_48%,#06b6d4_100%)] px-3 py-3 text-center font-black !text-white shadow-lg shadow-blue-500/25 transition hover:brightness-110 active:scale-[0.99]"
-              >
-                {content.common.trial}
-              </a>
-              <LanguageDropdown
-                locale={locale}
-                currentPath={currentPath}
-                mobile
-                onNavigate={() => setOpen(false)}
-              />
-            </div>
-          </nav>
-        </div>
-      ) : null}
+          <div className="fixed inset-x-0 top-[4.65rem] z-[1005] max-h-[calc(100vh-4.65rem)] overflow-y-auto overscroll-contain border-t border-white/10 bg-slate-950/[0.96] px-4 py-4 shadow-2xl shadow-slate-950/40 backdrop-blur-2xl">
+            <nav className="mx-auto grid max-w-7xl gap-2" aria-label="Mobile navigation">
+              {content.navLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={localizePath(locale, item.href)}
+                  className="rounded-lg px-3 py-3 text-base font-semibold text-slate-100 transition hover:bg-white/[0.08]"
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <div className="mt-2 grid gap-2 border-t border-white/10 pt-4">
+                <a
+                  href={getLoginHref(locale)}
+                  className="rounded-lg border border-cyan-300/30 bg-white/[0.12] px-3 py-3 text-center font-black !text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_12px_28px_rgba(6,182,212,0.10)] transition hover:bg-white/[0.18]"
+                >
+                  {content.common.login}
+                </a>
+                <a
+                  href={getSignupHref(locale)}
+                  className="cta-light-sweep rounded-lg bg-[linear-gradient(135deg,#8b5cf6_0%,#2563eb_48%,#06b6d4_100%)] px-3 py-3 text-center font-black !text-white shadow-lg shadow-blue-500/25 transition hover:brightness-110 active:scale-[0.99]"
+                >
+                  {content.common.trial}
+                </a>
+                <LanguageDropdown locale={locale} currentPath={currentPath} mobile />
+              </div>
+            </nav>
+          </div>
+        </details>
+      </div>
     </header>
   )
 }
@@ -179,14 +169,11 @@ function LanguageDropdown({
   locale,
   currentPath,
   mobile = false,
-  onNavigate,
 }: {
   locale: Locale
   currentPath: string
   mobile?: boolean
-  onNavigate?: () => void
 }) {
-  const [languageOpen, setLanguageOpen] = useState(false)
   const languageHref = (item: Locale) => {
     if (currentPath === '/register') return getSignupHref(item)
     if (currentPath === '/login') return getLoginHref(item)
@@ -195,15 +182,13 @@ function LanguageDropdown({
   }
 
   return (
-    <div className={mobile ? 'relative pt-2' : 'relative w-48'}>
-      <button
-        type="button"
-        className={`flex min-h-11 w-full items-center justify-between gap-3 rounded-lg border border-white/[0.16] bg-white/[0.09] p-1.5 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_12px_30px_rgba(2,6,23,0.24)] ring-1 ring-white/[0.05] backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:border-cyan-200/40 hover:bg-white/[0.14] ${
-          languageOpen ? 'border-cyan-200/40 bg-white/[0.13] shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_14px_34px_rgba(6,182,212,0.14)]' : ''
-        }`}
+    <details
+      data-language-dropdown
+      className={mobile ? 'group/language relative pt-2' : 'group/language relative w-44 2xl:w-48'}
+    >
+      <summary
+        className="flex min-h-11 w-full cursor-pointer list-none items-center justify-between gap-3 rounded-lg border border-white/[0.16] bg-white/[0.09] p-1.5 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_12px_30px_rgba(2,6,23,0.24)] ring-1 ring-white/[0.05] backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:border-cyan-200/40 hover:bg-white/[0.14] group-open/language:border-cyan-200/40 group-open/language:bg-white/[0.13] group-open/language:shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_14px_34px_rgba(6,182,212,0.14)] [&::-webkit-details-marker]:hidden"
         aria-haspopup="menu"
-        aria-expanded={languageOpen}
-        onClick={() => setLanguageOpen((value) => !value)}
       >
         <span className="flex min-w-0 items-center gap-2">
           <span className="inline-flex h-8 min-w-9 items-center justify-center rounded-md bg-[linear-gradient(135deg,#8b5cf6_0%,#2563eb_60%,#06b6d4_100%)] px-2 text-xs font-black !text-white shadow-md shadow-blue-500/20">
@@ -212,48 +197,42 @@ function LanguageDropdown({
           <span className="truncate text-sm font-black text-white">{localeLabels[locale]}</span>
         </span>
         <svg
-          className={`mr-1 h-4 w-4 text-cyan-100 transition-transform ${languageOpen ? 'rotate-180' : ''}`}
+          className="mr-1 h-4 w-4 text-cyan-100 transition-transform group-open/language:rotate-180"
           viewBox="0 0 20 20"
           fill="none"
           aria-hidden="true"
         >
           <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
-      </button>
+      </summary>
 
-      {languageOpen ? (
-        <div
-          className={`z-50 overflow-y-auto overscroll-contain rounded-xl border border-cyan-100/20 bg-[#050816]/[0.96] p-2 shadow-2xl shadow-slate-950/70 ring-1 ring-white/10 backdrop-blur-xl ${
-            mobile ? 'mt-2 max-h-[calc(100dvh-9rem)]' : 'absolute right-0 top-full mt-2 max-h-[70vh] w-64'
-          }`}
-          style={{ zIndex: 140, WebkitOverflowScrolling: 'touch' }}
-          role="menu"
-        >
-          <div className="grid gap-1">
-            {locales.map((item) => (
-              <Link
-                key={item}
-                href={languageHref(item)}
-                className={`flex items-center justify-between gap-6 rounded-lg px-3.5 py-2.5 text-sm font-black transition ${
-                  item === locale
-                    ? 'bg-[linear-gradient(135deg,#8b5cf6_0%,#2563eb_60%,#06b6d4_100%)] !text-white shadow-md shadow-blue-500/20'
-                    : 'text-slate-100 hover:bg-white/10 hover:text-white'
-                }`}
-                role="menuitem"
-                onClick={() => {
-                  setLanguageOpen(false)
-                  onNavigate?.()
-                }}
-              >
-                <span className="truncate">{localeLabels[item]}</span>
-                <span className="shrink-0 rounded-md border border-white/10 bg-white/[0.08] px-2 py-1 text-xs opacity-90">
-                  {localeShortLabels[item]}
-                </span>
-              </Link>
-            ))}
-          </div>
+      <div
+        className={`z-50 overflow-y-auto overscroll-contain rounded-xl border border-cyan-100/20 bg-[#050816]/[0.96] p-2 shadow-2xl shadow-slate-950/70 ring-1 ring-white/10 backdrop-blur-xl ${
+          mobile ? 'mt-2 max-h-[calc(100vh-9rem)]' : 'absolute right-0 top-full mt-2 max-h-[70vh] w-64'
+        }`}
+        style={{ zIndex: 1010, WebkitOverflowScrolling: 'touch' }}
+        role="menu"
+      >
+        <div className="grid gap-1">
+          {locales.map((item) => (
+            <Link
+              key={item}
+              href={languageHref(item)}
+              className={`flex items-center justify-between gap-6 rounded-lg px-3.5 py-2.5 text-sm font-black transition ${
+                item === locale
+                  ? 'bg-[linear-gradient(135deg,#8b5cf6_0%,#2563eb_60%,#06b6d4_100%)] !text-white shadow-md shadow-blue-500/20'
+                  : 'text-slate-100 hover:bg-white/10 hover:text-white'
+              }`}
+              role="menuitem"
+            >
+              <span className="truncate">{localeLabels[item]}</span>
+              <span className="shrink-0 rounded-md border border-white/10 bg-white/[0.08] px-2 py-1 text-xs opacity-90">
+                {localeShortLabels[item]}
+              </span>
+            </Link>
+          ))}
         </div>
-      ) : null}
-    </div>
+      </div>
+    </details>
   )
 }
