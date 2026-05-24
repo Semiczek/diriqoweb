@@ -23,10 +23,62 @@ type MarketingHeaderProps = {
   locale: Locale
 }
 
+const testingNotice: Record<Locale, { label: string; message: string; cta: string }> = {
+  cs: {
+    label: 'Testovací provoz',
+    message:
+      'Diriqo aktuálně testujeme. Software ještě není připravený pro ostré použití a požadavky zákazníků z webu zatím nebudou obslouženy. Můžete se ale přihlásit k předregistraci.',
+    cta: 'Předregistrovat se',
+  },
+  en: {
+    label: 'Testing mode',
+    message:
+      'Diriqo is currently being tested. The software is not ready for live production use yet and customer requests from the website will not be handled at this stage. You can still join the pre-registration list.',
+    cta: 'Pre-register',
+  },
+  de: {
+    label: 'Testbetrieb',
+    message:
+      'Diriqo wird aktuell getestet. Die Software ist noch nicht für den produktiven Einsatz bereit und Kundenanfragen über die Website werden derzeit nicht bearbeitet. Sie können sich aber vorregistrieren.',
+    cta: 'Vorregistrieren',
+  },
+  pl: {
+    label: 'Tryb testowy',
+    message:
+      'Diriqo jest obecnie testowane. Oprogramowanie nie jest jeszcze gotowe do pracy produkcyjnej, a zgłoszenia klientów z witryny nie będą na tym etapie obsługiwane. Możesz jednak zapisać się do prerejestracji.',
+    cta: 'Zapisz się',
+  },
+  hu: {
+    label: 'Tesztüzem',
+    message:
+      'A Diriqo jelenleg tesztelés alatt áll. A szoftver még nem áll készen éles használatra, és a weboldalról érkező ügyfélkéréseket ebben a szakaszban nem kezeljük. Előregisztrációra viszont feliratkozhat.',
+    cta: 'Előregisztráció',
+  },
+  es: {
+    label: 'Modo de prueba',
+    message:
+      'Diriqo está actualmente en pruebas. El software aún no está listo para uso real y las solicitudes de clientes desde la web no se atenderán en esta fase. Puedes apuntarte a la preinscripción.',
+    cta: 'Preinscribirse',
+  },
+  it: {
+    label: 'Modalità test',
+    message:
+      'Diriqo è attualmente in fase di test. Il software non è ancora pronto per l’uso operativo e le richieste dei clienti dal sito non verranno gestite in questa fase. Puoi comunque pre-registrarti.',
+    cta: 'Pre-registrati',
+  },
+  fr: {
+    label: 'Mode test',
+    message:
+      'Diriqo est actuellement en phase de test. Le logiciel n’est pas encore prêt pour une utilisation réelle et les demandes clients depuis le site ne seront pas traitées à ce stade. Vous pouvez toutefois vous préinscrire.',
+    cta: 'Se préinscrire',
+  },
+}
+
 export function MarketingHeader({ content, locale }: MarketingHeaderProps) {
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
   const currentPath = stripLocaleFromPath(pathname)
+  const notice = testingNotice[locale]
 
   useEffect(() => {
     const updateScrolled = () => setScrolled(window.scrollY > 12)
@@ -160,6 +212,20 @@ export function MarketingHeader({ content, locale }: MarketingHeaderProps) {
             </nav>
           </div>
         </details>
+      </div>
+      <div className="relative border-t border-red-300/35 bg-red-950/90 px-4 py-2.5 text-white shadow-[0_16px_38px_rgba(127,29,29,0.28)] sm:px-6 lg:px-8">
+        <div className="mx-auto flex w-full max-w-[112rem] flex-col gap-2 text-sm leading-snug lg:flex-row lg:items-center lg:justify-center lg:gap-3">
+          <span className="inline-flex w-fit shrink-0 items-center rounded-full border border-red-200/45 bg-red-500/20 px-3 py-1 text-[11px] font-black uppercase tracking-[0.14em] text-red-50">
+            {notice.label}
+          </span>
+          <p className="max-w-5xl font-semibold text-red-50/95">{notice.message}</p>
+          <a
+            href={getSignupHref(locale)}
+            className="inline-flex w-fit shrink-0 items-center justify-center rounded-full border border-white/25 bg-white px-3.5 py-1.5 text-xs font-black text-red-950 shadow-sm transition hover:-translate-y-0.5 hover:bg-red-50"
+          >
+            {notice.cta}
+          </a>
+        </div>
       </div>
     </header>
   )
