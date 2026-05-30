@@ -47,17 +47,17 @@ export function DemoLocalizer({ locale }: DemoLocalizerProps) {
       return nextValue
     }
 
-    const localizeLinks = () => {
-      root.querySelectorAll<HTMLAnchorElement>('a[href^="/demo"]').forEach((link) => {
+    const localizeLinks = (currentRoot: HTMLElement) => {
+      currentRoot.querySelectorAll<HTMLAnchorElement>('a[href^="/demo"]').forEach((link) => {
         const href = link.getAttribute('href')
         if (!href || href.startsWith(`/${locale}/demo`)) return
         link.setAttribute('href', `/${locale}${href}`)
       })
     }
 
-    const localizeAttributes = () => {
+    const localizeAttributes = (currentRoot: HTMLElement) => {
       translatedAttributes.forEach((attribute) => {
-        root.querySelectorAll<HTMLElement>(`[${attribute}]`).forEach((element) => {
+        currentRoot.querySelectorAll<HTMLElement>(`[${attribute}]`).forEach((element) => {
           const currentValue = element.getAttribute(attribute)
           if (!currentValue) return
           const translatedValue = translate(currentValue)
@@ -68,8 +68,8 @@ export function DemoLocalizer({ locale }: DemoLocalizerProps) {
       })
     }
 
-    const localizeTextNodes = () => {
-      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    const localizeTextNodes = (currentRoot: HTMLElement) => {
+      const walker = document.createTreeWalker(currentRoot, NodeFilter.SHOW_TEXT, {
         acceptNode(node) {
           const parent = node.parentElement
           if (!parent || ignoredTags.has(parent.tagName)) {
@@ -97,9 +97,11 @@ export function DemoLocalizer({ locale }: DemoLocalizerProps) {
     }
 
     const run = () => {
-      localizeTextNodes()
-      localizeAttributes()
-      localizeLinks()
+      document.querySelectorAll<HTMLElement>('[data-demo-localized-root]').forEach((currentRoot) => {
+        localizeTextNodes(currentRoot)
+        localizeAttributes(currentRoot)
+        localizeLinks(currentRoot)
+      })
     }
 
     run()
@@ -110,6 +112,7 @@ export function DemoLocalizer({ locale }: DemoLocalizerProps) {
 
     observer.observe(root, {
       childList: true,
+      characterData: true,
       subtree: true,
     })
 

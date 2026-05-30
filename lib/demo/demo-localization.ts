@@ -570,6 +570,10 @@ const phrases: PhraseRow[] = [
   ['Demo je read-only. Můžeš klikat, ale nic se neuloží.', 'Demo is read-only. You can click, but nothing is saved.', 'Die Demo ist read-only. Du kannst klicken, aber nichts wird gespeichert.', 'Demo jest tylko do odczytu. Możesz klikać, ale nic się nie zapisuje.', 'A demo csak olvasható. Kattinthatsz, de semmi nem mentődik.', 'La demo es de solo lectura. Puedes hacer clic, pero nada se guarda.', 'La demo è in sola lettura. Puoi cliccare, ma nulla viene salvato.', 'La démo est en lecture seule. Vous pouvez cliquer, rien n’est enregistré.'],
   ['Přeskočit', 'Skip', 'Überspringen', 'Pomiń', 'Kihagyás', 'Saltar', 'Salta', 'Passer'],
   ['Další', 'Next', 'Weiter', 'Dalej', 'Tovább', 'Siguiente', 'Avanti', 'Suivant'],
+  ['Demo režim', 'Demo mode', 'Demo-Modus', 'Tryb demo', 'Demo mód', 'Modo demo', 'Modalità demo', 'Mode démo'],
+  ['Zakázky dnes', 'Jobs today', 'Aufträge heute', 'Zlecenia dziś', 'Mai munkák', 'Trabajos de hoy', 'Lavori di oggi', 'Interventions aujourd’hui'],
+  ['Sekce nastavení', 'Settings section', 'Einstellungsbereich', 'Sekcja ustawień', 'Beállítási rész', 'Sección de ajustes', 'Sezione impostazioni', 'Section paramètres'],
+  ['Ukázková 12, Praha', 'Sample Street 12, Prague', 'Musterstraße 12, Prag', 'Przykładowa 12, Praga', 'Minta utca 12, Prága', 'Calle Demo 12, Praga', 'Via Demo 12, Praga', 'Rue Exemple 12, Prague'],
 ]
 
 export function getDemoDictionary(locale: Locale) {

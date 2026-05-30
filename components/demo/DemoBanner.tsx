@@ -1,9 +1,18 @@
 'use client'
 
-export function DemoBanner() {
+import { translateDemoText } from '@/lib/demo/demo-localization'
+import { defaultLocale, type Locale } from '@/lib/marketing/content'
+
+type DemoBannerProps = {
+  locale?: Locale
+}
+
+const demoBannerText = 'Demo režim - data jsou ukázková a změny se neukládají.'
+
+export function DemoBanner({ locale = defaultLocale }: DemoBannerProps) {
   return (
     <div className="demo-readonly-banner">
-      <span>Demo režim - data jsou ukázková a změny se neukládají.</span>
+      <span>{translateDemoText(locale, demoBannerText)}</span>
     </div>
   )
 }

@@ -22,8 +22,9 @@ import {
   type DemoQuoteStatus,
   type DemoWorker,
 } from '@/lib/demo/demo-data'
+import { translateDemoText } from '@/lib/demo/demo-localization'
 import { formatEurValueForLocale, getLocalizedCurrencyFormat } from '@/lib/localized-currency'
-import type { Locale } from '@/lib/marketing/content'
+import { localeLabels, type Locale } from '@/lib/marketing/content'
 
 type DemoSection =
   | 'dashboard'
@@ -107,7 +108,7 @@ export function ReadOnlyDiriqoDemo({ locale, segments = [] }: { locale: Locale; 
   const demoLink = (href: string) => `/${locale}${href}`
 
   const showDemoToast = () => {
-    setToast('Toto je demo režim. Změny se neukládají.')
+    setToast(translateDemoText(locale, 'Toto je demo režim. Změny se neukládají.'))
     window.setTimeout(() => setToast(''), 2800)
   }
 
@@ -128,18 +129,18 @@ export function ReadOnlyDiriqoDemo({ locale, segments = [] }: { locale: Locale; 
       {mobileOpen ? (
         <button
           type="button"
-          aria-label="Zavřít menu"
+          aria-label={translateDemoText(locale, 'Zavřít menu')}
           className="demo-real-sidebar-backdrop"
           onClick={() => setMobileOpen(false)}
         />
       ) : null}
       <aside className={`demo-real-sidebar${mobileOpen ? ' is-mobile-open' : ''}`} data-demo-tour="sidebar">
-        <Sidebar activeSection={route.section} onNavigate={() => setMobileOpen(false)} />
+        <Sidebar activeSection={route.section} locale={locale} onNavigate={() => setMobileOpen(false)} />
       </aside>
       <section className="demo-real-main">
         <div className="demo-real-main-inner">
-          <Topbar onOpenMenu={() => setMobileOpen(true)} />
-          <DemoBanner />
+          <Topbar locale={locale} onOpenMenu={() => setMobileOpen(true)} />
+          <DemoBanner locale={locale} />
           {content}
         </div>
       </section>
@@ -185,31 +186,31 @@ function renderRoute(route: ParsedRoute, onDemoAction: () => void, locale: Local
   return <DashboardPage onDemoAction={onDemoAction} formatMoney={formatMoneyForLocale} />
 }
 
-function Sidebar({ activeSection, onNavigate }: { activeSection: DemoSection; onNavigate: () => void }) {
+function Sidebar({ activeSection, locale, onNavigate }: { activeSection: DemoSection; locale: Locale; onNavigate: () => void }) {
   return (
     <div className="demo-real-sidebar-inner">
       <div className="demo-real-logo">
         <Image src="/diriqo-logo-full.png" alt="Diriqo" width={138} height={48} priority />
       </div>
       <div className="demo-real-company-chip">{demoCompany.name}</div>
-      <nav className="demo-real-nav" aria-label="Demo navigace">
+      <nav className="demo-real-nav" aria-label={translateDemoText(locale, 'Demo navigace')}>
         {navGroups.map((group) => (
           <div key={group.title} className="demo-real-nav-group">
-            <div className="demo-real-nav-title">{group.title}</div>
+            <div className="demo-real-nav-title">{translateDemoText(locale, group.title)}</div>
             {group.items.map((item) => {
               const active = item.active !== false && activeSection === item.section
 
               return (
                 <Link
                   key={`${group.title}-${item.label}`}
-                  href={item.href}
+                  href={`/${locale}${item.href}`}
                   onClick={onNavigate}
                   className={`demo-real-nav-link${active ? ' is-active' : ''}`}
                 >
                   <span className="demo-real-nav-dot">
                     <span />
                   </span>
-                  <span>{item.label}</span>
+                  <span>{translateDemoText(locale, item.label)}</span>
                 </Link>
               )
             })}
@@ -220,10 +221,10 @@ function Sidebar({ activeSection, onNavigate }: { activeSection: DemoSection; on
   )
 }
 
-function Topbar({ onOpenMenu }: { onOpenMenu: () => void }) {
+function Topbar({ locale, onOpenMenu }: { locale: Locale; onOpenMenu: () => void }) {
   return (
     <header className="demo-real-topbar">
-      <button type="button" className="demo-mobile-menu-button-real" onClick={onOpenMenu} aria-label="Otevřít menu">
+      <button type="button" className="demo-mobile-menu-button-real" onClick={onOpenMenu} aria-label={translateDemoText(locale, 'Otevřít menu')}>
         <span />
         <span />
         <span />
@@ -233,9 +234,9 @@ function Topbar({ onOpenMenu }: { onOpenMenu: () => void }) {
       </button>
       <div className="demo-topbar-right">
         <label className="demo-language-control">
-          <span>Jazyk</span>
-          <select defaultValue="cs" onChange={(event) => event.currentTarget.blur()}>
-            <option value="cs">{demoCompany.language}</option>
+          <span>{translateDemoText(locale, 'Jazyk')}</span>
+          <select defaultValue={locale} onChange={(event) => event.currentTarget.blur()}>
+            <option value={locale}>{localeLabels[locale]}</option>
           </select>
         </label>
         <button type="button" className="demo-user-chip">

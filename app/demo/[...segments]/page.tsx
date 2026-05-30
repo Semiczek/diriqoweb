@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
+import { headers } from 'next/headers'
+import { redirect } from 'next/navigation'
 
-import { DiriqoDemoApp } from '@/components/demo/DiriqoDemoApp'
-import { DemoMarketingShell } from '@/components/demo/DemoMarketingShell'
+import { detectLocale } from '@/lib/marketing/locale-detection'
 
 type DemoRoutePageProps = {
   params: Promise<{
@@ -16,10 +17,12 @@ export const metadata: Metadata = {
 
 export default async function DemoRoutePage({ params }: DemoRoutePageProps) {
   const { segments = [] } = await params
-
-  return (
-    <DemoMarketingShell>
-      <DiriqoDemoApp initialPath={segments} />
-    </DemoMarketingShell>
+  const requestHeaders = await headers()
+  const locale = detectLocale(
+    requestHeaders.get('x-vercel-ip-country') ?? requestHeaders.get('cf-ipcountry'),
+    requestHeaders.get('accept-language')
   )
+  const path = segments.length > 0 ? `/${segments.join('/')}` : ''
+
+  redirect(`/${locale}/demo${path}`)
 }
