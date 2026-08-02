@@ -53,6 +53,7 @@ export const legalOperator = {
 }
 
 const csLastUpdated = '17. května 2026'
+const csAnalyticsLastUpdated = '2. srpna 2026'
 
 const lastUpdatedByLocale: Record<Locale, string> = {
   cs: csLastUpdated,
@@ -63,6 +64,17 @@ const lastUpdatedByLocale: Record<Locale, string> = {
   es: '17 de mayo de 2026',
   it: '17 maggio 2026',
   fr: '17 mai 2026',
+}
+
+const analyticsLastUpdatedByLocale: Record<Locale, string> = {
+  cs: csAnalyticsLastUpdated,
+  en: 'August 2, 2026',
+  de: '2. August 2026',
+  pl: '2 sierpnia 2026',
+  hu: '2026. augusztus 2.',
+  es: '2 de agosto de 2026',
+  it: '2 agosto 2026',
+  fr: '2 août 2026',
 }
 
 const csLegalUi = {
@@ -416,7 +428,7 @@ const csLegalDocuments: Record<LegalPageKey, LegalDocument> = {
       description:
         'Zásady zpracování osobních údajů pro Diriqo, včetně rolí správce a zpracovatele, chytrých nabídek, metadat, třetích stran a práv subjektů údajů.',
     },
-    lastUpdated: csLastUpdated,
+    lastUpdated: csAnalyticsLastUpdated,
     updatedLabel: csLegalUi.updatedLabel,
     updateNotice: csLegalUi.updateNotice,
     tocTitle: csLegalUi.tocTitle,
@@ -486,7 +498,7 @@ const csLegalDocuments: Record<LegalPageKey, LegalDocument> = {
         title: '7. Cookies',
         body: [
           'Veřejný web a aplikace mohou používat cookies nebo podobné technologie. Diriqo aktuálně používá především nezbytné cookies potřebné pro fungování webu, přihlášení, bezpečnost a základní nastavení.',
-          'Analytické nebo marketingové cookies mohou být přidány později pouze v souladu s právními požadavky a pravidly souhlasu. Podrobnosti jsou uvedeny v samostatném dokumentu Cookies.',
+          'Pro základní měření návštěvnosti veřejného webu používá Diriqo Vercel Web Analytics. Podle dokumentace Vercelu tato analytika neukládá cookies a pracuje s anonymizovanými a agregovanými údaji. Marketingové cookies mohou být přidány později pouze v souladu s právními požadavky a pravidly souhlasu. Podrobnosti jsou uvedeny v samostatném dokumentu Cookies.',
         ],
       },
       {
@@ -551,20 +563,20 @@ const csLegalDocuments: Record<LegalPageKey, LegalDocument> = {
     eyebrow: csLegalUi.eyebrow,
     title: 'Zásady používání cookies',
     intro:
-      'Tento dokument popisuje, jak Diriqo používá cookies a podobné technologie na veřejném webu, v aplikaci a u souvisejících funkcí, včetně chytrých nabídek. Diriqo aktuálně používá především nezbytné cookies a technické mechanismy potřebné pro bezpečný provoz.',
+      'Tento dokument popisuje, jak Diriqo používá cookies a podobné technologie na veřejném webu, v aplikaci a u souvisejících funkcí, včetně chytrých nabídek. Diriqo aktuálně používá především nezbytné cookies a technické mechanismy potřebné pro bezpečný provoz. Pro základní měření návštěvnosti veřejného webu používá Vercel Web Analytics, který podle dokumentace Vercelu neukládá analytické cookies.',
     meta: {
       title: 'Cookies Diriqo',
       description:
         'Zásady používání cookies ve službě Diriqo, včetně nezbytných, preferenčních, analytických, marketingových cookies a interakcí s chytrými nabídkami.',
     },
-    lastUpdated: csLastUpdated,
+    lastUpdated: csAnalyticsLastUpdated,
     updatedLabel: csLegalUi.updatedLabel,
     updateNotice: csLegalUi.updateNotice,
     tocTitle: csLegalUi.tocTitle,
     navigationTitle: csLegalUi.navigationTitle,
     summaryItems: [
       'Aktuálně především nezbytné cookies',
-      'Analytika a marketing až při splnění právních požadavků',
+      'Vercel Web Analytics bez analytických cookies',
       'Chytré nabídky mohou měřit základní interakce',
     ],
     sections: [
@@ -602,8 +614,8 @@ const csLegalDocuments: Record<LegalPageKey, LegalDocument> = {
         id: 'analyticke-cookies',
         title: '5. Analytické cookies',
         body: [
-          'Analytické cookies pomáhají měřit návštěvnost a zlepšovat web nebo aplikaci. Momentálně nejsou na veřejném webu Diriqo nasazeny klasické analytické nástroje mimo základní technické vyhodnocování a funkce chytrých nabídek.',
-          'Pokud budou analytické nástroje přidány později, budou používány v souladu s GDPR, zákonem o elektronických komunikacích a příslušnými pravidly souhlasu.',
+          'Analytické cookies a podobné technologie pomáhají měřit návštěvnost a zlepšovat web nebo aplikaci. Diriqo používá Vercel Web Analytics pro základní měření návštěvnosti veřejného webu. Podle dokumentace Vercelu tato analytika neukládá cookies a pracuje s anonymizovanými a agregovanými údaji, například zobrazením stránky, referrerem, typem zařízení, prohlížečem a přibližnou lokalitou.',
+          'Pokud budou později nasazeny analytické nástroje, které ukládají cookies nebo vyžadují souhlas, budou používány v souladu s GDPR, zákonem o elektronických komunikacích a příslušnými pravidly souhlasu.',
         ],
       },
       {
@@ -644,7 +656,7 @@ const csLegalDocuments: Record<LegalPageKey, LegalDocument> = {
             ['NEXT_LOCALE, diriqo_locale nebo obdobná preference', 'Diriqo', 'Zapamatování jazyka nebo regionálního nastavení.', 'Preferenční', 'Až 12 měsíců'],
             ['stripe_* nebo obdobné platební identifikátory', 'Stripe', 'Bezpečné zpracování plateb, prevence podvodů a dokončení platebního procesu.', 'Nezbytné', 'Dle pravidel Stripe'],
             ['offer token v URL nebo obdobný identifikátor nabídky', 'Diriqo', 'Zobrazení chytré nabídky, stav interakce, bezpečnost a audit obchodní komunikace.', 'Nezbytné nebo analytické podle použití', 'Dle životnosti nabídky'],
-            ['analytics_*', 'Budoucí analytický provider', 'Měření návštěvnosti a zlepšování webu, pokud bude analytika nasazena.', 'Analytické', 'Bude stanoveno při nasazení'],
+            ['Vercel Web Analytics (bez analytické cookie)', 'Vercel', 'Základní měření návštěvnosti, zobrazení stránek, referrerů, zařízení a agregovaných statistik bez ukládání analytických cookies.', 'Analytika bez cookies', 'Vercel uvádí denní hash relace; analytická cookie se neukládá'],
             ['marketing_*', 'Budoucí marketingový provider', 'Měření kampaní nebo personalizace, pokud budou marketingové cookies nasazeny.', 'Marketingové', 'Bude stanoveno při nasazení'],
           ],
         },
@@ -878,7 +890,7 @@ function createLegacyDocument(
     title: copy.title,
     intro: copy.intro,
     meta: content.meta[page],
-    lastUpdated: lastUpdatedByLocale[locale],
+    lastUpdated: page === 'privacy' || page === 'cookies' ? analyticsLastUpdatedByLocale[locale] : lastUpdatedByLocale[locale],
     updatedLabel: ui.updatedLabel,
     updateNotice: ui.updateNotice,
     tocTitle: ui.tocTitle,
