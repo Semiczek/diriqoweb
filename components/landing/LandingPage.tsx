@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { landingCopy, type LandingLocale } from '@/lib/landing/copy'
-import { contactEmail } from '@/lib/marketing/content'
 import { HeroScene } from './HeroScene'
 import { ModuleExplorer } from './ModuleExplorer'
 import { LandingHeader } from './LandingHeader'
@@ -63,6 +62,6 @@ export function LandingPage({ locale }: { locale: LandingLocale }) {
 
 export function LandingFooter({ locale }: { locale: LandingLocale }) {
  const c = landingCopy[locale]
- return <footer className={s.footer + ' ' + s.container}><div className={s.footerTop}><a href={'/' + locale} className={s.brand}><span>diriqo<span className={s.brandDot}>.</span></span></a><nav aria-label={c.footerNavigation}><a href={'/' + locale + '#diripos'}>DiriPOS</a><a href={'/' + locale + '/diriqent'}>Diriqent</a><a href={'mailto:' + contactEmail}>{c.contact}</a><a href={'/' + locale + '/privacy'}>{c.privacyFooter}</a><a href={'/' + locale + '/cookies'}>{cookieCopy[locale].cookies}</a><a href={'/' + locale + '/gdpr'}>{cookieCopy[locale].gdpr}</a><CookieSettingsButton locale={locale}/></nav></div><div className={s.footerBottom}><span>© {new Date().getFullYear()} Diriqo</span><p>{c.footer}</p><span>{c.futureTag}</span></div></footer>
+ return <footer className={s.footer + ' ' + s.container}><div className={s.footerTop}><a href={'/' + locale} className={s.brand}><span>diriqo<span className={s.brandDot}>.</span></span></a><nav aria-label={c.footerNavigation}><a href={'/' + locale + '#diripos'}>DiriPOS</a><a href={'/' + locale + '/diriqent'}>Diriqent</a><a href={'/' + locale + '/contact'}>{c.contact}</a><a href={'/' + locale + '/privacy'}>{c.privacyFooter}</a><a href={'/' + locale + '/cookies'}>{cookieCopy[locale].cookies}</a><a href={'/' + locale + '/gdpr'}>{cookieCopy[locale].gdpr}</a><CookieSettingsButton locale={locale}/></nav></div><div className={s.footerBottom}><span>© {new Date().getFullYear()} Diriqo</span><p>{c.footer}</p><span>{c.futureTag}</span></div></footer>
 }
 

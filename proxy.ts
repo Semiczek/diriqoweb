@@ -19,7 +19,7 @@ const unlocalizedPublicRoutes = new Set([
   'privacy',
   'terms',
 ])
-const landingRoutes = new Set(['cookies', 'gdpr', 'diriqent', 'predregistrace-soukromi', 'privacy'])
+const landingRoutes = new Set(['contact', 'cookies', 'gdpr', 'diriqent', 'predregistrace-soukromi', 'privacy'])
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl

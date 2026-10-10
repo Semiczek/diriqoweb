@@ -43,7 +43,7 @@ export function WaitlistForm({ copy, locale }: { copy: LandingCopy; locale: Land
  }
  const selectedProduct = interest === 'both' ? 'Diriqo + DiriPOS' : interest === 'diripos' ? 'DiriPOS' : 'Diriqo'
  const subject = copy.interestSubject + selectedProduct
- const body = [subject, copy.email + ': ' + details.email, copy.industry + ': ' + details.industry, copy.employees + ': ' + details.employees, details.news ? copy.consent : '', '', copy.privacyLink + ': https://diriqo.com/' + locale + '/predregistrace-soukromi'].filter(Boolean).join('\n')
+ const body = [subject, copy.email + ': ' + details.email, copy.industry + ': ' + details.industry, copy.employees + ': ' + details.employees, details.news ? copy.consent : '', '', copy.privacyLink + ': https://diriqo.com/' + locale + '/privacy'].filter(Boolean).join('\n')
  const mailto = 'mailto:' + contactEmail + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body)
  function updateDetails() {
   if (!form.current) return
@@ -62,7 +62,7 @@ export function WaitlistForm({ copy, locale }: { copy: LandingCopy; locale: Land
     <fieldset className={s.interests}><legend>{copy.interest}</legend><div>{copy.interests.map((label, i) => <label key={label}><input type="radio" name="interest" value={['diriqo','diripos','both'][i]} checked={interest === ['diriqo','diripos','both'][i]} onChange={e => setInterest(e.target.value)}/><span>{label}<Icon name="check" width="16" height="16"/></span></label>)}</div></fieldset>
     <div className={s.honeypot} aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off"/></label></div>
     <label className={s.consent}><input type="checkbox" name="newsConsent"/><span>{copy.consent}</span></label>
-    <p className={s.privacyNote}>{copy.privacy}: <a href={'/' + locale + '/predregistrace-soukromi'}>{copy.privacyLink}</a>.</p>
+    <p className={s.privacyNote}>{copy.privacy}: <a href={'/' + locale + '/privacy'}>{copy.privacyLink}</a>.</p>
     {error && <p role="alert" className={s.formError}>{error}</p>}
     {available === false ? <div className={s.formUnavailable}><p>{copy.unavailable}</p><a href={mailto} className={s.primaryButton}>{copy.emailCta}<Icon name="arrow"/></a><small>{copy.emailNote}</small></div> :
      <button type="submit" className={s.primaryButton} disabled={available !== true || status === 'sending'}>{status === 'sending' ? copy.sending : copy.launch}<Icon name="arrow"/></button>}
