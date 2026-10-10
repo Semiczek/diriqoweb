@@ -27,6 +27,7 @@ export function LandingHeader({ copy, locale, home = false }: { copy: LandingCop
   </a>
   <nav className={s.desktopNav} aria-label={copy.navigation}>
    {copy.nav.map((label, i) => <a key={label} href={prefix + ['#platforma','#diripos','#diriqent'][i]}>{label}</a>)}
+   <a href={'/' + locale + '/contact'} aria-current={pathname === '/' + locale + '/contact' ? 'page' : undefined}>{copy.contact}</a>
   </nav>
   <div className={s.headerActions}>
    <div className={s.language} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setLanguageOpen(false) }}>
@@ -47,6 +48,7 @@ export function LandingHeader({ copy, locale, home = false }: { copy: LandingCop
   </div>
   {open && <nav className={s.mobileNav} id="landing-menu" aria-label={copy.menu}>
    {copy.nav.map((label, i) => <a key={label} href={prefix + ['#platforma','#diripos','#diriqent'][i]} onClick={() => setOpen(false)}>{label}<Icon name="arrow"/></a>)}
+   <a href={'/' + locale + '/contact'} onClick={() => setOpen(false)}>{copy.contact}<Icon name="arrow"/></a>
    <a href={prefix + '#predregistrace'} onClick={() => setOpen(false)}>{copy.launch}<Icon name="arrow"/></a>
   </nav>}
  </header>
