@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
-import { Analytics } from '@vercel/analytics/next'
+import { CookiePreferences } from '@/components/landing/CookiePreferences'
 
 import './globals.css'
 
@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="cs">
       <body>
         {children}
-        <Analytics />
+        <CookiePreferences />
       </body>
     </html>
   )

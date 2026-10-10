@@ -34,8 +34,8 @@ test('normalizes email, leaves optional data null, never implies marketing conse
  assert.equal(result.email,'test@example.com'); assert.equal(result.industry,null); assert.equal(result.newsConsent,false)
 })
 
-test('preserves all six website languages through registration and rejects unsupported languages', async () => {
- for (const locale of ['cs','en','de','pl','sk','hu']) {
+test('preserves all thirteen website languages through registration and rejects unsupported languages', async () => {
+ for (const locale of ['cs','en','de','pl','sk','hu','es','tr','sq','uk','ro','vi','ar']) {
   const route = api()
   const result = await route.POST(request({...valid, locale}))
   assert.equal(result.status, 200)

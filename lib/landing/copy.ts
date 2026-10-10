@@ -2,6 +2,13 @@ import { de } from './translations/de'
 import { pl } from './translations/pl'
 import { sk } from './translations/sk'
 import { hu } from './translations/hu'
+import { es } from './translations/es'
+import { tr } from './translations/tr'
+import { sq } from './translations/sq'
+import { uk } from './translations/uk'
+import { ro } from './translations/ro'
+import { vi } from './translations/vi'
+import { ar } from './translations/ar'
 export type { LandingLocale } from './locales'
 const baseLandingCopy = {
  cs: {
@@ -125,4 +132,4 @@ const baseLandingCopy = {
 } as const
 type Translation<T> = T extends string ? string : { [P in keyof T]: Translation<T[P]> }
 export type LandingCopy = Translation<typeof baseLandingCopy.cs>
-export const landingCopy = { ...baseLandingCopy, de, pl, sk, hu } satisfies Record<import('./locales').LandingLocale, LandingCopy>
+export const landingCopy = { ...baseLandingCopy, de, pl, sk, hu, es, tr, sq, uk, ro, vi, ar } satisfies Record<import('./locales').LandingLocale, LandingCopy>

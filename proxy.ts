@@ -1,12 +1,16 @@
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
-import { detectLocale } from '@/lib/marketing/locale-detection'
+import { detectLandingLocale } from '@/lib/landing/detect-locale'
+import { isLandingLocale, LOCALE_COOKIE } from '@/lib/landing/locales'
 import { isLocale } from '@/lib/marketing/content'
 
 const unlocalizedPublicRoutes = new Set([
   'contact',
   'cookies',
+  'gdpr',
+  'diriqent',
+  'predregistrace-soukromi',
   'demo',
   'features',
   'how-it-works',
@@ -15,12 +19,13 @@ const unlocalizedPublicRoutes = new Set([
   'privacy',
   'terms',
 ])
+const landingRoutes = new Set(['cookies', 'gdpr', 'diriqent', 'predregistrace-soukromi', 'privacy'])
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const firstSegment = pathname.split('/').filter(Boolean)[0]
 
-  if (firstSegment && isLocale(firstSegment)) {
+  if (firstSegment && (isLocale(firstSegment) || isLandingLocale(firstSegment))) {
     return NextResponse.next()
   }
 
@@ -28,13 +33,17 @@ export function proxy(request: NextRequest) {
     return NextResponse.next()
   }
 
-  const country = request.headers.get('x-vercel-ip-country') ?? request.headers.get('cf-ipcountry')
-  const locale = detectLocale(country, request.headers.get('accept-language'))
+  const preferred = detectLandingLocale(request.headers.get('accept-language'), request.cookies.get(LOCALE_COOKIE)?.value)
+  // Retained application pages only support their original locale set.
+  const locale = pathname === '/' || landingRoutes.has(firstSegment) || isLocale(preferred) ? preferred : 'en'
   const url = request.nextUrl.clone()
 
   url.pathname = pathname === '/' ? `/${locale}` : `/${locale}${pathname}`
 
-  return NextResponse.redirect(url)
+  const response = NextResponse.redirect(url)
+  response.headers.set('Vary', 'Accept-Language, Cookie')
+  response.headers.set('Cache-Control', 'private, no-store')
+  return response
 }
 
 export const config = {

@@ -6,7 +6,7 @@ create table public.diriqo_waitlist (
  industry text check (industry in ('services','retail','hospitality','manufacturing','other')),
  employees text check (employees in ('1','2-10','11-50','51-200','201+')),
  interest text not null check (interest in ('diriqo','diripos','both')),
- locale text not null check (locale in ('cs','en','de','pl','sk','hu')),
+ locale text not null check (locale in ('cs','en','de','pl','sk','hu','es','tr','sq','uk','ro','vi','ar')),
  news_consent boolean not null default false,
  news_consent_at timestamptz,
  news_consent_version text,

@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "node scripts/waitlist.test.cjs"
+    "test": "node scripts/waitlist.test.cjs && node scripts/locales-consent.test.cjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",

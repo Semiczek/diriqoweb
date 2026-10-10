@@ -7,9 +7,13 @@ export const contentType = 'image/png'
 export default async function OpenGraphImage({ params }: { params: Promise<{ locale: string }> }) {
  const { locale } = await params
  const c = landingCopy[isLandingLocale(locale) ? locale : 'en']
+ // Satori cannot shape the Arabic fallback font reliably. Use the product
+ // wordmarks in the social image; page metadata and page content remain Arabic.
+ const title = locale === 'ar' ? ['Diriqo.', 'DiriPOS.'] : c.title
+ const eyebrow = locale === 'ar' ? 'Diriqent' : c.eyebrow
  return new ImageResponse(<div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '70px 80px', color: '#f2edf8', background: 'linear-gradient(120deg,#0b0d14,#251936)' }}>
   <div style={{ display: 'flex', fontSize: 42, fontWeight: 700, letterSpacing: '-2px' }}>diriqo<span style={{ color: '#b59aff' }}>.</span></div>
-  <div style={{ display: 'flex', flexDirection: 'column', fontSize: 70, lineHeight: 1.13, letterSpacing: '-3px' }}><span>{c.title[0]}</span><span style={{ color: '#bd9fec' }}>{c.title[1]}</span></div>
-  <div style={{ display: 'flex', fontSize: 23, color: '#bcb0cc' }}>{c.eyebrow}</div>
+  <div style={{ display: 'flex', flexDirection: 'column', fontSize: 70, lineHeight: 1.13, letterSpacing: '-3px' }}><span>{title[0]}</span><span style={{ color: '#bd9fec' }}>{title[1]}</span></div>
+  <div style={{ display: 'flex', fontSize: 23, color: '#bcb0cc' }}>{eyebrow}</div>
  </div>, size)
 }

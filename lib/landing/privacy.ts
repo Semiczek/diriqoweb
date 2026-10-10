@@ -47,4 +47,4 @@ export const privacyCopy = {
    ['Az online előregisztráció megnyitása előtt', 'Az űrlap egyértelműen jelzi, ha az előregisztráció nem érhető el. Az e-mail gomb csak a levelezőprogramot nyitja meg. Nem küld automatikusan üzenetet, és nem menti el az adatokat a listán.'],
   ],
  },
-} as const satisfies Record<LandingLocale, PrivacyCopy>
+} as const satisfies Partial<Record<LandingLocale, PrivacyCopy>>
