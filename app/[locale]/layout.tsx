@@ -2,7 +2,8 @@ import type { ReactNode } from 'react'
 import { notFound } from 'next/navigation'
 
 import { MarketingChrome } from '@/components/marketing/MarketingChrome'
-import { getMarketingContent, isLocale, locales } from '@/lib/marketing/content'
+import { getMarketingContent, isLocale } from '@/lib/marketing/content'
+import { generateLandingStaticParams } from '@/lib/landing/page-utils'
 
 type LocaleLayoutProps = {
   children: ReactNode
@@ -10,11 +11,13 @@ type LocaleLayoutProps = {
 }
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }))
+  return generateLandingStaticParams()
 }
 
 export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
   const { locale } = (await params) as { locale?: string }
+
+  if (locale === 'sk') return <>{children}</>
 
   if (!isLocale(locale)) {
     notFound()
