@@ -6,11 +6,14 @@ import { ModuleExplorer } from './ModuleExplorer'
 import { LandingHeader } from './LandingHeader'
 import { PosInterestLink, WaitlistForm } from './WaitlistForm'
 import { Icon } from './Icon'
+import { cookieCopy } from '@/lib/landing/cookie-copy'
+import { localeDirection } from '@/lib/landing/locales'
+import { CookieSettingsButton } from './CookiePreferences'
 import s from './landing.module.css'
 
 export function LandingPage({ locale }: { locale: LandingLocale }) {
  const c = landingCopy[locale]
- return <div className={s.site} lang={locale}>
+ return <div className={s.site} lang={locale} dir={localeDirection(locale)}>
   <a className={s.skip} href="#obsah">{c.skip}</a>
   <div className={s.container}><LandingHeader copy={c} locale={locale} home/></div>
   <main id="obsah">
@@ -60,5 +63,6 @@ export function LandingPage({ locale }: { locale: LandingLocale }) {
 
 export function LandingFooter({ locale }: { locale: LandingLocale }) {
  const c = landingCopy[locale]
- return <footer className={s.footer + ' ' + s.container}><div className={s.footerTop}><a href={'/' + locale} className={s.brand}><span>diriqo<span className={s.brandDot}>.</span></span></a><nav aria-label={c.footerNavigation}><a href={'/' + locale + '#diripos'}>DiriPOS</a><a href={'/' + locale + '/diriqent'}>Diriqent</a><a href={'mailto:' + contactEmail}>{c.contact}</a><a href={'/' + locale + (locale === 'sk' ? '/predregistrace-soukromi' : '/privacy')}>{c.privacyFooter}</a></nav></div><div className={s.footerBottom}><span>© {new Date().getFullYear()} Diriqo</span><p>{c.footer}</p><span>{c.futureTag}</span></div></footer>
+ return <footer className={s.footer + ' ' + s.container}><div className={s.footerTop}><a href={'/' + locale} className={s.brand}><span>diriqo<span className={s.brandDot}>.</span></span></a><nav aria-label={c.footerNavigation}><a href={'/' + locale + '#diripos'}>DiriPOS</a><a href={'/' + locale + '/diriqent'}>Diriqent</a><a href={'mailto:' + contactEmail}>{c.contact}</a><a href={'/' + locale + '/privacy'}>{c.privacyFooter}</a><a href={'/' + locale + '/cookies'}>{cookieCopy[locale].cookies}</a><a href={'/' + locale + '/gdpr'}>{cookieCopy[locale].gdpr}</a><CookieSettingsButton locale={locale}/></nav></div><div className={s.footerBottom}><span>© {new Date().getFullYear()} Diriqo</span><p>{c.footer}</p><span>{c.futureTag}</span></div></footer>
 }
+

@@ -4,7 +4,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import type { LandingCopy, LandingLocale } from '@/lib/landing/copy'
-import { landingLocales, languageNames, languageCodes } from '@/lib/landing/locales'
+import { sortedLandingLocales, languageNames, languageCodes, localeDirection, LOCALE_COOKIE } from '@/lib/landing/locales'
+import { Flag } from './Flag'
 import { Icon } from './Icon'
 import s from './landing.module.css'
 
@@ -14,7 +15,7 @@ export function LandingHeader({ copy, locale, home = false }: { copy: LandingCop
  const languageButton = useRef<HTMLButtonElement>(null)
  const pathname = usePathname()
  const menuButton = useRef<HTMLButtonElement>(null)
- useEffect(() => { document.documentElement.lang = locale }, [locale])
+ useEffect(() => { document.documentElement.lang = locale; document.documentElement.dir = localeDirection(locale) }, [locale])
  const prefix = home ? '' : '/' + locale
  return <header className={s.header} onKeyDown={e => {
   if (e.key !== 'Escape') return
@@ -30,11 +31,14 @@ export function LandingHeader({ copy, locale, home = false }: { copy: LandingCop
   <div className={s.headerActions}>
    <div className={s.language} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setLanguageOpen(false) }}>
     <button ref={languageButton} type="button" className={s.languageButton} aria-label={copy.language + ': ' + languageNames[locale]} aria-expanded={languageOpen} aria-controls="landing-languages" onClick={() => { setLanguageOpen(!languageOpen); setOpen(false) }}>
-     <Icon name="globe" width="15" height="15"/>{languageCodes[locale]}<span aria-hidden="true">⌄</span>
+     <Flag locale={locale}/>{languageCodes[locale]}<span aria-hidden="true">⌄</span>
     </button>
     {languageOpen && <nav className={s.languageMenu} id="landing-languages" aria-label={copy.language}>
-     {landingLocales.map(lang => <Link key={lang} href={'/' + lang + pathname.slice(locale.length + 1)} lang={lang} hrefLang={lang} aria-current={locale === lang ? 'page' : undefined} onClick={() => setLanguageOpen(false)}>
-      <span>{languageNames[lang]}</span><span aria-hidden="true">{languageCodes[lang]}</span>
+     {sortedLandingLocales.map(lang => <Link key={lang} href={'/' + lang + pathname.slice(locale.length + 1)} lang={lang} hrefLang={lang} aria-current={locale === lang ? 'page' : undefined} onClick={() => {
+      document.cookie = `${LOCALE_COOKIE}=${lang}; Path=/; Max-Age=15552000; SameSite=Lax${location.protocol === 'https:' ? '; Secure' : ''}`
+      setLanguageOpen(false)
+     }}>
+      <Flag locale={lang}/><bdi>{languageNames[lang]}</bdi><span aria-hidden="true">{languageCodes[lang]}</span>
      </Link>)}
     </nav>}
    </div>

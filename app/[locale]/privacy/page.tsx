@@ -1,24 +1,13 @@
-import { LegalPageLayout } from '@/components/marketing/LegalPageLayout'
-import { getMarketingContent } from '@/lib/marketing/content'
-import { createLegalMetadata, getLegalDocument } from '@/lib/marketing/legal-documents'
-import {
-  generateLocaleStaticParams,
-  getLocaleFromParams,
-  type LocalePageProps,
-} from '@/lib/marketing/page-utils'
-
-export const generateStaticParams = generateLocaleStaticParams
-
-export async function generateMetadata({ params }: LocalePageProps) {
-  const locale = await getLocaleFromParams(params)
-  const content = getMarketingContent(locale)
-
-  return createLegalMetadata(locale, 'privacy', content)
+import type { Metadata } from 'next'
+import { LandingLegalPage } from '@/components/landing/LandingLegalPage'
+import { getLandingLocale } from '@/lib/landing/page-utils'
+import { landingAlternates } from '@/lib/landing/locales'
+import { cookieCopy } from '@/lib/landing/cookie-copy'
+type Props = { params:Promise<unknown> }
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+ const locale = await getLandingLocale(params, '/privacy')
+ return { title:cookieCopy[locale].privacy, alternates:{ canonical:'/' + locale + '/privacy', languages:landingAlternates('/privacy') } }
 }
-
-export default async function PrivacyPage({ params }: LocalePageProps) {
-  const locale = await getLocaleFromParams(params)
-  const content = getMarketingContent(locale)
-
-  return <LegalPageLayout document={getLegalDocument(locale, 'privacy', content)} locale={locale} page="privacy" />
+export default async function Page({ params }: Props) {
+ return <LandingLegalPage locale={await getLandingLocale(params, '/privacy')} kind="privacy"/>
 }

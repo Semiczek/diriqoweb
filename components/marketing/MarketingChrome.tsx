@@ -15,7 +15,7 @@ type MarketingChromeProps = {
 
 export function MarketingChrome({ children, content, locale }: MarketingChromeProps) {
   const pathname = usePathname()
-  const isLandingRoute = pathname === `/${locale}` || pathname === `/${locale}/diriqent` || pathname === `/${locale}/predregistrace-soukromi`
+  const isLandingRoute = ['', '/diriqent', '/predregistrace-soukromi', '/cookies', '/privacy', '/gdpr'].some(path => pathname === `/${locale}${path}`)
   if (isLandingRoute) return <>{children}</>
   const demoPath = `/${locale}/demo`
   const isDemoRoute = pathname === demoPath || pathname.startsWith(`${demoPath}/`)
